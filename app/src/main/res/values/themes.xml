@@ -1,0 +1,170 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme -->
+    <style name="Base.Theme.TLQLBadminton" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorOnPrimary">@color/on_primary</item>
+        <item name="colorPrimaryContainer">@color/primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/on_primary_container</item>
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorOnSecondary">@color/on_secondary</item>
+        <item name="colorTertiary">@color/tertiary</item>
+        <item name="colorOnTertiary">@color/on_tertiary</item>
+        <item name="colorError">@color/error</item>
+        <item name="colorOnError">@color/on_error</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/on_surface</item>
+        <item name="android:colorBackground">@color/background</item>
+        <item name="android:windowBackground">@color/background</item>
+        <item name="android:statusBarColor">@color/surface_container_lowest</item>
+        <item name="android:navigationBarColor">@color/surface_container_lowest</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <style name="Theme.TLQLBadminton" parent="Base.Theme.TLQLBadminton" />
+
+    <!-- =============================== -->
+    <!--  Text Styles                    -->
+    <!-- =============================== -->
+    <style name="TextStyle" />
+
+    <style name="TextStyle.DisplayLg">
+        <item name="android:textSize">@dimen/text_display_lg</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:letterSpacing">-0.02</item>
+    </style>
+
+    <style name="TextStyle.HeadlineLg">
+        <item name="android:textSize">@dimen/text_headline_lg</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="TextStyle.HeadlineMd">
+        <item name="android:textSize">@dimen/text_headline_md</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:letterSpacing">-0.01</item>
+    </style>
+
+    <style name="TextStyle.HeadlineSm">
+        <item name="android:textSize">@dimen/text_headline_sm</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextStyle.TitleLg">
+        <item name="android:textSize">@dimen/text_title_lg</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextStyle.BodyLg">
+        <item name="android:textSize">@dimen/text_body_lg</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="TextStyle.BodyMd">
+        <item name="android:textSize">@dimen/text_body_md</item>
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="TextStyle.LabelMd">
+        <item name="android:textSize">@dimen/text_label_md</item>
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <!-- =============================== -->
+    <!--  Button Styles                  -->
+    <!-- =============================== -->
+    <style name="ButtonStyle" />
+
+    <style name="ButtonStyle.Primary">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/button_height</item>
+        <item name="android:background">@drawable/bg_btn_primary</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_body_lg</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:elevation">0dp</item>
+    </style>
+
+    <style name="ButtonStyle.Secondary">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/button_height</item>
+        <item name="android:background">@drawable/bg_btn_secondary</item>
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:textSize">@dimen/text_body_lg</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:elevation">0dp</item>
+    </style>
+
+    <style name="ButtonStyle.PrimarySmall">
+        <item name="android:layout_height">@dimen/button_height_sm</item>
+        <item name="android:background">@drawable/bg_btn_primary</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_body_md</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:elevation">0dp</item>
+    </style>
+
+    <style name="ButtonStyle.Danger">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/button_height</item>
+        <item name="android:background">@drawable/bg_btn_danger</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_body_lg</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:elevation">0dp</item>
+    </style>
+
+    <!-- =============================== -->
+    <!--  Input Styles                   -->
+    <!-- =============================== -->
+    <style name="InputStyle" />
+
+    <style name="InputStyle.Default">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/input_height</item>
+        <item name="android:background">@drawable/bg_input_default</item>
+        <item name="android:paddingStart">@dimen/input_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/input_padding_horizontal</item>
+        <item name="android:textSize">@dimen/text_body_lg</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textColorHint">@color/text_hint</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <!-- =============================== -->
+    <!--  Card Styles                    -->
+    <!-- =============================== -->
+    <style name="CardStyle" />
+
+    <style name="CardStyle.Default">
+        <item name="cardBackgroundColor">@color/card_background</item>
+        <item name="cardCornerRadius">@dimen/radius_lg</item>
+        <item name="cardElevation">@dimen/card_elevation</item>
+        <item name="android:layout_marginBottom">@dimen/spacing_md</item>
+    </style>
+</resources>

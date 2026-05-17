@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bottom navigation background with top border -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/nav_background" />
+        </shape>
+    </item>
+    <item android:bottom="0dp" android:left="0dp" android:right="0dp" android:top="0dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/divider" />
+            <size android:height="1dp" />
+        </shape>
+    </item>
+</layer-list>

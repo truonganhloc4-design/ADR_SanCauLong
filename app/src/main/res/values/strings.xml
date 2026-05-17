@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App -->
+    <string name="app_name">SportCenter Pro</string>
+    <string name="app_subtitle">Quản lý sân thể thao</string>
+    <string name="facility_name">Cơ sở Quận 1</string>
+
+    <!-- Login -->
+    <string name="login_welcome">Chào mừng trở lại</string>
+    <string name="login_subtitle">Đăng nhập để quản lý sân</string>
+    <string name="hint_username">Tên đăng nhập</string>
+    <string name="hint_password">Mật khẩu</string>
+    <string name="btn_login">Đăng nhập</string>
+    <string name="default_account">Tài khoản mặc định: admin / 123</string>
+    <string name="error_empty_username">Vui lòng nhập tên đăng nhập</string>
+    <string name="error_empty_password">Vui lòng nhập mật khẩu</string>
+    <string name="error_wrong_credentials">Sai tên đăng nhập hoặc mật khẩu</string>
+
+    <!-- Dashboard -->
+    <string name="title_so_do_san">Sơ đồ sân</string>
+    <string name="title_nhan_vien">Nhân viên</string>
+    <string name="title_bao_cao">Báo cáo</string>
+    <string name="title_cai_dat">Cài đặt</string>
+    <string name="title_thong_ke">Thống kê</string>
+    <string name="title_lich_su">Lịch sử</string>
+    <string name="fab_dat_san_nhanh">Đặt sân nhanh</string>
+
+    <!-- Court status -->
+    <string name="status_available">Sân trống</string>
+    <string name="status_occupied">Đang chơi</string>
+    <string name="status_booked">Đã đặt</string>
+    <string name="btn_dat_ngay">Đặt ngay</string>
+    <string name="btn_chi_tiet">Chi tiết</string>
+    <string name="btn_nhan_san">Nhận sân</string>
+    <string name="btn_tra_san">Trả sân</string>
+
+    <!-- Nhan San -->
+    <string name="title_nhan_san">Nhận sân</string>
+    <string name="label_thoi_gian_bat_dau">Thời gian bắt đầu</string>
+    <string name="label_thoi_gian_ket_thuc">Thời gian kết thúc (dự kiến)</string>
+    <string name="label_ten_khach">Tên khách hàng (tùy chọn)</string>
+    <string name="label_so_dien_thoai">Số điện thoại</string>
+    <string name="label_dat_truoc">Chọn từ đặt trước</string>
+    <string name="label_gia_thue">Giá thuê / giờ</string>
+    <string name="hint_khuyennghi">Khuyến nghị: 50,000 - 100,000</string>
+    <string name="btn_xac_nhan_nhan_san">Xác nhận nhận sân</string>
+    <string name="label_walk_in">Khách vãng lai</string>
+    <string name="label_dat_truoc_label">Đặt trước</string>
+
+    <!-- Dat Lich Truoc -->
+    <string name="title_dat_lich_truoc">Đặt lịch trước</string>
+    <string name="section_thong_tin_kh">Thông tin khách hàng</string>
+    <string name="section_chi_tiet_dat_san">Chi tiết đặt sân</string>
+    <string name="hint_ten_kh">Họ và tên *</string>
+    <string name="hint_sdt">Số điện thoại *</string>
+    <string name="hint_ghi_chu">Ghi chú thêm</string>
+    <string name="label_chon_san">Chọn sân</string>
+    <string name="label_ngay_dat">Ngày đặt</string>
+    <string name="label_gio_bat_dau">Giờ bắt đầu</string>
+    <string name="label_gio_ket_thuc">Giờ kết thúc</string>
+    <string name="btn_xac_nhan_dat_lich">Xác nhận đặt lịch</string>
+
+    <!-- Thanh Toan -->
+    <string name="title_thanh_toan">Thanh toán</string>
+    <string name="label_ma_ca">Mã ca</string>
+    <string name="label_thoi_gian_choi">Thời gian chơi</string>
+    <string name="label_gia_san">Giá sân</string>
+    <string name="label_dich_vu">Dịch vụ thêm</string>
+    <string name="label_tong_cong">Tổng cộng</string>
+    <string name="btn_them_dich_vu">+ Thêm dịch vụ</string>
+    <string name="btn_xac_nhan_thanh_toan">Xác nhận thanh toán</string>
+    <string name="btn_in_hoa_don">In hóa đơn</string>
+    <string name="label_tien_mat">Tiền mặt</string>
+    <string name="label_chuyen_khoan">Chuyển khoản</string>
+    <string name="label_qr">Quét QR</string>
+
+    <!-- Thong Ke -->
+    <string name="title_thong_ke_doanh_thu">Thống kê doanh thu</string>
+    <string name="label_tong_doanh_thu">Tổng doanh thu</string>
+    <string name="label_lich_su_hoa_don">Lịch sử hóa đơn</string>
+    <string name="filter_ngay">Theo ngày</string>
+    <string name="filter_tuan">Theo tuần</string>
+    <string name="filter_thang">Theo tháng</string>
+    <string name="tab_thong_ke">Thống kê</string>
+    <string name="tab_lich_su">Lịch sử</string>
+
+    <!-- Cau Hinh San -->
+    <string name="title_cau_hinh_san">Cấu hình sân</string>
+    <string name="title_them_san_moi">Thêm sân mới</string>
+    <string name="hint_ten_san">Tên sân (VD: Sân 01)</string>
+    <string name="hint_loai_san">Loại sân (Cỏ nhân tạo, Gỗ...)</string>
+    <string name="hint_gia_mac_dinh">Giá mặc định / giờ</string>
+    <string name="hint_mo_ta">Mô tả / ghi chú</string>
+    <string name="btn_luu_san">Lưu sân</string>
+    <string name="btn_huy">Hủy</string>
+    <string name="btn_sua">Chỉnh sửa</string>
+    <string name="btn_xoa">Xóa</string>
+    <string name="confirm_delete_court">Bạn có chắc muốn xóa sân này?</string>
+
+    <!-- Common -->
+    <string name="loading">Đang tải...</string>
+    <string name="no_data">Không có dữ liệu</string>
+    <string name="dong_y">Đồng ý</string>
+    <string name="huy">Hủy</string>
+    <string name="luu">Lưu</string>
+    <string name="dong">Đóng</string>
+    <string name="thoat">Thoát</string>
+    <string name="xem_tat_ca">Xem tất cả</string>
+    <string name="vnd_format">%s VNĐ</string>
+    <string name="time_format">%s - %s</string>
+</resources>

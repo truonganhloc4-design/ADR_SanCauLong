@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Payment method option card: selected -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/status_available_bg" />
+    <stroke
+        android:width="2dp"
+        android:color="@color/primary_container" />
+    <corners android:radius="@dimen/radius_md" />
+</shape>

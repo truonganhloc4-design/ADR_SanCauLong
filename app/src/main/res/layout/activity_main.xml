@@ -1,0 +1,672 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Màn hình Sơ đồ sân (Dashboard) — activity_main.xml -->
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:fitsSystemWindows="true">
+
+    <!-- Main content area -->
+    <LinearLayout
+        android:id="@+id/layoutMainContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- ===== HEADER ===== -->
+        <FrameLayout
+            android:id="@+id/layoutHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_header_gradient"
+            android:paddingStart="@dimen/margin_mobile"
+            android:paddingEnd="@dimen/margin_mobile"
+            android:paddingTop="16dp"
+            android:paddingBottom="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Top bar -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvFacilityName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/app_name"
+                            android:textSize="@dimen/text_title_lg"
+                            android:textColor="@color/white"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvFacilitySubtitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/facility_name"
+                            android:textSize="@dimen/text_body_md"
+                            android:textColor="#CCffffff" />
+                    </LinearLayout>
+
+                    <!-- Notification / Settings button -->
+                    <ImageView
+                        android:id="@+id/ivSettings"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@android:drawable/ic_menu_manage"
+                        app:tint="@color/white"
+                        android:padding="8dp"
+                        android:background="@drawable/bg_icon_circle_green" />
+                </LinearLayout>
+
+                <!-- Summary stats row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <!-- Sân trống -->
+                    <LinearLayout
+                        android:id="@+id/statsAvailable"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:background="@drawable/bg_card_white"
+                        android:padding="10dp"
+                        android:layout_marginEnd="4dp">
+
+                        <TextView
+                            android:id="@+id/tvCountAvailable"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="3"
+                            android:textSize="@dimen/text_headline_sm"
+                            android:textColor="@color/status_available"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Trống"
+                            android:textSize="@dimen/text_label_md"
+                            android:textColor="@color/text_secondary" />
+                    </LinearLayout>
+
+                    <!-- Đang chơi -->
+                    <LinearLayout
+                        android:id="@+id/statsOccupied"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:background="@drawable/bg_card_white"
+                        android:padding="10dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginEnd="4dp">
+
+                        <TextView
+                            android:id="@+id/tvCountOccupied"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            android:textSize="@dimen/text_headline_sm"
+                            android:textColor="@color/status_occupied"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Đang chơi"
+                            android:textSize="@dimen/text_label_md"
+                            android:textColor="@color/text_secondary" />
+                    </LinearLayout>
+
+                    <!-- Đã đặt -->
+                    <LinearLayout
+                        android:id="@+id/statsBooked"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:background="@drawable/bg_card_white"
+                        android:padding="10dp"
+                        android:layout_marginStart="4dp">
+
+                        <TextView
+                            android:id="@+id/tvCountBooked"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            android:textSize="@dimen/text_headline_sm"
+                            android:textColor="@color/status_booked"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Đã đặt"
+                            android:textSize="@dimen/text_label_md"
+                            android:textColor="@color/text_secondary" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </FrameLayout>
+
+        <!-- ===== CONTENT SCROLL AREA ===== -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:fillViewport="true"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/bottom_nav_height">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/margin_mobile">
+
+                <!-- Section title -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="@dimen/spacing_md">
+
+                    <TextView
+                        android:id="@+id/tvSectionTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/title_so_do_san"
+                        android:textSize="@dimen/text_title_lg"
+                        android:textColor="@color/text_primary"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvSeeAll"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/xem_tat_ca"
+                        android:textSize="@dimen/text_body_md"
+                        android:textColor="@color/primary" />
+                </LinearLayout>
+
+                <!-- ===== COURT CARD 1 - Available ===== -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardSan1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_md"
+                    app:cardCornerRadius="@dimen/radius_lg"
+                    app:cardElevation="@dimen/card_elevation"
+                    app:cardBackgroundColor="@color/white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <!-- Left accent bar: green -->
+                        <View
+                            android:layout_width="4dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/status_available" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:padding="@dimen/card_padding">
+
+                            <!-- Court name + status chip -->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical"
+                                android:layout_marginBottom="@dimen/spacing_sm">
+
+                                <TextView
+                                    android:id="@+id/tvCourt1Name"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Sân 1"
+                                    android:textSize="@dimen/text_title_lg"
+                                    android:textColor="@color/text_primary"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/tvCourt1Status"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="@dimen/chip_height"
+                                    android:background="@drawable/bg_chip_available"
+                                    android:paddingStart="@dimen/chip_padding_horizontal"
+                                    android:paddingEnd="@dimen/chip_padding_horizontal"
+                                    android:text="@string/status_available"
+                                    android:textSize="@dimen/text_label_md"
+                                    android:textColor="@color/status_available"
+                                    android:textStyle="bold"
+                                    android:gravity="center" />
+                            </LinearLayout>
+
+                            <!-- Info row -->
+                            <TextView
+                                android:id="@+id/tvCourt1Info"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Cỏ nhân tạo • Sẵn sàng"
+                                android:textSize="@dimen/text_body_md"
+                                android:textColor="@color/text_secondary"
+                                android:layout_marginBottom="@dimen/spacing_md" />
+
+                            <!-- Action button -->
+                            <Button
+                                android:id="@+id/btnCourt1Action"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/button_height_sm"
+                                android:background="@drawable/bg_btn_primary"
+                                android:text="@string/btn_nhan_san"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/text_body_md"
+                                android:textStyle="bold"
+                                android:stateListAnimator="@null" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- ===== COURT CARD 2 - Occupied ===== -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardSan2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_md"
+                    app:cardCornerRadius="@dimen/radius_lg"
+                    app:cardElevation="@dimen/card_elevation"
+                    app:cardBackgroundColor="@color/white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <!-- Left accent bar: red -->
+                        <View
+                            android:layout_width="4dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/status_occupied" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:padding="@dimen/card_padding">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical"
+                                android:layout_marginBottom="@dimen/spacing_sm">
+
+                                <TextView
+                                    android:id="@+id/tvCourt2Name"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Sân 2"
+                                    android:textSize="@dimen/text_title_lg"
+                                    android:textColor="@color/text_primary"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/tvCourt2Status"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="@dimen/chip_height"
+                                    android:background="@drawable/bg_chip_occupied"
+                                    android:paddingStart="@dimen/chip_padding_horizontal"
+                                    android:paddingEnd="@dimen/chip_padding_horizontal"
+                                    android:text="@string/status_occupied"
+                                    android:textSize="@dimen/text_label_md"
+                                    android:textColor="@color/status_occupied"
+                                    android:textStyle="bold"
+                                    android:gravity="center" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/tvCourt2Info"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="14:00 - 15:30 • Còn 45 phút"
+                                android:textSize="@dimen/text_body_md"
+                                android:textColor="@color/text_secondary"
+                                android:layout_marginBottom="@dimen/spacing_md" />
+
+                            <Button
+                                android:id="@+id/btnCourt2Action"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/button_height_sm"
+                                android:background="@drawable/bg_btn_danger"
+                                android:text="@string/btn_tra_san"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/text_body_md"
+                                android:textStyle="bold"
+                                android:stateListAnimator="@null" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- ===== COURT CARD 3 - Booked ===== -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardSan3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_md"
+                    app:cardCornerRadius="@dimen/radius_lg"
+                    app:cardElevation="@dimen/card_elevation"
+                    app:cardBackgroundColor="@color/white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="4dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/status_booked" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:padding="@dimen/card_padding">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical"
+                                android:layout_marginBottom="@dimen/spacing_sm">
+
+                                <TextView
+                                    android:id="@+id/tvCourt3Name"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Sân 3"
+                                    android:textSize="@dimen/text_title_lg"
+                                    android:textColor="@color/text_primary"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/tvCourt3Status"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="@dimen/chip_height"
+                                    android:background="@drawable/bg_chip_booked"
+                                    android:paddingStart="@dimen/chip_padding_horizontal"
+                                    android:paddingEnd="@dimen/chip_padding_horizontal"
+                                    android:text="@string/status_booked"
+                                    android:textSize="@dimen/text_label_md"
+                                    android:textColor="@color/status_booked"
+                                    android:textStyle="bold"
+                                    android:gravity="center" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/tvCourt3Info"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="16:00 - 17:30 • Nguyễn Văn A"
+                                android:textSize="@dimen/text_body_md"
+                                android:textColor="@color/text_secondary"
+                                android:layout_marginBottom="@dimen/spacing_md" />
+
+                            <Button
+                                android:id="@+id/btnCourt3Action"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/button_height_sm"
+                                android:background="@drawable/bg_btn_secondary"
+                                android:text="@string/btn_chi_tiet"
+                                android:textColor="@color/primary"
+                                android:textSize="@dimen/text_body_md"
+                                android:textStyle="bold"
+                                android:stateListAnimator="@null" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- COURT CARD 4 - Available -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardSan4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_xl"
+                    app:cardCornerRadius="@dimen/radius_lg"
+                    app:cardElevation="@dimen/card_elevation"
+                    app:cardBackgroundColor="@color/white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="4dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/status_available" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:padding="@dimen/card_padding">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical"
+                                android:layout_marginBottom="@dimen/spacing_sm">
+
+                                <TextView
+                                    android:id="@+id/tvCourt4Name"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Sân 4"
+                                    android:textSize="@dimen/text_title_lg"
+                                    android:textColor="@color/text_primary"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/tvCourt4Status"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="@dimen/chip_height"
+                                    android:background="@drawable/bg_chip_available"
+                                    android:paddingStart="@dimen/chip_padding_horizontal"
+                                    android:paddingEnd="@dimen/chip_padding_horizontal"
+                                    android:text="@string/status_available"
+                                    android:textSize="@dimen/text_label_md"
+                                    android:textColor="@color/status_available"
+                                    android:textStyle="bold"
+                                    android:gravity="center" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/tvCourt4Info"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Gỗ • Sẵn sàng"
+                                android:textSize="@dimen/text_body_md"
+                                android:textColor="@color/text_secondary"
+                                android:layout_marginBottom="@dimen/spacing_md" />
+
+                            <Button
+                                android:id="@+id/btnCourt4Action"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/button_height_sm"
+                                android:background="@drawable/bg_btn_primary"
+                                android:text="@string/btn_nhan_san"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/text_body_md"
+                                android:textStyle="bold"
+                                android:stateListAnimator="@null" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+        </ScrollView>
+
+        <!-- ===== BOTTOM NAVIGATION ===== -->
+        <LinearLayout
+            android:id="@+id/bottomNavigation"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bottom_nav_height"
+            android:orientation="horizontal"
+            android:background="@drawable/bg_bottom_nav"
+            android:weightSum="4"
+            android:gravity="center_vertical">
+
+            <!-- Sơ đồ -->
+            <LinearLayout
+                android:id="@+id/navSoDo"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_height="@dimen/icon_size"
+                    android:src="@android:drawable/ic_menu_agenda"
+                    app:tint="@color/nav_selected" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_so_do_san"
+                    android:textSize="@dimen/text_label_md"
+                    android:textColor="@color/nav_selected"
+                    android:layout_marginTop="2dp" />
+            </LinearLayout>
+
+            <!-- Thống kê -->
+            <LinearLayout
+                android:id="@+id/navThongKe"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_height="@dimen/icon_size"
+                    android:src="@android:drawable/ic_menu_sort_by_size"
+                    app:tint="@color/nav_unselected" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_thong_ke"
+                    android:textSize="@dimen/text_label_md"
+                    android:textColor="@color/nav_unselected"
+                    android:layout_marginTop="2dp" />
+            </LinearLayout>
+
+            <!-- Lịch sử -->
+            <LinearLayout
+                android:id="@+id/navLichSu"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_height="@dimen/icon_size"
+                    android:src="@android:drawable/ic_menu_recent_history"
+                    app:tint="@color/nav_unselected" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_lich_su"
+                    android:textSize="@dimen/text_label_md"
+                    android:textColor="@color/nav_unselected"
+                    android:layout_marginTop="2dp" />
+            </LinearLayout>
+
+            <!-- Cài đặt -->
+            <LinearLayout
+                android:id="@+id/navCaiDat"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_height="@dimen/icon_size"
+                    android:src="@android:drawable/ic_menu_manage"
+                    app:tint="@color/nav_unselected" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_cai_dat"
+                    android:textSize="@dimen/text_label_md"
+                    android:textColor="@color/nav_unselected"
+                    android:layout_marginTop="2dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- ===== FAB: Đặt sân nhanh ===== -->
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fabDatSanNhanh"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/fab_size"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:layout_marginBottom="88dp"
+        android:text="@string/fab_dat_san_nhanh"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:backgroundTint="@color/primary"
+        app:icon="@android:drawable/ic_input_add"
+        app:iconTint="@color/white" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Màn hình Đặt lịch trước — activity_dat_lich_truoc.xml -->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:fitsSystemWindows="true">
+
+    <!-- TOOLBAR -->
+    <LinearLayout
+        android:id="@+id/layoutToolbar"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/top_app_bar_height"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/spacing_sm"
+        android:paddingEnd="@dimen/margin_mobile"
+        android:background="@color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:src="@android:drawable/ic_media_previous"
+            app:tint="@color/text_primary"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="10dp"
+            android:contentDescription="Back" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/spacing_sm"
+            android:text="@string/title_dat_lich_truoc"
+            android:textSize="@dimen/text_title_lg"
+            android:textColor="@color/text_primary"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- SCROLL CONTENT -->
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/layoutToolbar"
+        app:layout_constraintBottom_toTopOf="@id/layoutActionBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/margin_mobile">
+
+            <!-- SECTION: Thông tin khách hàng -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/section_thong_tin_kh"
+                android:textSize="@dimen/text_label_md"
+                android:textColor="@color/text_hint"
+                android:textAllCaps="true"
+                android:layout_marginBottom="@dimen/spacing_sm" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_lg"
+                app:cardCornerRadius="@dimen/radius_lg"
+                app:cardElevation="@dimen/card_elevation"
+                app:cardBackgroundColor="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/card_padding">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/hint_ten_kh"
+                        android:textSize="@dimen/text_body_md"
+                        android:textColor="@color/text_secondary"
+                        android:layout_marginBottom="@dimen/spacing_sm" />
+
+                    <EditText
+                        android:id="@+id/etHoTen"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/input_height"
+                        android:background="@drawable/bg_input_default"
+                        android:paddingStart="@dimen/input_padding_horizontal"
+                        android:paddingEnd="@dimen/input_padding_horizontal"
+                        android:hint="Nguyễn Văn A"
+                        android:textSize="@dimen/text_body_lg"
+                        android:textColor="@color/text_primary"
+                        android:textColorHint="@color/text_hint"
+                        android:inputType="textPersonName"
+                        android:layout_marginBottom="@dimen/spacing_md" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/hint_sdt"
+                        android:textSize="@dimen/text_body_md"
+                        android:textColor="@color/text_secondary"
+                        android:layout_marginBottom="@dimen/spacing_sm" />
+
+                    <EditText
+                        android:id="@+id/etSoDienThoai"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/input_height"
+                        android:background="@drawable/bg_input_default"
+                        android:paddingStart="@dimen/input_padding_horizontal"
+                        android:paddingEnd="@dimen/input_padding_horizontal"
+                        android:hint="0912 345 678"
+                        android:textSize="@dimen/text_body_lg"
+                        android:textColor="@color/text_primary"
+                        android:textColorHint="@color/text_hint"
+                        android:inputType="phone"
+                        android:layout_marginBottom="@dimen/spacing_md" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/hint_ghi_chu"
+                        android:textSize="@dimen/text_body_md"
+                        android:textColor="@color/text_secondary"
+                        android:layout_marginBottom="@dimen/spacing_sm" />
+
+                    <EditText
+                        android:id="@+id/etGhiChu"
+                        android:layout_width="match_parent"
+                        android:layout_height="88dp"
+                        android:background="@drawable/bg_input_default"
+                        android:paddingStart="@dimen/input_padding_horizontal"
+                        android:paddingEnd="@dimen/input_padding_horizontal"
+                        android:paddingTop="@dimen/spacing_md"
+                        android:hint="VD: Cần 2 vợt thuê..."
+                        android:textSize="@dimen/text_body_lg"
+                        android:textColor="@color/text_primary"
+                        android:textColorHint="@color/text_hint"
+                        android:inputType="textMultiLine"
+                        android:gravity="top"
+                        android:maxLines="3" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- SECTION: Chi tiết đặt sân -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/section_chi_tiet_dat_san"
+                android:textSize="@dimen/text_label_md"
+                android:textColor="@color/text_hint"
+                android:textAllCaps="true"
+                android:layout_marginBottom="@dimen/spacing_sm" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_lg"
+                app:cardCornerRadius="@dimen/radius_lg"
+                app:cardElevation="@dimen/card_elevation"
+                app:cardBackgroundColor="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/card_padding">
+
+                    <!-- Chọn sân -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_chon_san"
+                        android:textSize="@dimen/text_body_md"
+                        android:textColor="@color/text_secondary"
+                        android:layout_marginBottom="@dimen/spacing_sm" />
+
+                    <LinearLayout
+                        android:id="@+id/btnChonSan"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/input_height"
+                        android:background="@drawable/bg_input_default"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingStart="@dimen/input_padding_horizontal"
+                        android:paddingEnd="@dimen/input_padding_horizontal"
+                        android:layout_marginBottom="@dimen/spacing_md">
+
+                        <TextView
+                            android:id="@+id/tvSanDuocChon"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Chọn sân..."
+                            android:textSize="@dimen/text_body_lg"
+                            android:textColor="@color/text_primary"
+                            android:textColorHint="@color/text_hint" />
+
+                        <ImageView
+                            android:layout_width="@dimen/icon_size"
+                            android:layout_height="@dimen/icon_size"
+                            android:src="@android:drawable/arrow_down_float"
+                            app:tint="@color/text_hint" />
+                    </LinearLayout>
+
+                    <!-- Ngày đặt -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_ngay_dat"
+                        android:textSize="@dimen/text_body_md"
+                        android:textColor="@color/text_secondary"
+                        android:layout_marginBottom="@dimen/spacing_sm" />
+
+                    <LinearLayout
+                        android:id="@+id/btnChonNgay"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/input_height"
+                        android:background="@drawable/bg_input_default"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingStart="@dimen/input_padding_horizontal"
+                        android:paddingEnd="@dimen/input_padding_horizontal"
+                        android:layout_marginBottom="@dimen/spacing_md">
+
+                        <TextView
+                            android:id="@+id/tvNgayDuocChon"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="dd/mm/yyyy"
+                            android:textSize="@dimen/text_body_lg"
+                            android:textColor="@color/text_primary"
+                            android:textColorHint="@color/text_hint" />
+
+                        <ImageView
+                            android:layout_width="@dimen/icon_size"
+                            android:layout_height="@dimen/icon_size"
+                            android:src="@android:drawable/ic_menu_my_calendar"
+                            app:tint="@color/primary" />
+                    </LinearLayout>
+
+                    <!-- Giờ bắt đầu / Kết thúc (2 columns) -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_marginEnd="@dimen/spacing_sm">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/label_gio_bat_dau"
+                                android:textSize="@dimen/text_body_md"
+                                android:textColor="@color/text_secondary"
+                                android:layout_marginBottom="@dimen/spacing_sm" />
+
+                            <LinearLayout
+                                android:id="@+id/btnChonGioBatDau"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/input_height"
+                                android:background="@drawable/bg_input_default"
+                                android:gravity="center_vertical"
+                                android:paddingStart="@dimen/input_padding_horizontal"
+                                android:paddingEnd="@dimen/input_padding_horizontal">
+
+                                <TextView
+                                    android:id="@+id/tvGioBatDau"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="07:00"
+                                    android:textSize="@dimen/text_body_lg"
+                                    android:textColor="@color/text_primary"
+                                    android:textColorHint="@color/text_hint" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_marginStart="@dimen/spacing_sm">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/label_gio_ket_thuc"
+                                android:textSize="@dimen/text_body_md"
+                                android:textColor="@color/text_secondary"
+                                android:layout_marginBottom="@dimen/spacing_sm" />
+
+                            <LinearLayout
+                                android:id="@+id/btnChonGioKetThuc"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/input_height"
+                                android:background="@drawable/bg_input_default"
+                                android:gravity="center_vertical"
+                                android:paddingStart="@dimen/input_padding_horizontal"
+                                android:paddingEnd="@dimen/input_padding_horizontal">
+
+                                <TextView
+                                    android:id="@+id/tvGioKetThuc"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="09:00"
+                                    android:textSize="@dimen/text_body_lg"
+                                    android:textColor="@color/text_primary"
+                                    android:textColorHint="@color/text_hint" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- BOTTOM ACTION -->
+    <LinearLayout
+        android:id="@+id/layoutActionBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:paddingStart="@dimen/margin_mobile"
+        android:paddingEnd="@dimen/margin_mobile"
+        android:paddingTop="@dimen/spacing_md"
+        android:paddingBottom="@dimen/spacing_md"
+        android:elevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <Button
+            android:id="@+id/btnXacNhanDatLich"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:background="@drawable/bg_btn_primary"
+            android:text="@string/btn_xac_nhan_dat_lich"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_body_lg"
+            android:textStyle="bold"
+            android:stateListAnimator="@null" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

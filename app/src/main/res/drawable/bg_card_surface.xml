@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Surface container card (light blue-tinted) -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/surface_container_low" />
+    <corners android:radius="@dimen/radius_lg" />
+</shape>

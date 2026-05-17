@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Spacing Scale (8px base) -->
+    <dimen name="spacing_xs">4dp</dimen>
+    <dimen name="spacing_sm">8dp</dimen>
+    <dimen name="spacing_md">16dp</dimen>
+    <dimen name="spacing_lg">24dp</dimen>
+    <dimen name="spacing_xl">32dp</dimen>
+    <dimen name="spacing_xxl">48dp</dimen>
+
+    <!-- Page margins -->
+    <dimen name="margin_mobile">16dp</dimen>
+    <dimen name="margin_gutter">16dp</dimen>
+
+    <!-- Corner Radius -->
+    <dimen name="radius_sm">4dp</dimen>
+    <dimen name="radius_default">8dp</dimen>
+    <dimen name="radius_md">12dp</dimen>
+    <dimen name="radius_lg">16dp</dimen>
+    <dimen name="radius_xl">24dp</dimen>
+    <dimen name="radius_full">999dp</dimen>
+
+    <!-- Typography (sp) -->
+    <dimen name="text_display_lg">32sp</dimen>
+    <dimen name="text_headline_lg">28sp</dimen>
+    <dimen name="text_headline_md">24sp</dimen>
+    <dimen name="text_headline_sm">20sp</dimen>
+    <dimen name="text_title_lg">18sp</dimen>
+    <dimen name="text_body_lg">16sp</dimen>
+    <dimen name="text_body_md">14sp</dimen>
+    <dimen name="text_label_md">12sp</dimen>
+    <dimen name="text_label_sm">11sp</dimen>
+
+    <!-- Component sizes -->
+    <dimen name="button_height">52dp</dimen>
+    <dimen name="button_height_sm">40dp</dimen>
+    <dimen name="fab_size">56dp</dimen>
+    <dimen name="input_height">56dp</dimen>
+    <dimen name="input_padding_horizontal">16dp</dimen>
+    <dimen name="bottom_nav_height">72dp</dimen>
+    <dimen name="top_app_bar_height">64dp</dimen>
+    <dimen name="avatar_size">40dp</dimen>
+    <dimen name="icon_size">24dp</dimen>
+    <dimen name="icon_size_sm">20dp</dimen>
+    <dimen name="icon_size_lg">32dp</dimen>
+
+    <!-- Card -->
+    <dimen name="card_elevation">4dp</dimen>
+    <dimen name="card_padding">16dp</dimen>
+
+    <!-- Court card -->
+    <dimen name="court_card_status_indicator_width">4dp</dimen>
+
+    <!-- Status chip -->
+    <dimen name="chip_height">28dp</dimen>
+    <dimen name="chip_padding_horizontal">10dp</dimen>
+</resources>
