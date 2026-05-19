@@ -107,5 +107,5 @@
     <string name="thoat">Thoát</string>
     <string name="xem_tat_ca">Xem tất cả</string>
     <string name="vnd_format">%s VNĐ</string>
-    <string name="time_format">%s - %s</string>
+    <string name="time_format">%1$s - %2$s</string>
 </resources>

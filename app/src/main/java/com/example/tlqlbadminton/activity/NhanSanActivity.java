@@ -10,50 +10,53 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.tlqlbadminton.R;
-import com.example.tlqlbadminton.model.AppState;
+import com.example.tlqlbadminton.model.PhieuDatSan;
+import com.example.tlqlbadminton.model.San;
+import com.example.tlqlbadminton.sqlite.PhieuDatSanDAO;
+import com.example.tlqlbadminton.sqlite.SanDAO;
+
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 public class NhanSanActivity extends AppCompatActivity {
 
-    public static final String EXTRA_COURT_ID    = "extra_court_id";
+    public static final String EXTRA_COURT_ID = "extra_court_id";
     public static final String EXTRA_COURT_INDEX = "extra_court_index";
 
-    private ImageButton  btnBack;
-    private TextView     tvToolbarTitle;
-
-    // Dropdown chọn khách đặt trước
+    private ImageButton btnBack;
+    private TextView tvToolbarTitle;
     private LinearLayout btnChonKhachDatTruoc;
-    private TextView     tvKhachDatTruocDuocChon;
-    private String       selectedKhachId = null;
-
-    // Thông tin khách
+    private TextView tvKhachDatTruocDuocChon;
     private EditText etTenKhach;
     private EditText etSoDienThoai;
     private EditText etTienCoc;
-
-    // Thời gian bắt đầu (chỉ 1 ô)
     private ImageView btnPickGioBatDau;
-    private TextView  tvGioBatDau;
-
-    // Submit
+    private TextView tvGioBatDau;
     private Button btnHuy;
-    private Button btnXacNhanNhanSan; // Nút Bắt đầu chơi
+    private Button btnXacNhanNhanSan;
 
-    private String courtId;
-    private int    courtIndex = 0;
-    private int    startHour, startMinute;
+    private SanDAO sanDAO;
+    private PhieuDatSanDAO phieuDatSanDAO;
+    private List<PhieuDatSan> pendingBookings;
+    private PhieuDatSan selectedBooking;
+    private int maSan = 1;
+    private int startHour;
+    private int startMinute;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nhan_san);
 
-        courtId    = getIntent().getStringExtra(EXTRA_COURT_ID);
-        courtIndex = getIntent().getIntExtra(EXTRA_COURT_INDEX, 0);
-        if (courtId == null) courtId = "1";
+        sanDAO = new SanDAO(this);
+        phieuDatSanDAO = new PhieuDatSanDAO(this);
+        String courtId = getIntent().getStringExtra(EXTRA_COURT_ID);
+        if (courtId != null) maSan = Integer.parseInt(courtId);
 
         bindViews();
         setupToolbar();
@@ -61,85 +64,76 @@ public class NhanSanActivity extends AppCompatActivity {
         setupTimePicker();
         setupSubmit();
         setCurrentTime();
+        loadCourtTitle();
     }
 
     private void bindViews() {
-        btnBack                  = findViewById(R.id.btnBack);
-        tvToolbarTitle           = findViewById(R.id.tvToolbarTitle);
-        btnChonKhachDatTruoc     = findViewById(R.id.btnChonKhachDatTruoc);
-        tvKhachDatTruocDuocChon  = findViewById(R.id.tvKhachDatTruocDuocChon);
-        etTenKhach               = findViewById(R.id.etTenKhach);
-        etSoDienThoai            = findViewById(R.id.etSoDienThoai);
-        etTienCoc                = findViewById(R.id.etTienCoc);
-        btnPickGioBatDau         = findViewById(R.id.btnPickGioBatDau);
-        tvGioBatDau              = findViewById(R.id.tvGioBatDau);
-        btnHuy                   = findViewById(R.id.btnHuy);
-        btnXacNhanNhanSan        = findViewById(R.id.btnXacNhanNhanSan);
+        btnBack = findViewById(R.id.btnBack);
+        tvToolbarTitle = findViewById(R.id.tvToolbarTitle);
+        btnChonKhachDatTruoc = findViewById(R.id.btnChonKhachDatTruoc);
+        tvKhachDatTruocDuocChon = findViewById(R.id.tvKhachDatTruocDuocChon);
+        etTenKhach = findViewById(R.id.etTenKhach);
+        etSoDienThoai = findViewById(R.id.etSoDienThoai);
+        etTienCoc = findViewById(R.id.etTienCoc);
+        btnPickGioBatDau = findViewById(R.id.btnPickGioBatDau);
+        tvGioBatDau = findViewById(R.id.tvGioBatDau);
+        btnHuy = findViewById(R.id.btnHuy);
+        btnXacNhanNhanSan = findViewById(R.id.btnXacNhanNhanSan);
+    }
 
-        tvToolbarTitle.setText("Nhận sân - Sân 0" + courtId);
+    private void loadCourtTitle() {
+        San san = sanDAO.getSanById(maSan);
+        tvToolbarTitle.setText("Nhan san - " + (san != null ? san.getTenSan() : "San " + maSan));
     }
 
     private void setupToolbar() {
-        btnBack.setOnClickListener(v -> onBackPressed());
+        btnBack.setOnClickListener(v -> finish());
     }
 
-    /** Dropdown chọn khách đã đặt trước — tự động điền thông tin */
     private void setupDropdownKhach() {
-        // TODO: Thay bằng danh sách thực từ DatabaseHelper (PhieuDatSan TrangThaiPhieu=0)
-        String[] danhSachKhach = {
-                "— Không chọn (Khách vãng lai) —",
-                "Nguyễn Văn A • 0912345678",
-                "Trần Thị B • 0987654321"
-        };
-        btnChonKhachDatTruoc.setOnClickListener(v ->
+        pendingBookings = phieuDatSanDAO.getPendingBookingsBySan(maSan);
+        btnChonKhachDatTruoc.setOnClickListener(v -> {
+            String[] items = new String[pendingBookings.size() + 1];
+            items[0] = "Khach vang lai";
+            for (int i = 0; i < pendingBookings.size(); i++) {
+                PhieuDatSan phieu = pendingBookings.get(i);
+                items[i + 1] = phieu.getTenKhach() + " - " + phieu.getKhungGioChoi();
+            }
             new android.app.AlertDialog.Builder(this)
-                .setTitle("Chọn khách đặt trước")
-                .setItems(danhSachKhach, (dialog, which) -> {
-                    if (which == 0) {
-                        // Khách vãng lai — xóa autofill
-                        selectedKhachId = null;
-                        tvKhachDatTruocDuocChon.setText("");
-                        tvKhachDatTruocDuocChon.setHint("Chọn khách hàng...");
-                        etTenKhach.setText("");
-                        etSoDienThoai.setText("");
-                        etTienCoc.setText("0");
-                    } else {
-                        selectedKhachId = String.valueOf(which);
-                        tvKhachDatTruocDuocChon.setText(danhSachKhach[which]);
-                        // TODO: Autofill từ DB theo selectedKhachId
-                        if (which == 1) {
-                            etTenKhach.setText("Nguyễn Văn A");
-                            etSoDienThoai.setText("0912345678");
-                            etTienCoc.setText("100000");
-                        } else if (which == 2) {
-                            etTenKhach.setText("Trần Thị B");
-                            etSoDienThoai.setText("0987654321");
-                            etTienCoc.setText("50000");
+                    .setTitle("Chon khach dat truoc")
+                    .setItems(items, (dialog, which) -> {
+                        if (which == 0) {
+                            selectedBooking = null;
+                            tvKhachDatTruocDuocChon.setText("");
+                            etTenKhach.setText("");
+                            etSoDienThoai.setText("");
+                            etTienCoc.setText("0");
+                        } else {
+                            selectedBooking = pendingBookings.get(which - 1);
+                            tvKhachDatTruocDuocChon.setText(items[which]);
+                            etTenKhach.setText(selectedBooking.getTenKhach());
+                            etSoDienThoai.setText(selectedBooking.getSoDienThoai());
+                            etTienCoc.setText(String.valueOf((long) selectedBooking.getTienCoc()));
                         }
-                    }
-                })
-                .show()
-        );
+                    })
+                    .show();
+        });
     }
 
     private void setCurrentTime() {
         Calendar now = Calendar.getInstance();
-        startHour   = now.get(Calendar.HOUR_OF_DAY);
+        startHour = now.get(Calendar.HOUR_OF_DAY);
         startMinute = now.get(Calendar.MINUTE);
-        tvGioBatDau.setText(
-            String.format(Locale.getDefault(), "%02d:%02d", startHour, startMinute));
+        tvGioBatDau.setText(String.format(Locale.getDefault(), "%02d:%02d", startHour, startMinute));
     }
 
     private void setupTimePicker() {
         btnPickGioBatDau.setOnClickListener(v ->
-            new TimePickerDialog(this,
-                (view, h, min) -> {
-                    startHour   = h;
+                new TimePickerDialog(this, (view, h, min) -> {
+                    startHour = h;
                     startMinute = min;
-                    tvGioBatDau.setText(
-                        String.format(Locale.getDefault(), "%02d:%02d", h, min));
-                }, startHour, startMinute, true).show()
-        );
+                    tvGioBatDau.setText(String.format(Locale.getDefault(), "%02d:%02d", h, min));
+                }, startHour, startMinute, true).show());
     }
 
     private void setupSubmit() {
@@ -149,24 +143,43 @@ public class NhanSanActivity extends AppCompatActivity {
 
     private void submitNhanSan() {
         String tenKhach = etTenKhach.getText().toString().trim();
-        String sdt      = etSoDienThoai.getText().toString().trim();
-        String cocStr   = etTienCoc.getText().toString().trim();
-        double tienCoc  = cocStr.isEmpty() ? 0 : Double.parseDouble(cocStr);
+        String sdt = etSoDienThoai.getText().toString().trim();
+        double tienCoc = parseMoney(etTienCoc.getText().toString().trim());
 
         if (TextUtils.isEmpty(tenKhach)) {
-            Toast.makeText(this, "Vui lòng nhập tên khách hàng", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Vui long nhap ten khach hang", Toast.LENGTH_SHORT).show();
             etTenKhach.requestFocus();
             return;
         }
 
-        String gioBatDau = String.format(Locale.getDefault(), "%02d:%02d", startHour, startMinute);
+        long gioBatDau = buildTodayTimestamp();
+        boolean ok;
+        if (selectedBooking != null) {
+            ok = phieuDatSanDAO.nhanSanTuPhieuDat(selectedBooking.getMaPhieu(), gioBatDau);
+        } else {
+            ok = phieuDatSanDAO.insertNhanSanMoi(maSan, tenKhach, sdt, tienCoc, gioBatDau) != -1;
+        }
 
-        // Cập nhật AppState → sân lập tức đổi sang ĐỎ trên SoDoFragment
-        AppState.getInstance().nhanSan(courtIndex, Integer.parseInt(courtId), gioBatDau);
+        Toast.makeText(this, ok ? "Da nhan san thanh cong" : "Khong the nhan san",
+                Toast.LENGTH_SHORT).show();
+        if (ok) finish();
+    }
 
-        Toast.makeText(this,
-            "Đã nhận Sân " + courtId + " cho " + tenKhach + " lúc " + gioBatDau,
-            Toast.LENGTH_LONG).show();
-        finish();
+    private long buildTodayTimestamp() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, startHour);
+        calendar.set(Calendar.MINUTE, startMinute);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTimeInMillis();
+    }
+
+    private double parseMoney(String value) {
+        if (TextUtils.isEmpty(value)) return 0;
+        try {
+            return Double.parseDouble(value.replaceAll("[^0-9.]", ""));
+        } catch (NumberFormatException e) {
+            return 0;
+        }
     }
 }

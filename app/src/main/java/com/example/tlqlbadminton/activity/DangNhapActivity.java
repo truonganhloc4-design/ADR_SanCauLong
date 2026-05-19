@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.tlqlbadminton.R;
+import com.example.tlqlbadminton.sqlite.TaiKhoanDAO;
 
 public class DangNhapActivity extends AppCompatActivity {
 
@@ -16,6 +17,7 @@ public class DangNhapActivity extends AppCompatActivity {
     private EditText etPassword;
     private Button btnLogin;
     private TextView tvLoginError;
+    private TaiKhoanDAO taiKhoanDAO;
 
     // Default credentials (thay bằng DB sau)
     private static final String DEFAULT_USERNAME = "admin";
@@ -26,6 +28,7 @@ public class DangNhapActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dang_nhap);
 
+        taiKhoanDAO = new TaiKhoanDAO(this);
         bindViews();
         setupListeners();
     }
@@ -58,7 +61,7 @@ public class DangNhapActivity extends AppCompatActivity {
         }
 
         // Check credentials
-        if (DEFAULT_USERNAME.equals(username) && DEFAULT_PASSWORD.equals(password)) {
+        if (taiKhoanDAO.checkLogin(username, password)) {
             hideError();
             navigateToMain();
         } else {

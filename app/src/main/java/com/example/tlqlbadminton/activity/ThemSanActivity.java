@@ -6,8 +6,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.tlqlbadminton.R;
+import com.example.tlqlbadminton.model.San;
+import com.example.tlqlbadminton.sqlite.DBHelper;
+import com.example.tlqlbadminton.sqlite.SanDAO;
 
 public class ThemSanActivity extends AppCompatActivity {
 
@@ -15,31 +20,50 @@ public class ThemSanActivity extends AppCompatActivity {
     private EditText etTenSan;
     private EditText etGiaThue;
     private Button btnXacNhanThem;
+    private SanDAO sanDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_them_san);
 
+        sanDAO = new SanDAO(this);
         btnBack = findViewById(R.id.btnBack);
         etTenSan = findViewById(R.id.etTenSan);
         etGiaThue = findViewById(R.id.etGiaThue);
         btnXacNhanThem = findViewById(R.id.btnXacNhanThem);
 
         btnBack.setOnClickListener(v -> finish());
+        btnXacNhanThem.setOnClickListener(v -> saveCourt());
+    }
 
-        btnXacNhanThem.setOnClickListener(v -> {
-            String ten = etTenSan.getText().toString().trim();
-            String gia = etGiaThue.getText().toString().trim();
+    private void saveCourt() {
+        String ten = etTenSan.getText().toString().trim();
+        String gia = etGiaThue.getText().toString().trim();
 
-            if (TextUtils.isEmpty(ten) || TextUtils.isEmpty(gia)) {
-                Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
-                return;
-            }
+        if (TextUtils.isEmpty(ten) || TextUtils.isEmpty(gia)) {
+            Toast.makeText(this, "Vui long nhap day du thong tin", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-            // TODO: Ghi vào SQLite hoặc AppState
-            Toast.makeText(this, "Đã thêm " + ten + " thành công!", Toast.LENGTH_SHORT).show();
-            finish();
-        });
+        San san = new San();
+        san.setTenSan(ten);
+        san.setGiaMoiGio(parseMoney(gia));
+        san.setLoaiSan("Co nhan tao");
+        san.setTrangThai(DBHelper.SAN_TRONG);
+        san.setTinhTrangHoatDong(1);
+
+        boolean ok = sanDAO.insertSan(san);
+        Toast.makeText(this, ok ? "Da them san thanh cong" : "Khong the them san",
+                Toast.LENGTH_SHORT).show();
+        if (ok) finish();
+    }
+
+    private double parseMoney(String value) {
+        try {
+            return Double.parseDouble(value.replaceAll("[^0-9.]", ""));
+        } catch (NumberFormatException e) {
+            return 0;
+        }
     }
 }

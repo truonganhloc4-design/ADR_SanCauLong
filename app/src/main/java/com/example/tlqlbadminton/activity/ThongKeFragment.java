@@ -5,25 +5,32 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.tlqlbadminton.R;
-import com.example.tlqlbadminton.model.AppState;
 
-public class ThongKeFragment extends Fragment implements AppState.OnStateChangedListener {
+import com.example.tlqlbadminton.R;
+import com.example.tlqlbadminton.adapter.SimpleTextAdapter;
+import com.example.tlqlbadminton.model.HoaDon;
+import com.example.tlqlbadminton.sqlite.HoaDonDAO;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ThongKeFragment extends Fragment {
 
     private TextView tvTongDoanhThu;
     private TextView tvSoLuotDat;
-    private TextView chipNgay, chipTuan, chipThang;
+    private TextView chipNgay;
+    private TextView chipTuan;
+    private TextView chipThang;
     private TextView tvEmpty;
-    private RecyclerView rvHoaDon;
-
-    private AppState appState;
-    private String currentFilter = "ngay";
+    private SimpleTextAdapter adapter;
+    private HoaDonDAO hoaDonDAO;
 
     @Nullable
     @Override
@@ -31,16 +38,18 @@ public class ThongKeFragment extends Fragment implements AppState.OnStateChanged
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_thong_ke, container, false);
-        appState = AppState.getInstance();
+        hoaDonDAO = new HoaDonDAO(requireContext());
 
         tvTongDoanhThu = root.findViewById(R.id.tvTongDoanhThu);
-        tvSoLuotDat    = root.findViewById(R.id.tvSoLuotDat);
-        chipNgay       = root.findViewById(R.id.chipNgay);
-        chipTuan       = root.findViewById(R.id.chipTuan);
-        chipThang      = root.findViewById(R.id.chipThang);
-        tvEmpty        = root.findViewById(R.id.tvEmptyThongKe);
-        rvHoaDon       = root.findViewById(R.id.rvHoaDon);
+        tvSoLuotDat = root.findViewById(R.id.tvSoLuotDat);
+        chipNgay = root.findViewById(R.id.chipNgay);
+        chipTuan = root.findViewById(R.id.chipTuan);
+        chipThang = root.findViewById(R.id.chipThang);
+        tvEmpty = root.findViewById(R.id.tvEmptyThongKe);
+        RecyclerView rvHoaDon = root.findViewById(R.id.rvHoaDon);
         rvHoaDon.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter = new SimpleTextAdapter();
+        rvHoaDon.setAdapter(adapter);
 
         setupFilterChips();
         refreshStats();
@@ -50,29 +59,19 @@ public class ThongKeFragment extends Fragment implements AppState.OnStateChanged
     @Override
     public void onResume() {
         super.onResume();
-        appState.addListener(this);
         refreshStats();
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        appState.removeListener(this);
-    }
-
     private void setupFilterChips() {
-        chipNgay.setOnClickListener(v  -> setFilter("ngay",  chipNgay,  chipTuan,  chipThang));
-        chipTuan.setOnClickListener(v  -> setFilter("tuan",  chipTuan,  chipNgay,  chipThang));
-        chipThang.setOnClickListener(v -> setFilter("thang", chipThang, chipNgay,  chipTuan));
+        chipNgay.setOnClickListener(v -> setFilter(chipNgay, chipTuan, chipThang));
+        chipTuan.setOnClickListener(v -> setFilter(chipTuan, chipNgay, chipThang));
+        chipThang.setOnClickListener(v -> setFilter(chipThang, chipNgay, chipTuan));
     }
 
-    private void setFilter(String filter, TextView active, TextView... inactives) {
-        currentFilter = filter;
-        // Active chip: blue text, white bg with border
+    private void setFilter(TextView active, TextView... inactives) {
         active.setBackgroundResource(R.drawable.bg_chip_filter_active);
         active.setTextColor(ContextCompat.getColor(requireContext(), R.color.primary));
         active.setTypeface(null, android.graphics.Typeface.BOLD);
-        // Inactive chips: dark text, outline bg — sửa lỗi contrast trắng/trắng
         for (TextView tv : inactives) {
             tv.setBackgroundResource(R.drawable.bg_chip_filter_inactive);
             tv.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_secondary));
@@ -82,33 +81,22 @@ public class ThongKeFragment extends Fragment implements AppState.OnStateChanged
     }
 
     private void refreshStats() {
-        if (tvTongDoanhThu == null) return;
-        long tongTien = appState.getTongDoanhThu();
-        int soLuot    = appState.getSoLuotDat();
+        if (hoaDonDAO == null || tvTongDoanhThu == null) return;
+        List<HoaDon> hoaDonList = hoaDonDAO.getAllHoaDon();
+        tvTongDoanhThu.setText(formatCurrency((long) hoaDonDAO.getTongDoanhThu()));
+        tvSoLuotDat.setText(String.valueOf(hoaDonDAO.countHoaDon()));
+        tvEmpty.setVisibility(hoaDonList.isEmpty() ? View.VISIBLE : View.GONE);
 
-        tvTongDoanhThu.setText(formatCurrency(tongTien));
-        tvSoLuotDat.setText(String.valueOf(soLuot));
-
-        boolean isEmpty = appState.getInvoiceList().isEmpty();
-        tvEmpty.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
-
-        // TODO: Set adapter cho rvHoaDon khi có RecyclerView.Adapter
+        List<SimpleTextAdapter.Row> rows = new ArrayList<>();
+        for (HoaDon hoaDon : hoaDonList) {
+            rows.add(new SimpleTextAdapter.Row(
+                    hoaDon.getMaHD() + " - " + formatCurrency((long) hoaDon.getTongThanhToan()) + " VND",
+                    "Ngay lap: " + hoaDon.getNgayLap() + " | Phieu #" + hoaDon.getMaPhieu()));
+        }
+        adapter.submitList(rows);
     }
 
     private String formatCurrency(long amount) {
         return String.format("%,d", amount).replace(",", ".");
     }
-
-    // Observer callbacks
-    @Override
-    public void onCourtStatusChanged(int courtIndex, int newStatus, String info) { /* không cần xử lý */ }
-
-    @Override
-    public void onInvoiceAdded(AppState.InvoiceEntry entry, long tongDoanhThu) {
-        if (getView() == null) return;
-        refreshStats();
-    }
-
-    @Override
-    public void onBookingAdded(AppState.BookingEntry entry) { /* không cần xử lý */ }
 }
