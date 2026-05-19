@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/bg_header_gradient"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_menu_revert"
+            android:tint="@color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Thêm Sân Mới"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_title_lg"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tên sân"
+            android:textColor="@color/text_secondary"
+            android:textSize="@dimen/text_body_md"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/etTenSan"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/input_height"
+            android:background="@drawable/bg_input_default"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:hint="Ví dụ: Sân 05"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/text_body_lg"
+            android:singleLine="true"
+            android:layout_marginBottom="24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Giá thuê / giờ (VNĐ)"
+            android:textColor="@color/text_secondary"
+            android:textSize="@dimen/text_body_md"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/etGiaThue"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/input_height"
+            android:background="@drawable/bg_input_default"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:hint="Ví dụ: 105000"
+            android:inputType="number"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/text_body_lg"
+            android:singleLine="true"
+            android:layout_marginBottom="32dp" />
+
+        <Button
+            android:id="@+id/btnXacNhanThem"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:background="@drawable/bg_btn_primary"
+            android:text="Xác Nhận Thêm Sân"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_body_lg"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</LinearLayout>

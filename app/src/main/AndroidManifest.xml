@@ -16,6 +16,7 @@
         <activity
             android:name=".activity.DangNhapActivity"
             android:exported="true"
+            android:windowSoftInputMode="adjustPan"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -58,6 +59,12 @@
             android:name=".activity.CauHinhSanActivity"
             android:exported="false"
             android:label="@string/title_cau_hinh_san" />
+
+        <!-- Thêm sân -->
+        <activity
+            android:name=".activity.ThemSanActivity"
+            android:exported="false"
+            android:label="Thêm sân mới" />
 
     </application>
 

@@ -2,5 +2,5 @@
 <!-- Icon enclosure circle background (blue tint) -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="oval">
-    <solid android:color="#33FFFFFF" />
+    <solid android:color="@color/primary" />
 </shape>

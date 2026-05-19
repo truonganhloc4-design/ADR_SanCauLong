@@ -227,7 +227,7 @@
                             android:layout_marginEnd="@dimen/spacing_sm"
                             android:background="@drawable/bg_btn_secondary"
                             android:text="@string/btn_huy"
-                            android:textColor="@color/primary"
+                            android:textColor="@color/background"
                             android:textSize="@dimen/text_body_md"
                             android:textStyle="bold"
                             android:stateListAnimator="@null" />

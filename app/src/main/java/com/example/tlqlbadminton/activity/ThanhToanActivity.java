@@ -9,11 +9,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.tlqlbadminton.R;
+import com.example.tlqlbadminton.model.AppState;
 
 public class ThanhToanActivity extends AppCompatActivity {
 
     public static final String EXTRA_COURT_ID     = "extra_court_id";
     public static final String EXTRA_BOOKING_CODE = "extra_booking_code";
+    public static final String EXTRA_COURT_INDEX  = "extra_court_index";
 
     private ImageButton btnBack;
     private TextView tvCourtTitle;
@@ -34,9 +36,10 @@ public class ThanhToanActivity extends AppCompatActivity {
 
     private String courtId;
     private String bookingCode;
-    private long giaCourtBase = 105000L; // Base price from booking
-    private long tongCong;
-    private String selectedPayment = "tienmat"; // default
+    private int    courtIndex = 0;
+    private long   giaCourtBase = 105000L;
+    private long   tongCong;
+    private String selectedPayment = "tienmat";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,7 @@ public class ThanhToanActivity extends AppCompatActivity {
 
         courtId     = getIntent().getStringExtra(EXTRA_COURT_ID);
         bookingCode = getIntent().getStringExtra(EXTRA_BOOKING_CODE);
+        courtIndex  = getIntent().getIntExtra(EXTRA_COURT_INDEX, 0);
         if (courtId == null) courtId = "1";
         if (bookingCode == null) bookingCode = "#BK-00001";
 
@@ -112,11 +116,22 @@ public class ThanhToanActivity extends AppCompatActivity {
     }
 
     private void confirmPayment() {
-        // TODO: Save payment to DB via DatabaseHelper, update court status
+        // Ghi AppState → sân về xanh (Trống), sinh hóa đơn vào Thống kê
+        java.text.SimpleDateFormat sdf =
+            new java.text.SimpleDateFormat("HH:mm dd/MM", java.util.Locale.getDefault());
+        String now = sdf.format(new java.util.Date());
+
+        AppState.InvoiceEntry entry = new AppState.InvoiceEntry(
+                bookingCode,
+                "Sân 0" + courtId,
+                now,
+                tongCong,
+                now);
+        AppState.getInstance().thanhToan(courtIndex, entry);
+
         Toast.makeText(this,
                 "Thanh toán thành công! " + formatCurrency(tongCong) + " VNĐ",
                 Toast.LENGTH_LONG).show();
-        // Return to dashboard
         finish();
     }
 

@@ -237,7 +237,7 @@
                             android:layout_height="@dimen/button_height_sm"
                             android:background="@drawable/bg_btn_secondary"
                             android:text="@string/btn_them_dich_vu"
-                            android:textColor="@color/primary"
+                            android:textColor="@color/background"
                             android:textSize="@dimen/text_label_md"
                             android:paddingStart="@dimen/spacing_md"
                             android:paddingEnd="@dimen/spacing_md"
@@ -426,7 +426,7 @@
             android:layout_marginEnd="@dimen/spacing_sm"
             android:background="@drawable/bg_btn_secondary"
             android:text="@string/btn_in_hoa_don"
-            android:textColor="@color/primary"
+            android:textColor="@color/background"
             android:textSize="@dimen/text_body_md"
             android:textStyle="bold"
             android:stateListAnimator="@null" />

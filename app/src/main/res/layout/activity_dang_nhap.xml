@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Màn hình Đăng nhập — activity_dang_nhap.xml -->
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -8,160 +7,146 @@
     android:background="@color/background"
     android:fitsSystemWindows="true">
 
-    <!-- ===== HEADER GRADIENT BANNER ===== -->
-    <View
-        android:id="@+id/viewHeaderBg"
-        android:layout_width="0dp"
-        android:layout_height="280dp"
-        android:background="@drawable/bg_header_gradient"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-    <!-- App Icon circle -->
-    <FrameLayout
-        android:id="@+id/frameAppIcon"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:background="@drawable/bg_icon_circle_green"
-        android:elevation="4dp"
-        app:layout_constraintTop_toTopOf="@id/viewHeaderBg"
-        app:layout_constraintBottom_toBottomOf="@id/viewHeaderBg"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0.45">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <ImageView
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:layout_gravity="center"
-            android:src="@android:drawable/ic_menu_compass"
-            app:tint="@color/primary" />
-    </FrameLayout>
+            <!-- ===== FORM CARD ===== -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardLoginForm"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginTop="64dp"
+                android:layout_marginBottom="64dp"
+                app:cardCornerRadius="@dimen/radius_xl"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/white"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
 
-    <!-- App Name -->
-    <TextView
-        android:id="@+id/tvAppName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textSize="@dimen/text_headline_md"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:layout_marginTop="12dp"
-        app:layout_constraintTop_toBottomOf="@id/frameAppIcon"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <!-- Subtitle -->
-    <TextView
-        android:id="@+id/tvAppSubtitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/login_welcome"
-        android:textSize="@dimen/text_body_md"
-        android:textColor="#CCffffff"
-        android:layout_marginTop="4dp"
-        app:layout_constraintTop_toBottomOf="@id/tvAppName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <!-- ===== FORM CARD ===== -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardLoginForm"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_mobile"
-        android:layout_marginEnd="@dimen/margin_mobile"
-        android:layout_marginTop="24dp"
-        app:cardCornerRadius="@dimen/radius_xl"
-        app:cardElevation="8dp"
-        app:cardBackgroundColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@id/viewHeaderBg"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.05">
-
-        <LinearLayout
+                <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/spacing_lg">
+            android:padding="24dp"
+            android:gravity="center_horizontal">
 
-            <!-- Login Title -->
+            <!-- App Icon circle -->
+            <FrameLayout
+                android:id="@+id/frameAppIcon"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@drawable/bg_icon_circle_blue"
+                android:elevation="0dp"
+                android:layout_marginBottom="16dp">
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:src="@android:drawable/ic_menu_compass"
+                    app:tint="@color/white" />
+            </FrameLayout>
+
+            <!-- App Name -->
             <TextView
-                android:id="@+id/tvLoginTitle"
+                android:id="@+id/tvAppName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btn_login"
-                android:textSize="@dimen/text_headline_sm"
-                android:textColor="@color/text_primary"
+                android:text="@string/app_name"
+                android:textSize="24sp"
+                android:textColor="@color/black"
                 android:textStyle="bold"
                 android:layout_marginBottom="4dp" />
 
+            <!-- Subtitle -->
             <TextView
-                android:id="@+id/tvLoginSubtitle"
+                android:id="@+id/tvAppSubtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/login_subtitle"
-                android:textSize="@dimen/text_body_md"
+                android:text="@string/login_welcome"
+                android:textSize="14sp"
                 android:textColor="@color/text_secondary"
-                android:layout_marginBottom="@dimen/spacing_lg" />
+                android:layout_marginBottom="32dp" />
 
             <!-- Username field -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/hint_username"
-                android:textSize="@dimen/text_body_md"
-                android:textColor="@color/text_secondary"
-                android:textStyle="bold"
-                android:layout_marginBottom="@dimen/spacing_sm" />
-
-            <EditText
-                android:id="@+id/etUsername"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/input_height"
-                android:background="@drawable/bg_input_default"
-                android:paddingStart="@dimen/input_padding_horizontal"
-                android:paddingEnd="@dimen/input_padding_horizontal"
-                android:hint="@string/hint_username"
-                android:textSize="@dimen/text_body_lg"
-                android:textColor="@color/text_primary"
-                android:textColorHint="@color/text_hint"
-                android:inputType="text"
-                android:singleLine="true"
-                android:drawableStart="@android:drawable/ic_menu_myplaces"
-                android:drawablePadding="10dp"
-                android:layout_marginBottom="@dimen/spacing_md" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="16dp">
+                
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hint_username"
+                    android:textSize="12sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp" />
+
+                <EditText
+                    android:id="@+id/etUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/input_height"
+                    android:background="@drawable/bg_input_default"
+                    android:paddingStart="@dimen/input_padding_horizontal"
+                    android:paddingEnd="@dimen/input_padding_horizontal"
+                    android:hint="@string/hint_username"
+                    android:textSize="@dimen/text_body_lg"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_hint"
+                    android:inputType="textNoSuggestions|textVisiblePassword"
+                    android:maxLines="1"
+                    android:lines="1"
+                    android:gravity="center_vertical|start"
+                    android:drawableStart="@android:drawable/ic_menu_myplaces"
+                    android:drawablePadding="10dp" />
+            </LinearLayout>
 
             <!-- Password field -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/hint_password"
-                android:textSize="@dimen/text_body_md"
-                android:textColor="@color/text_secondary"
-                android:textStyle="bold"
-                android:layout_marginBottom="@dimen/spacing_sm" />
-
-            <EditText
-                android:id="@+id/etPassword"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/input_height"
-                android:background="@drawable/bg_input_default"
-                android:paddingStart="@dimen/input_padding_horizontal"
-                android:paddingEnd="@dimen/input_padding_horizontal"
-                android:hint="@string/hint_password"
-                android:textSize="@dimen/text_body_lg"
-                android:textColor="@color/text_primary"
-                android:textColorHint="@color/text_hint"
-                android:inputType="textPassword"
-                android:singleLine="true"
-                android:drawableStart="@android:drawable/ic_lock_lock"
-                android:drawablePadding="10dp"
-                android:layout_marginBottom="@dimen/spacing_lg" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hint_password"
+                    android:textSize="12sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp" />
+
+                <EditText
+                    android:id="@+id/etPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/input_height"
+                    android:background="@drawable/bg_input_default"
+                    android:paddingStart="@dimen/input_padding_horizontal"
+                    android:paddingEnd="@dimen/input_padding_horizontal"
+                    android:hint="@string/hint_password"
+                    android:textSize="@dimen/text_body_lg"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_hint"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:lines="1"
+                    android:gravity="center_vertical|start"
+                    android:drawableStart="@android:drawable/ic_lock_lock"
+                    android:drawablePadding="10dp" />
+            </LinearLayout>
 
             <!-- Error message -->
             <TextView
@@ -169,10 +154,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textSize="@dimen/text_body_md"
+                android:textSize="12sp"
                 android:textColor="@color/error"
-                android:visibility="gone"
-                android:layout_marginBottom="@dimen/spacing_sm" />
+                android:visibility="invisible"
+                android:layout_marginBottom="8dp" />
 
             <!-- Login Button -->
             <Button
@@ -180,25 +165,59 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/button_height"
                 android:background="@drawable/bg_btn_primary"
-                android:text="@string/btn_login"
+                android:text="Đăng nhập ➔"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_body_lg"
                 android:textStyle="bold"
                 android:stateListAnimator="@null"
-                android:layout_marginBottom="@dimen/spacing_md" />
+                android:layout_marginBottom="24dp" />
 
-            <!-- Default account hint -->
-            <TextView
-                android:id="@+id/tvDefaultAccount"
-                android:layout_width="wrap_content"
+            <!-- Default account hint in a box -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/default_account"
-                android:textSize="@dimen/text_label_md"
-                android:textColor="@color/text_hint"
-                android:layout_gravity="center"
-                android:gravity="center" />
+                android:background="@drawable/bg_input_default"
+                android:backgroundTint="#F0F0F5"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="16dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="4dp">
+                    
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@android:drawable/ic_dialog_info"
+                        app:tint="@color/secondary"
+                        android:layout_marginEnd="8dp"/>
+                        
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ghi chú"
+                        android:textSize="12sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvDefaultAccount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tài khoản mặc định: admin/123"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_secondary" />
+            </LinearLayout>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

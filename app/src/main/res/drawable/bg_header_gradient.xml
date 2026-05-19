@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Green gradient header banner -->
+<!-- Blue gradient header banner — SportCenter Pro style -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
     <gradient
-        android:startColor="@color/primary"
-        android:endColor="@color/primary_container"
+        android:startColor="#0D47A1"
+        android:centerColor="#1565C0"
+        android:endColor="#1E88E5"
         android:angle="135"
         android:type="linear" />
     <corners

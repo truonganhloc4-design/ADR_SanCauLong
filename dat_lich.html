@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+
+<html lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Đặt lịch trước - SportCenter Pro</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#4f5a98",
+                        "on-secondary-fixed-variant": "#37427f",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed": "#00105b",
+                        "on-surface": "#1a1b24",
+                        "surface": "#fbf8ff",
+                        "surface-container": "#eeecf9",
+                        "on-surface-variant": "#444655",
+                        "tertiary-container": "#9e2800",
+                        "on-background": "#1a1b24",
+                        "surface-dim": "#dad9e5",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-secondary-container": "#3d4885",
+                        "inverse-surface": "#2f3039",
+                        "primary-fixed": "#dee0ff",
+                        "on-tertiary-fixed": "#3b0900",
+                        "surface-container-low": "#f4f2ff",
+                        "on-primary-fixed-variant": "#002fc9",
+                        "primary-container": "#1e40d6",
+                        "primary": "#0028af",
+                        "outline-variant": "#c5c5d8",
+                        "surface-container-highest": "#e2e1ee",
+                        "tertiary-fixed-dim": "#ffb5a0",
+                        "primary-fixed-dim": "#bac3ff",
+                        "on-tertiary": "#ffffff",
+                        "inverse-on-surface": "#f1effc",
+                        "surface-tint": "#2e4ce1",
+                        "outline": "#757687",
+                        "on-primary-container": "#bcc5ff",
+                        "tertiary": "#751b00",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed": "#061451",
+                        "secondary-fixed-dim": "#bac3ff",
+                        "surface-container-high": "#e8e7f3",
+                        "inverse-primary": "#bac3ff",
+                        "background": "#fbf8ff",
+                        "surface-variant": "#e2e1ee",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#afbaff",
+                        "tertiary-fixed": "#ffdbd1",
+                        "surface-bright": "#fbf8ff",
+                        "on-tertiary-container": "#ffb7a3",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed": "#dee0ff",
+                        "on-tertiary-fixed-variant": "#872100",
+                        "error-container": "#ffdad6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "sm": "8px",
+                        "margin-mobile": "16px",
+                        "xs": "4px",
+                        "xl": "32px",
+                        "gutter": "16px",
+                        "base": "4px",
+                        "md": "16px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "title-lg": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-lg min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky bg-surface dark:bg-surface-dim shadow-sm z-40">
+<div class="flex items-center justify-between px-md h-16 w-full">
+<button class="text-on-surface-variant hover:bg-surface-container-high transition-colors p-2 rounded-full active:opacity-80 transition-opacity">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="font-headline-sm text-headline-sm text-primary font-bold">Đặt lịch trước</h1>
+<div class="w-10"></div> <!-- Placeholder for balance -->
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow p-margin-mobile flex flex-col gap-lg pb-32">
+<!-- Customer Info Section -->
+<section class="bg-surface-container-lowest shadow-sm rounded-xl p-md border border-outline-variant/30 flex flex-col gap-md">
+<h2 class="font-title-lg text-title-lg text-on-surface">Thông tin khách hàng</h2>
+<div class="flex flex-col gap-sm">
+<label class="font-label-md text-label-md text-on-surface-variant" for="customerName">Tên khách hàng</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-outline">person</span>
+<input class="w-full pl-10 pr-4 py-3 rounded-lg border border-outline-variant bg-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-body-lg font-body-lg text-on-surface transition-colors" id="customerName" placeholder="Nhập tên khách hàng" type="text"/>
+</div>
+</div>
+<div class="flex flex-col gap-sm">
+<label class="font-label-md text-label-md text-on-surface-variant" for="phoneNumber">Số điện thoại</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-outline">phone</span>
+<input class="w-full pl-10 pr-4 py-3 rounded-lg border border-outline-variant bg-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-body-lg font-body-lg text-on-surface transition-colors" id="phoneNumber" placeholder="Nhập số điện thoại" type="tel"/>
+</div>
+</div>
+<div class="flex flex-col gap-sm">
+<label class="font-label-md text-label-md text-on-surface-variant" for="depositAmount">Tiền cọc (VNĐ)</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-outline">payments</span>
+<input class="w-full pl-10 pr-4 py-3 rounded-lg border border-outline-variant bg-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-body-lg font-body-lg text-on-surface transition-colors" id="depositAmount" placeholder="0" type="number"/>
+</div>
+</div>
+</section>
+<!-- Booking Details Section -->
+<section class="bg-surface-container-lowest shadow-sm rounded-xl p-md border border-outline-variant/30 flex flex-col gap-md">
+<h2 class="font-title-lg text-title-lg text-on-surface">Chi tiết đặt sân</h2>
+<div class="grid grid-cols-2 gap-md">
+<div class="flex flex-col gap-sm">
+<label class="font-label-md text-label-md text-on-surface-variant" for="bookingDate">Ngày đặt lịch</label>
+<div class="relative">
+<input class="w-full px-4 py-3 rounded-lg border border-outline-variant bg-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-body-lg font-body-lg text-on-surface transition-colors" id="bookingDate" type="date"/>
+</div>
+</div>
+<div class="flex flex-col gap-sm">
+<label class="font-label-md text-label-md text-on-surface-variant" for="timeSlot">Khung giờ chơi</label>
+<div class="relative">
+<select class="w-full px-4 py-3 rounded-lg border border-outline-variant bg-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-body-lg font-body-lg text-on-surface appearance-none transition-colors" id="timeSlot">
+<option>18:00 - 20:00</option>
+<option>20:00 - 22:00</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 transform -translate-y-1/2 text-outline pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-sm mt-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Số sân muốn đặt</label>
+<div class="grid grid-cols-3 gap-sm">
+<button class="py-3 rounded-lg border border-primary bg-primary-container text-on-primary-container font-body-lg text-body-lg font-semibold transition-colors">Sân 1</button>
+<button class="py-3 rounded-lg border border-outline-variant bg-surface text-on-surface-variant font-body-lg text-body-lg hover:bg-surface-container-high transition-colors">Sân 2</button>
+<button class="py-3 rounded-lg border border-outline-variant bg-surface text-on-surface-variant font-body-lg text-body-lg hover:bg-surface-container-high transition-colors">Sân 3</button>
+<button class="py-3 rounded-lg border border-outline-variant bg-surface text-on-surface-variant font-body-lg text-body-lg hover:bg-surface-container-high transition-colors">Sân 4</button>
+<button class="py-3 rounded-lg border border-outline-variant bg-surface text-on-surface-variant font-body-lg text-body-lg hover:bg-surface-container-high transition-colors">Sân 5</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Action -->
+<div class="fixed bottom-0 w-full p-margin-mobile bg-surface-container-lowest border-t border-outline-variant/30 shadow-[0_-4px_12px_rgba(0,0,0,0.05)] z-40">
+<button class="w-full py-4 rounded-xl bg-primary-container text-on-primary-container font-title-lg text-title-lg shadow-sm hover:opacity-90 active:scale-[0.98] transition-all">
+            XÁC NHẬN ĐẶT LỊCH
+        </button>
+</div>
+</body></html>

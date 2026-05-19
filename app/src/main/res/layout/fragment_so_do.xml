@@ -1,0 +1,658 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- fragment_so_do.xml — Tab Sơ đồ sân -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background">
+
+    <!-- Filter chips -->
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/chipTatCa"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:text="Tất cả"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:background="@drawable/bg_btn_primary"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/chipSanTrong"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:text="Sân trống"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:gravity="center"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:background="@drawable/bg_btn_outlined"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/chipDangChoi"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:text="Đang chơi"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:gravity="center"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:background="@drawable/bg_btn_outlined" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="80dp">
+
+            <!-- GRID ROW 1 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp"
+                android:weightSum="2">
+
+                <!-- SAN 1 -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardSan1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    app:cardCornerRadius="@dimen/radius_lg"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="@color/white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:id="@+id/accentSan1"
+                            android:layout_width="4dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/status_available" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="12dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical">
+                                
+                                <TextView
+                                    android:id="@+id/tvCourt1Name"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Sân 1"
+                                    android:textSize="16sp"
+                                    android:textColor="@color/primary"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/tvCourt1Status"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/bg_chip_available"
+                                    android:paddingStart="6dp"
+                                    android:paddingEnd="6dp"
+                                    android:paddingTop="2dp"
+                                    android:paddingBottom="2dp"
+                                    android:text="Trống"
+                                    android:textSize="10sp"
+                                    android:textColor="@color/status_available"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginBottom="16dp">
+                                
+                                <ImageView
+                                    android:layout_width="14dp"
+                                    android:layout_height="14dp"
+                                    android:src="@android:drawable/ic_menu_recent_history"
+                                    app:tint="@color/text_secondary"
+                                    android:layout_marginEnd="4dp" />
+                                
+                                <TextView
+                                    android:id="@+id/tvCourt1Info"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Sẵn sàng"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/text_secondary" />
+                            </LinearLayout>
+
+                            <!-- Sân trống: 2 nút -->
+                            <LinearLayout
+                                android:id="@+id/btnGroupSan1Available"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:weightSum="2">
+
+                                <TextView
+                                    android:id="@+id/btnCourt1DatLich"
+                                    android:layout_width="0dp"
+                                    android:layout_height="32dp"
+                                    android:layout_weight="1"
+                                    android:layout_marginEnd="4dp"
+                                    android:background="@drawable/bg_btn_outlined"
+                                    android:text="Đặt lịch"
+                                    android:textColor="@color/primary"
+                                    android:textSize="12sp"
+                                    android:gravity="center"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/btnCourt1NhanSan"
+                                    android:layout_width="0dp"
+                                    android:layout_height="32dp"
+                                    android:layout_weight="1"
+                                    android:layout_marginStart="4dp"
+                                    android:background="@drawable/bg_btn_primary"
+                                    android:text="Nhận sân"
+                                    android:textColor="@color/white"
+                                    android:textSize="12sp"
+                                    android:gravity="center"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <!-- Sân đang chơi: 1 nút -->
+                            <TextView
+                                android:id="@+id/btnCourt1ChiTiet"
+                                android:layout_width="match_parent"
+                                android:layout_height="32dp"
+                                android:background="@drawable/bg_btn_outlined"
+                                android:text="Chi tiết"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="12sp"
+                                android:gravity="center"
+                                android:textStyle="bold"
+                                android:visibility="gone" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- SAN 2 -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardSan2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    app:cardCornerRadius="@dimen/radius_lg"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="@color/white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:id="@+id/accentSan2"
+                            android:layout_width="4dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/status_occupied" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="12dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical">
+                                
+                                <TextView
+                                    android:id="@+id/tvCourt2Name"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Sân 2"
+                                    android:textSize="16sp"
+                                    android:textColor="@color/black"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/tvCourt2Status"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/bg_chip_occupied"
+                                    android:paddingStart="6dp"
+                                    android:paddingEnd="6dp"
+                                    android:paddingTop="2dp"
+                                    android:paddingBottom="2dp"
+                                    android:text="Đang chơi"
+                                    android:textSize="10sp"
+                                    android:textColor="@color/status_occupied"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginBottom="4dp">
+                                
+                                <ImageView
+                                    android:layout_width="14dp"
+                                    android:layout_height="14dp"
+                                    android:src="@android:drawable/ic_menu_recent_history"
+                                    app:tint="@color/status_occupied"
+                                    android:layout_marginEnd="4dp" />
+                                
+                                <TextView
+                                    android:id="@+id/tvCourt2Info"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Còn 45p"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/status_occupied" />
+                            </LinearLayout>
+                            
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical"
+                                android:layout_marginBottom="16dp">
+                                
+                                <ImageView
+                                    android:layout_width="14dp"
+                                    android:layout_height="14dp"
+                                    android:src="@android:drawable/ic_menu_myplaces"
+                                    app:tint="@color/text_secondary"
+                                    android:layout_marginEnd="4dp" />
+                                
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Nguyễn Văn A"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/text_secondary" />
+                            </LinearLayout>
+
+                            <!-- Sân trống: 2 nút -->
+                            <LinearLayout
+                                android:id="@+id/btnGroupSan2Available"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:weightSum="2"
+                                android:visibility="gone">
+
+                                <TextView
+                                    android:id="@+id/btnCourt2DatLich"
+                                    android:layout_width="0dp"
+                                    android:layout_height="32dp"
+                                    android:layout_weight="1"
+                                    android:layout_marginEnd="4dp"
+                                    android:background="@drawable/bg_btn_outlined"
+                                    android:text="Đặt lịch"
+                                    android:textColor="@color/primary"
+                                    android:textSize="12sp"
+                                    android:gravity="center"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/btnCourt2NhanSan"
+                                    android:layout_width="0dp"
+                                    android:layout_height="32dp"
+                                    android:layout_weight="1"
+                                    android:layout_marginStart="4dp"
+                                    android:background="@drawable/bg_btn_primary"
+                                    android:text="Nhận sân"
+                                    android:textColor="@color/white"
+                                    android:textSize="12sp"
+                                    android:gravity="center"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <!-- Sân đang chơi: 1 nút -->
+                            <TextView
+                                android:id="@+id/btnCourt2ChiTiet"
+                                android:layout_width="match_parent"
+                                android:layout_height="32dp"
+                                android:background="@drawable/bg_btn_outlined"
+                                android:text="Chi tiết"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="12sp"
+                                android:gravity="center"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <!-- GRID ROW 2 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp"
+                android:weightSum="2">
+
+                <!-- SAN 3 -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardSan3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    app:cardCornerRadius="@dimen/radius_lg"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="@color/white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:id="@+id/accentSan3"
+                            android:layout_width="4dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/status_available" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="12dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical">
+                                
+                                <TextView
+                                    android:id="@+id/tvCourt3Name"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Sân 3"
+                                    android:textSize="16sp"
+                                    android:textColor="@color/primary"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/tvCourt3Status"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/bg_chip_available"
+                                    android:paddingStart="6dp"
+                                    android:paddingEnd="6dp"
+                                    android:paddingTop="2dp"
+                                    android:paddingBottom="2dp"
+                                    android:text="Trống"
+                                    android:textSize="10sp"
+                                    android:textColor="@color/status_available"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginBottom="16dp">
+                                
+                                <ImageView
+                                    android:layout_width="14dp"
+                                    android:layout_height="14dp"
+                                    android:src="@android:drawable/ic_menu_recent_history"
+                                    app:tint="@color/text_secondary"
+                                    android:layout_marginEnd="4dp" />
+                                
+                                <TextView
+                                    android:id="@+id/tvCourt3Info"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Sẵn sàng"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/text_secondary" />
+                            </LinearLayout>
+
+                            <!-- Sân trống: 2 nút -->
+                            <LinearLayout
+                                android:id="@+id/btnGroupSan3Available"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:weightSum="2">
+
+                                <TextView
+                                    android:id="@+id/btnCourt3DatLich"
+                                    android:layout_width="0dp"
+                                    android:layout_height="32dp"
+                                    android:layout_weight="1"
+                                    android:layout_marginEnd="4dp"
+                                    android:background="@drawable/bg_btn_outlined"
+                                    android:text="Đặt lịch"
+                                    android:textColor="@color/primary"
+                                    android:textSize="12sp"
+                                    android:gravity="center"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/btnCourt3NhanSan"
+                                    android:layout_width="0dp"
+                                    android:layout_height="32dp"
+                                    android:layout_weight="1"
+                                    android:layout_marginStart="4dp"
+                                    android:background="@drawable/bg_btn_primary"
+                                    android:text="Nhận sân"
+                                    android:textColor="@color/white"
+                                    android:textSize="12sp"
+                                    android:gravity="center"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <!-- Sân đang chơi: 1 nút -->
+                            <TextView
+                                android:id="@+id/btnCourt3ChiTiet"
+                                android:layout_width="match_parent"
+                                android:layout_height="32dp"
+                                android:background="@drawable/bg_btn_outlined"
+                                android:text="Chi tiết"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="12sp"
+                                android:gravity="center"
+                                android:textStyle="bold"
+                                android:visibility="gone" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- SAN 4 -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardSan4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    app:cardCornerRadius="@dimen/radius_lg"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="@color/white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:id="@+id/accentSan4"
+                            android:layout_width="4dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/status_available" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="12dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical">
+                                
+                                <TextView
+                                    android:id="@+id/tvCourt4Name"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Sân 4"
+                                    android:textSize="16sp"
+                                    android:textColor="@color/primary"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/tvCourt4Status"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/bg_chip_available"
+                                    android:paddingStart="6dp"
+                                    android:paddingEnd="6dp"
+                                    android:paddingTop="2dp"
+                                    android:paddingBottom="2dp"
+                                    android:text="Trống"
+                                    android:textSize="10sp"
+                                    android:textColor="@color/status_available"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginBottom="16dp">
+                                
+                                <ImageView
+                                    android:layout_width="14dp"
+                                    android:layout_height="14dp"
+                                    android:src="@android:drawable/ic_menu_recent_history"
+                                    app:tint="@color/text_secondary"
+                                    android:layout_marginEnd="4dp" />
+                                
+                                <TextView
+                                    android:id="@+id/tvCourt4Info"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Sẵn sàng"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/text_secondary" />
+                            </LinearLayout>
+
+                            <!-- Sân trống: 2 nút -->
+                            <LinearLayout
+                                android:id="@+id/btnGroupSan4Available"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:weightSum="2">
+
+                                <TextView
+                                    android:id="@+id/btnCourt4DatLich"
+                                    android:layout_width="0dp"
+                                    android:layout_height="32dp"
+                                    android:layout_weight="1"
+                                    android:layout_marginEnd="4dp"
+                                    android:background="@drawable/bg_btn_outlined"
+                                    android:text="Đặt lịch"
+                                    android:textColor="@color/primary"
+                                    android:textSize="12sp"
+                                    android:gravity="center"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/btnCourt4NhanSan"
+                                    android:layout_width="0dp"
+                                    android:layout_height="32dp"
+                                    android:layout_weight="1"
+                                    android:layout_marginStart="4dp"
+                                    android:background="@drawable/bg_btn_primary"
+                                    android:text="Nhận sân"
+                                    android:textColor="@color/white"
+                                    android:textSize="12sp"
+                                    android:gravity="center"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <!-- Sân đang chơi: 1 nút -->
+                            <TextView
+                                android:id="@+id/btnCourt4ChiTiet"
+                                android:layout_width="match_parent"
+                                android:layout_height="32dp"
+                                android:background="@drawable/bg_btn_outlined"
+                                android:text="Chi tiết"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="12sp"
+                                android:gravity="center"
+                                android:textStyle="bold"
+                                android:visibility="gone" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

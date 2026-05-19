@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- fragment_thong_ke.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background">
+
+    <!-- Filter chips hàng đầu -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="8dp">
+
+        <TextView
+            android:id="@+id/chipNgay"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/chip_height"
+            android:background="@drawable/bg_chip_filter_active"
+            android:paddingStart="@dimen/chip_padding_horizontal"
+            android:paddingEnd="@dimen/chip_padding_horizontal"
+            android:text="Theo ngày"
+            android:textSize="@dimen/text_body_md"
+            android:textColor="@color/primary"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginEnd="8dp" />
+
+        <TextView
+            android:id="@+id/chipTuan"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/chip_height"
+            android:background="@drawable/bg_chip_filter_inactive"
+            android:paddingStart="@dimen/chip_padding_horizontal"
+            android:paddingEnd="@dimen/chip_padding_horizontal"
+            android:text="Theo tuần"
+            android:textSize="@dimen/text_body_md"
+            android:textColor="@color/text_secondary"
+            android:gravity="center"
+            android:layout_marginEnd="8dp" />
+
+        <TextView
+            android:id="@+id/chipThang"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/chip_height"
+            android:background="@drawable/bg_chip_filter_inactive"
+            android:paddingStart="@dimen/chip_padding_horizontal"
+            android:paddingEnd="@dimen/chip_padding_horizontal"
+            android:text="Theo tháng"
+            android:textSize="@dimen/text_body_md"
+            android:textColor="@color/text_secondary"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="16dp">
+
+            <!-- Stat cards -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_marginBottom="16dp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    app:cardCornerRadius="@dimen/radius_lg"
+                    app:cardElevation="@dimen/card_elevation"
+                    app:cardBackgroundColor="@color/white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tổng doanh thu"
+                            android:textSize="@dimen/text_label_md"
+                            android:textColor="@color/text_secondary"
+                            android:layout_marginBottom="4dp" />
+
+                        <TextView
+                            android:id="@+id/tvTongDoanhThu"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textSize="@dimen/text_headline_sm"
+                            android:textColor="@color/primary"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="VNĐ"
+                            android:textSize="@dimen/text_label_md"
+                            android:textColor="@color/text_hint" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    app:cardCornerRadius="@dimen/radius_lg"
+                    app:cardElevation="@dimen/card_elevation"
+                    app:cardBackgroundColor="@color/white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Số lượt chơi"
+                            android:textSize="@dimen/text_label_md"
+                            android:textColor="@color/text_secondary"
+                            android:layout_marginBottom="4dp" />
+
+                        <TextView
+                            android:id="@+id/tvSoLuotDat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textSize="@dimen/text_headline_sm"
+                            android:textColor="@color/tertiary"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="lượt"
+                            android:textSize="@dimen/text_label_md"
+                            android:textColor="@color/text_hint" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <!-- Lịch sử hóa đơn -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lịch sử hóa đơn"
+                android:textSize="@dimen/text_title_lg"
+                android:textColor="@color/text_primary"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Empty state -->
+            <TextView
+                android:id="@+id/tvEmptyThongKe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Chưa có hóa đơn nào trong kỳ này."
+                android:textSize="@dimen/text_body_md"
+                android:textColor="@color/text_hint"
+                android:gravity="center"
+                android:padding="24dp"
+                android:visibility="visible" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvHoaDon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

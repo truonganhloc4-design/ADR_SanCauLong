@@ -72,7 +72,7 @@ public class DangNhapActivity extends AppCompatActivity {
     }
 
     private void hideError() {
-        tvLoginError.setVisibility(View.GONE);
+        tvLoginError.setVisibility(View.INVISIBLE);
     }
 
     private void navigateToMain() {

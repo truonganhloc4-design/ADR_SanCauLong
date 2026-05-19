@@ -2,35 +2,32 @@ package com.example.tlqlbadminton.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import com.example.tlqlbadminton.R;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
 
-    // Summary stats
-    private TextView tvCountAvailable;
-    private TextView tvCountOccupied;
-    private TextView tvCountBooked;
+    // Bottom Nav views
+    private LinearLayout navSoDo, navThongKe, navLichSu;
+    private ImageView iconSoDo, iconThongKe, iconLichSu;
+    private TextView labelSoDo, labelThongKe, labelLichSu;
 
-    // Court cards action buttons
-    private Button btnCourt1Action;
-    private Button btnCourt2Action;
-    private Button btnCourt3Action;
-    private Button btnCourt4Action;
+    // Header
+    private ImageView ivCauHinhSan;
+    private com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton fabThemSan;
 
-    // Bottom navigation
-    private LinearLayout navSoDo;
-    private LinearLayout navThongKe;
-    private LinearLayout navLichSu;
-    private LinearLayout navCaiDat;
+    // Fragment instances (giữ sống để không mất state khi switch)
+    private SoDoFragment soDoFragment;
+    private ThongKeFragment thongKeFragment;
+    private LichSuFragment lichSuFragment;
 
-    // FAB
-    private ExtendedFloatingActionButton fabDatSanNhanh;
+    private int currentTab = 0; // 0=SoDo, 1=ThongKe, 2=LichSu
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,86 +36,108 @@ public class MainActivity extends AppCompatActivity {
 
         bindViews();
         setupNavigation();
-        setupCourtActions();
-        loadCourtData();
+
+        // Load fragment đầu tiên
+        if (savedInstanceState == null) {
+            showFragment(0);
+        }
     }
 
     private void bindViews() {
-        tvCountAvailable = findViewById(R.id.tvCountAvailable);
-        tvCountOccupied  = findViewById(R.id.tvCountOccupied);
-        tvCountBooked    = findViewById(R.id.tvCountBooked);
-
-        btnCourt1Action  = findViewById(R.id.btnCourt1Action);
-        btnCourt2Action  = findViewById(R.id.btnCourt2Action);
-        btnCourt3Action  = findViewById(R.id.btnCourt3Action);
-        btnCourt4Action  = findViewById(R.id.btnCourt4Action);
-
         navSoDo    = findViewById(R.id.navSoDo);
         navThongKe = findViewById(R.id.navThongKe);
         navLichSu  = findViewById(R.id.navLichSu);
-        navCaiDat  = findViewById(R.id.navCaiDat);
 
-        fabDatSanNhanh = findViewById(R.id.fabDatSanNhanh);
+        iconSoDo    = findViewById(R.id.iconSoDo);
+        iconThongKe = findViewById(R.id.iconThongKe);
+        iconLichSu  = findViewById(R.id.iconLichSu);
+
+        labelSoDo    = findViewById(R.id.labelSoDo);
+        labelThongKe = findViewById(R.id.labelThongKe);
+        labelLichSu  = findViewById(R.id.labelLichSu);
+
+        ivCauHinhSan = findViewById(R.id.ivCauHinhSan);
+        fabThemSan   = findViewById(R.id.fabThemSan);
     }
 
     private void setupNavigation() {
-        navThongKe.setOnClickListener(v -> {
-            startActivity(new Intent(this, ThongKeActivity.class));
-        });
+        navSoDo.setOnClickListener(v    -> showFragment(0));
+        navThongKe.setOnClickListener(v -> showFragment(1));
+        navLichSu.setOnClickListener(v  -> showFragment(2));
 
-        navLichSu.setOnClickListener(v -> {
-            startActivity(new Intent(this, ThongKeActivity.class));
-        });
+        ivCauHinhSan.setOnClickListener(v ->
+            startActivity(new Intent(this, CauHinhSanActivity.class)));
 
-        navCaiDat.setOnClickListener(v -> {
-            startActivity(new Intent(this, CauHinhSanActivity.class));
-        });
-
-        fabDatSanNhanh.setOnClickListener(v -> {
-            startActivity(new Intent(this, DatLichTruocActivity.class));
-        });
+        if (fabThemSan != null) {
+            fabThemSan.setOnClickListener(v ->
+                startActivity(new Intent(this, ThemSanActivity.class)));
+        }
     }
 
-    private void setupCourtActions() {
-        // Sân 1: Available → Nhận sân
-        btnCourt1Action.setOnClickListener(v -> openNhanSan("1"));
+    private void showFragment(int tabIndex) {
+        if (currentTab == tabIndex && getSupportFragmentManager()
+                .findFragmentById(R.id.fragmentContainer) != null) {
+            return; // Không load lại nếu đang ở tab đó rồi
+        }
+        currentTab = tabIndex;
 
-        // Sân 2: Occupied → Trả sân (goes to Thanh toán)
-        btnCourt2Action.setOnClickListener(v -> openThanhToan("2", "#BK-00002"));
+        // Lấy hoặc tạo fragment
+        Fragment target;
+        String tag;
+        switch (tabIndex) {
+            case 1:
+                if (thongKeFragment == null) thongKeFragment = new ThongKeFragment();
+                target = thongKeFragment;
+                tag = "THONG_KE";
+                break;
+            case 2:
+                if (lichSuFragment == null) lichSuFragment = new LichSuFragment();
+                target = lichSuFragment;
+                tag = "LICH_SU";
+                break;
+            default:
+                if (soDoFragment == null) soDoFragment = new SoDoFragment();
+                target = soDoFragment;
+                tag = "SO_DO";
+                break;
+        }
 
-        // Sân 3: Booked → Chi tiết
-        btnCourt3Action.setOnClickListener(v -> openNhanSan("3"));
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.fragmentContainer, target, tag);
+        ft.commit();
 
-        // Sân 4: Available → Nhận sân
-        btnCourt4Action.setOnClickListener(v -> openNhanSan("4"));
+        updateNavHighlight(tabIndex);
     }
 
-    private void openNhanSan(String courtId) {
-        Intent intent = new Intent(this, NhanSanActivity.class);
-        intent.putExtra(NhanSanActivity.EXTRA_COURT_ID, courtId);
-        startActivity(intent);
-    }
+    private void updateNavHighlight(int activeTab) {
+        int selected   = ContextCompat.getColor(this, R.color.nav_selected);
+        int unselected = ContextCompat.getColor(this, R.color.nav_unselected);
 
-    private void openThanhToan(String courtId, String bookingCode) {
-        Intent intent = new Intent(this, ThanhToanActivity.class);
-        intent.putExtra(ThanhToanActivity.EXTRA_COURT_ID, courtId);
-        intent.putExtra(ThanhToanActivity.EXTRA_BOOKING_CODE, bookingCode);
-        startActivity(intent);
-    }
+        // Reset all to unselected
+        iconSoDo.setColorFilter(unselected);
+        iconThongKe.setColorFilter(unselected);
+        iconLichSu.setColorFilter(unselected);
+        labelSoDo.setTextColor(unselected);    labelSoDo.setTypeface(null, android.graphics.Typeface.NORMAL);
+        labelThongKe.setTextColor(unselected); labelThongKe.setTypeface(null, android.graphics.Typeface.NORMAL);
+        labelLichSu.setTextColor(unselected);  labelLichSu.setTypeface(null, android.graphics.Typeface.NORMAL);
 
-    /** Load dữ liệu sân từ DB — kết nối với DatabaseHelper sau */
-    private void loadCourtData() {
-        // TODO: load from DatabaseHelper
-        // Tạm thời set static values
-        tvCountAvailable.setText("2");
-        tvCountOccupied.setText("1");
-        tvCountBooked.setText("1");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // Refresh court statuses when returning
-        loadCourtData();
+        // Highlight active
+        switch (activeTab) {
+            case 0:
+                iconSoDo.setColorFilter(selected);
+                labelSoDo.setTextColor(selected);
+                labelSoDo.setTypeface(null, android.graphics.Typeface.BOLD);
+                break;
+            case 1:
+                iconThongKe.setColorFilter(selected);
+                labelThongKe.setTextColor(selected);
+                labelThongKe.setTypeface(null, android.graphics.Typeface.BOLD);
+                break;
+            case 2:
+                iconLichSu.setColorFilter(selected);
+                labelLichSu.setTextColor(selected);
+                labelLichSu.setTypeface(null, android.graphics.Typeface.BOLD);
+                break;
+        }
     }
 }
