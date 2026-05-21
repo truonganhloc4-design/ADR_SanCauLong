@@ -118,7 +118,6 @@
                         android:layout_height="@dimen/input_height"
                         android:layout_marginBottom="@dimen/spacing_md"
                         android:background="@drawable/bg_input_default"
-                        android:clickable="true"
                         android:focusable="false"
                         android:gravity="center_vertical|start"
                         android:orientation="horizontal"
@@ -147,7 +146,6 @@
                             android:singleLine="true"
                             android:textColor="@color/text_primary"
                             android:textColorHint="@color/text_hint"
-                            android:textCursorDrawable="@null"
                             android:textSize="@dimen/text_body_lg" />
                     </LinearLayout>
 
@@ -165,7 +163,6 @@
                         android:layout_height="@dimen/input_height"
                         android:layout_marginBottom="@dimen/spacing_md"
                         android:background="@drawable/bg_input_default"
-                        android:clickable="true"
                         android:focusable="false"
                         android:gravity="center_vertical|start"
                         android:orientation="horizontal"
@@ -194,7 +191,6 @@
                             android:singleLine="true"
                             android:textColor="@color/text_primary"
                             android:textColorHint="@color/text_hint"
-                            android:textCursorDrawable="@null"
                             android:textSize="@dimen/text_body_lg" />
                     </LinearLayout>
 
@@ -212,7 +208,6 @@
                         android:layout_height="@dimen/input_height"
                         android:layout_marginBottom="@dimen/spacing_md"
                         android:background="@drawable/bg_input_default"
-                        android:clickable="true"
                         android:focusable="false"
                         android:gravity="center_vertical|start"
                         android:orientation="horizontal"
@@ -241,7 +236,6 @@
                             android:singleLine="true"
                             android:textColor="@color/text_primary"
                             android:textColorHint="@color/text_hint"
-                            android:textCursorDrawable="@null"
                             android:textSize="@dimen/text_body_lg" />
                     </LinearLayout>
 
@@ -258,7 +252,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/input_height"
                         android:background="@drawable/bg_input_default"
-                        android:clickable="true"
                         android:focusable="false"
                         android:gravity="center_vertical|start"
                         android:orientation="horizontal"
@@ -287,7 +280,6 @@
                             android:singleLine="true"
                             android:textColor="@color/text_primary"
                             android:textColorHint="@color/text_hint"
-                            android:textCursorDrawable="@null"
                             android:textSize="@dimen/text_body_lg" />
                     </LinearLayout>
 

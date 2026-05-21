@@ -2,6 +2,8 @@ package com.example.tlqlbadminton.activity;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MotionEvent;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -33,6 +35,7 @@ public class DangKyActivity extends AppCompatActivity {
 
         taiKhoanDAO = new TaiKhoanDAO(this);
         bindViews();
+        setupInputs();
         setupListeners();
     }
 
@@ -45,6 +48,32 @@ public class DangKyActivity extends AppCompatActivity {
         tvRegisterError = findViewById(R.id.tvRegisterError);
         btnRegister = findViewById(R.id.btnRegister);
         tvGoLogin = findViewById(R.id.tvGoLogin);
+    }
+
+    private void setupInputs() {
+        prepareInput(etDisplayName);
+        prepareInput(etUsername);
+        prepareInput(etPassword);
+        prepareInput(etConfirmPassword);
+    }
+
+    private void prepareInput(EditText editText) {
+        editText.setEnabled(true);
+        editText.setFocusable(true);
+        editText.setFocusableInTouchMode(true);
+        editText.setCursorVisible(true);
+        editText.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                editText.requestFocus();
+                editText.postDelayed(() -> {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                    if (imm != null) {
+                        imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+                    }
+                }, 80);
+            }
+            return false;
+        });
     }
 
     private void setupListeners() {
