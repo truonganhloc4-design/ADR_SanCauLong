@@ -1,5 +1,6 @@
 package com.example.tlqlbadminton.activity;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
@@ -56,7 +57,10 @@ public class ThemSanActivity extends AppCompatActivity {
         boolean ok = sanDAO.insertSan(san);
         Toast.makeText(this, ok ? "Đã thêm sân thành công" : "Không thể thêm sân",
                 Toast.LENGTH_SHORT).show();
-        if (ok) finish();
+        if (ok) {
+            setResult(Activity.RESULT_OK);
+            finish();
+        }
     }
 
     private double parseMoney(String value) {

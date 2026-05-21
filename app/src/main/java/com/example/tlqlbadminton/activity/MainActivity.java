@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private SoDoFragment soDoFragment;
     private ThongKeFragment thongKeFragment;
     private LichSuFragment lichSuFragment;
+    private ActivityResultLauncher<Intent> themSanLauncher;
 
     private int currentTab = 0; // 0=SoDo, 1=ThongKe, 2=LichSu
 
@@ -34,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setupActivityResults();
         bindViews();
         setupNavigation();
 
@@ -41,6 +45,16 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             showFragment(0);
         }
+    }
+
+    private void setupActivityResults() {
+        themSanLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (soDoFragment != null) {
+                        soDoFragment.refreshAll();
+                    }
+                });
     }
 
     private void bindViews() {
@@ -66,11 +80,11 @@ public class MainActivity extends AppCompatActivity {
         navLichSu.setOnClickListener(v  -> showFragment(2));
 
         ivCauHinhSan.setOnClickListener(v ->
-            startActivity(new Intent(this, ThemSanActivity.class)));
+            startActivity(new Intent(this, CauHinhSanActivity.class)));
 
         if (fabThemSan != null) {
             fabThemSan.setOnClickListener(v ->
-                startActivity(new Intent(this, ThemSanActivity.class)));
+                themSanLauncher.launch(new Intent(this, ThemSanActivity.class)));
         }
     }
 

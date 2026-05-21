@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import com.example.tlqlbadminton.model.San;
 import com.example.tlqlbadminton.sqlite.DBHelper;
 import com.example.tlqlbadminton.sqlite.SanDAO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CauHinhSanActivity extends AppCompatActivity {
@@ -27,6 +29,10 @@ public class CauHinhSanActivity extends AppCompatActivity {
     private EditText etTenSan, etLoaiSan, etGiaMacDinh, etMoTa;
     private SanDAO sanDAO;
     private SanAdapter sanAdapter;
+    private ScrollView scrollContent;
+    private ListView lvDanhSachSan;
+    private View sectionDanhSachSan;
+    private final List<San> dsSan = new ArrayList<>();
     private San editingSan;
 
     @Override
@@ -47,6 +53,9 @@ public class CauHinhSanActivity extends AppCompatActivity {
         etLoaiSan = findViewById(R.id.etLoaiSan);
         etGiaMacDinh = findViewById(R.id.etGiaMacDinh);
         etMoTa = findViewById(R.id.etMoTa);
+        scrollContent = findViewById(R.id.scrollContent);
+        lvDanhSachSan = findViewById(R.id.lvDanhSachSan);
+        sectionDanhSachSan = findViewById(R.id.tvDanhSachSanTitle);
         Button btnHuy = findViewById(R.id.btnHuy);
         Button btnLuuSan = findViewById(R.id.btnLuuSan);
 
@@ -61,21 +70,27 @@ public class CauHinhSanActivity extends AppCompatActivity {
     }
 
     private void loadCourtList() {
-        List<San> dsSan = sanDAO.getAllSan();
-        ListView lvDanhSachSan = findViewById(R.id.lvDanhSachSan);
-        sanAdapter = new SanAdapter(this, R.layout.layout_item_san, dsSan,
-                new SanAdapter.OnSanActionListener() {
-                    @Override
-                    public void onSuaSan(San san) {
-                        fillForm(san);
-                    }
+        dsSan.clear();
+        dsSan.addAll(sanDAO.getAllSanNewestFirst());
 
-                    @Override
-                    public void onXoaSan(San san) {
-                        confirmDelete(san);
-                    }
-                });
-        lvDanhSachSan.setAdapter(sanAdapter);
+        if (sanAdapter == null) {
+            sanAdapter = new SanAdapter(this, R.layout.layout_item_san, dsSan,
+                    new SanAdapter.OnSanActionListener() {
+                        @Override
+                        public void onSuaSan(San san) {
+                            fillForm(san);
+                        }
+
+                        @Override
+                        public void onXoaSan(San san) {
+                            confirmDelete(san);
+                        }
+                    });
+            lvDanhSachSan.setAdapter(sanAdapter);
+        } else {
+            sanAdapter.notifyDataSetChanged();
+        }
+
         lvDanhSachSan.post(() -> setListViewHeightBasedOnChildren(lvDanhSachSan));
     }
 
@@ -103,6 +118,7 @@ public class CauHinhSanActivity extends AppCompatActivity {
         if (ok) {
             clearForm();
             loadCourtList();
+            scrollContent.postDelayed(() -> scrollContent.smoothScrollTo(0, sectionDanhSachSan.getTop()), 120);
         }
     }
 

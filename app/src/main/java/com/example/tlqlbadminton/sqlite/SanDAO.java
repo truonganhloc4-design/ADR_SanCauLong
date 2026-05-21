@@ -28,6 +28,16 @@ public class SanDAO {
         return list;
     }
 
+    public List<San> getAllSanNewestFirst() {
+        List<San> list = new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + DBHelper.TABLE_SAN + " ORDER BY MaSan DESC", null);
+        while (cursor.moveToNext()) {
+            list.add(mapSan(cursor));
+        }
+        cursor.close();
+        return list;
+    }
+
     public San getSanById(int maSan) {
         Cursor cursor = db.rawQuery("SELECT * FROM " + DBHelper.TABLE_SAN + " WHERE MaSan=?",
                 new String[]{String.valueOf(maSan)});

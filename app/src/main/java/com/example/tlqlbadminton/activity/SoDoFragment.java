@@ -174,7 +174,7 @@ public class SoDoFragment extends Fragment {
         startActivity(intent);
     }
 
-    private void refreshAll() {
+    public void refreshAll() {
         if (sanDAO == null || tvCountAll == null) return;
         List<San> allCourts = sanDAO.getAllSan();
         displayedCourts.clear();
