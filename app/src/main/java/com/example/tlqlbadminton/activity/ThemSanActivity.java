@@ -42,19 +42,19 @@ public class ThemSanActivity extends AppCompatActivity {
         String gia = etGiaThue.getText().toString().trim();
 
         if (TextUtils.isEmpty(ten) || TextUtils.isEmpty(gia)) {
-            Toast.makeText(this, "Vui long nhap day du thong tin", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
             return;
         }
 
         San san = new San();
         san.setTenSan(ten);
         san.setGiaMoiGio(parseMoney(gia));
-        san.setLoaiSan("Co nhan tao");
+        san.setLoaiSan("Cỏ nhân tạo");
         san.setTrangThai(DBHelper.SAN_TRONG);
         san.setTinhTrangHoatDong(1);
 
         boolean ok = sanDAO.insertSan(san);
-        Toast.makeText(this, ok ? "Da them san thanh cong" : "Khong the them san",
+        Toast.makeText(this, ok ? "Đã thêm sân thành công" : "Không thể thêm sân",
                 Toast.LENGTH_SHORT).show();
         if (ok) finish();
     }

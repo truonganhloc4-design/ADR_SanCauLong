@@ -60,11 +60,11 @@ public class LichSuFragment extends Fragment {
         List<SimpleTextAdapter.Row> rows = new ArrayList<>();
         for (PhieuDatSan phieu : bookings) {
             San san = sanDAO.getSanById(phieu.getMaSan());
-            String tenSan = san != null ? san.getTenSan() : "San #" + phieu.getMaSan();
+            String tenSan = san != null ? san.getTenSan() : "Sân #" + phieu.getMaSan();
             rows.add(new SimpleTextAdapter.Row(
                     tenSan + " - " + phieu.getTenKhach(),
                     phieu.getNgayDat() + " | " + phieu.getKhungGioChoi() +
-                            " | Coc: " + formatCurrency((long) phieu.getTienCoc()) + " VND"));
+                            " | Cọc: " + formatCurrency((long) phieu.getTienCoc()) + " VNĐ"));
         }
         adapter.submitList(rows);
     }

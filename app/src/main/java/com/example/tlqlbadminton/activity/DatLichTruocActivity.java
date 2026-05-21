@@ -148,7 +148,7 @@ public class DatLichTruocActivity extends AppCompatActivity {
 
         btnChonKhungGio.setOnClickListener(v ->
                 new android.app.AlertDialog.Builder(this)
-                        .setTitle("Chon khung gio choi")
+                        .setTitle("Chọn khung giờ chơi")
                         .setItems(KHUNG_GIO_LIST, (dialog, which) -> {
                             selectedKhungGio = KHUNG_GIO_LIST[which];
                             tvKhungGioDuocChon.setText(selectedKhungGio);
@@ -166,20 +166,20 @@ public class DatLichTruocActivity extends AppCompatActivity {
         double tienCoc = parseMoney(etTienCoc.getText().toString().trim());
 
         if (TextUtils.isEmpty(hoTen)) {
-            Toast.makeText(this, "Vui long nhap ho ten khach hang", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Vui lòng nhập họ tên khách hàng", Toast.LENGTH_SHORT).show();
             etHoTen.requestFocus();
             return;
         }
         if (selectedCourtIndex < 0) {
-            Toast.makeText(this, "Vui long chon san", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Vui lòng chọn sân", Toast.LENGTH_SHORT).show();
             return;
         }
         if (TextUtils.isEmpty(tvNgayDuocChon.getText().toString())) {
-            Toast.makeText(this, "Vui long chon ngay dat", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Vui lòng chọn ngày đặt", Toast.LENGTH_SHORT).show();
             return;
         }
         if (selectedKhungGio == null) {
-            Toast.makeText(this, "Vui long chon khung gio choi", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Vui lòng chọn khung giờ chơi", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -193,7 +193,7 @@ public class DatLichTruocActivity extends AppCompatActivity {
         phieu.setTrangThaiPhieu(DBHelper.PHIEU_DAT_TRUOC);
 
         long result = phieuDatSanDAO.insertPhieuDatTruoc(phieu);
-        Toast.makeText(this, result != -1 ? "Da dat lich thanh cong" : "Khong the dat lich",
+        Toast.makeText(this, result != -1 ? "Đã đặt lịch thành công" : "Không thể đặt lịch",
                 Toast.LENGTH_SHORT).show();
         if (result != -1) finish();
     }

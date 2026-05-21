@@ -90,8 +90,8 @@ public class ThongKeFragment extends Fragment {
         List<SimpleTextAdapter.Row> rows = new ArrayList<>();
         for (HoaDon hoaDon : hoaDonList) {
             rows.add(new SimpleTextAdapter.Row(
-                    hoaDon.getMaHD() + " - " + formatCurrency((long) hoaDon.getTongThanhToan()) + " VND",
-                    "Ngay lap: " + hoaDon.getNgayLap() + " | Phieu #" + hoaDon.getMaPhieu()));
+                    hoaDon.getMaHD() + " - " + formatCurrency((long) hoaDon.getTongThanhToan()) + " VNĐ",
+                    "Ngày lập: " + hoaDon.getNgayLap() + " | Phiếu #" + hoaDon.getMaPhieu()));
         }
         adapter.submitList(rows);
     }

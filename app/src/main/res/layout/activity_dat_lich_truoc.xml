@@ -416,7 +416,7 @@
             android:layout_height="@dimen/button_height"
             android:background="@drawable/bg_btn_primary"
             android:text="XÁC NHẬN ĐẶT LỊCH"
-            android:textColor="#dee0ff"
+            android:textColor="@color/white"
             android:textSize="@dimen/text_title_lg"
             android:textStyle="bold"
             android:stateListAnimator="@null" />

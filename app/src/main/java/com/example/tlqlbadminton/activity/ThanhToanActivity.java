@@ -3,7 +3,6 @@ package com.example.tlqlbadminton.activity;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,11 +32,6 @@ public class ThanhToanActivity extends AppCompatActivity {
     private TextView tvThoiGianChoi;
     private TextView tvGiaSan;
     private TextView tvTongCong;
-    private Button btnThemDichVu;
-    private LinearLayout optionTienMat;
-    private LinearLayout optionChuyenKhoan;
-    private LinearLayout optionQR;
-    private Button btnInHoaDon;
     private Button btnXacNhanThanhToan;
 
     private SanDAO sanDAO;
@@ -62,7 +56,6 @@ public class ThanhToanActivity extends AppCompatActivity {
 
         bindViews();
         setupToolbar();
-        setupPaymentOptions();
         setupActions();
         loadBookingInfo();
     }
@@ -74,11 +67,6 @@ public class ThanhToanActivity extends AppCompatActivity {
         tvThoiGianChoi = findViewById(R.id.tvThoiGianChoi);
         tvGiaSan = findViewById(R.id.tvGiaSan);
         tvTongCong = findViewById(R.id.tvTongCong);
-        btnThemDichVu = findViewById(R.id.btnThemDichVu);
-        optionTienMat = findViewById(R.id.optionTienMat);
-        optionChuyenKhoan = findViewById(R.id.optionChuyenKhoan);
-        optionQR = findViewById(R.id.optionQR);
-        btnInHoaDon = findViewById(R.id.btnInHoaDon);
         btnXacNhanThanhToan = findViewById(R.id.btnXacNhanThanhToan);
     }
 
@@ -100,29 +88,14 @@ public class ThanhToanActivity extends AppCompatActivity {
         tongTienSan = Math.round((playedMinutes / 60.0) * san.getGiaMoiGio());
         tongThanhToan = Math.max(0, Math.round(tongTienSan - phieu.getTienCoc()));
 
-        tvCourtTitle.setText(san.getTenSan() + " - " + san.getLoaiSan());
+        tvCourtTitle.setText(san.getTenSan());
         tvMaCa.setText(phieu.getMaCa());
         tvThoiGianChoi.setText(formatDuration(playedMinutes));
         tvGiaSan.setText(formatCurrency((long) san.getGiaMoiGio()) + " VND/gio");
         tvTongCong.setText(formatCurrency(tongThanhToan) + " VND");
     }
 
-    private void setupPaymentOptions() {
-        optionTienMat.setOnClickListener(v -> selectPayment(optionTienMat, optionChuyenKhoan, optionQR));
-        optionChuyenKhoan.setOnClickListener(v -> selectPayment(optionChuyenKhoan, optionTienMat, optionQR));
-        optionQR.setOnClickListener(v -> selectPayment(optionQR, optionTienMat, optionChuyenKhoan));
-    }
-
-    private void selectPayment(LinearLayout selected, LinearLayout... others) {
-        selected.setBackgroundResource(R.drawable.bg_payment_option_selected);
-        for (LinearLayout other : others) other.setBackgroundResource(R.drawable.bg_payment_option);
-    }
-
     private void setupActions() {
-        btnThemDichVu.setOnClickListener(v ->
-                Toast.makeText(this, "MVP hien chi tinh tien san", Toast.LENGTH_SHORT).show());
-        btnInHoaDon.setOnClickListener(v ->
-                Toast.makeText(this, "Hoa don se duoc luu sau khi chot ca", Toast.LENGTH_SHORT).show());
         btnXacNhanThanhToan.setOnClickListener(v -> confirmPayment());
     }
 

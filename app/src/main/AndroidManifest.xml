@@ -6,17 +6,18 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
-        android:theme="@style/Theme.TLQLBadminton">
+        android:theme="@style/Theme.TLQLBadminton"
+        android:appComponentFactory="android.app.AppComponentFactory"
+        tools:replace="android:appComponentFactory">
 
-        <!-- Launcher: Đăng nhập -->
         <activity
             android:name=".activity.DangNhapActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustPan"
+            android:windowSoftInputMode="adjustResize"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,43 +25,42 @@
             </intent-filter>
         </activity>
 
-        <!-- Dashboard: Sơ đồ sân -->
+        <activity
+            android:name=".activity.DangKyActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"
+            android:label="Đăng ký" />
+
         <activity
             android:name=".activity.MainActivity"
             android:exported="false"
             android:label="@string/title_so_do_san" />
 
-        <!-- Nhận sân -->
         <activity
             android:name=".activity.NhanSanActivity"
             android:exported="false"
             android:label="@string/title_nhan_san" />
 
-        <!-- Đặt lịch trước -->
         <activity
             android:name=".activity.DatLichTruocActivity"
             android:exported="false"
             android:label="@string/title_dat_lich_truoc" />
 
-        <!-- Thanh toán -->
         <activity
             android:name=".activity.ThanhToanActivity"
             android:exported="false"
             android:label="@string/title_thanh_toan" />
 
-        <!-- Thống kê & Lịch sử -->
         <activity
             android:name=".activity.ThongKeActivity"
             android:exported="false"
             android:label="@string/title_thong_ke_doanh_thu" />
 
-        <!-- Cấu hình sân -->
         <activity
             android:name=".activity.CauHinhSanActivity"
             android:exported="false"
             android:label="@string/title_cau_hinh_san" />
 
-        <!-- Thêm sân -->
         <activity
             android:name=".activity.ThemSanActivity"
             android:exported="false"

@@ -42,7 +42,7 @@
                 android:id="@+id/txtTenSan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="San 01"
+                android:text="Sân 01"
                 android:textColor="@color/text_primary"
                 android:textSize="@dimen/text_body_lg"
                 android:textStyle="bold" />
@@ -51,7 +51,7 @@
                 android:id="@+id/txtThongTinSan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Co nhan tao | 70.000 VND/gio"
+                android:text="Cỏ nhân tạo | 70.000 VNĐ/giờ"
                 android:textColor="@color/text_secondary"
                 android:textSize="@dimen/text_body_md" />
         </LinearLayout>

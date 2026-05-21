@@ -76,7 +76,7 @@ public class CauHinhSanActivity extends AppCompatActivity {
                     }
                 });
         lvDanhSachSan.setAdapter(sanAdapter);
-        setListViewHeightBasedOnChildren(lvDanhSachSan);
+        lvDanhSachSan.post(() -> setListViewHeightBasedOnChildren(lvDanhSachSan));
     }
 
     private void saveCourt() {
@@ -85,7 +85,7 @@ public class CauHinhSanActivity extends AppCompatActivity {
         String giaStr = etGiaMacDinh.getText().toString().trim();
 
         if (TextUtils.isEmpty(tenSan) || TextUtils.isEmpty(loaiSan) || TextUtils.isEmpty(giaStr)) {
-            Toast.makeText(this, "Vui long nhap day du thong tin san", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin sân", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -99,7 +99,7 @@ public class CauHinhSanActivity extends AppCompatActivity {
         }
 
         boolean ok = editingSan == null ? sanDAO.insertSan(san) : sanDAO.updateSan(san);
-        Toast.makeText(this, ok ? "Da luu san" : "Khong the luu san", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, ok ? "Đã lưu sân" : "Không thể lưu sân", Toast.LENGTH_SHORT).show();
         if (ok) {
             clearForm();
             loadCourtList();
@@ -116,22 +116,22 @@ public class CauHinhSanActivity extends AppCompatActivity {
 
     private void confirmDelete(San san) {
         new AlertDialog.Builder(this)
-                .setTitle("Xoa san")
-                .setMessage("Ban co chac muon xoa " + san.getTenSan() + "?")
-                .setPositiveButton("Dong y", (dialog, which) -> {
+                .setTitle("Xóa sân")
+                .setMessage("Bạn có chắc muốn xóa " + san.getTenSan() + "?")
+                .setPositiveButton("Đồng ý", (dialog, which) -> {
                     int result = sanDAO.deleteSan(san.getMaSan());
-                    Toast.makeText(this, result > 0 ? "Da xoa san" : "Khong the xoa san dang co du lieu",
+                    Toast.makeText(this, result > 0 ? "Đã xóa sân" : "Không thể xóa sân đang có dữ liệu",
                             Toast.LENGTH_SHORT).show();
                     loadCourtList();
                 })
-                .setNegativeButton("Huy", null)
+                .setNegativeButton("Hủy", null)
                 .show();
     }
 
     private void clearForm() {
         editingSan = null;
         etTenSan.setText("");
-        etLoaiSan.setText("Co nhan tao");
+        etLoaiSan.setText("Cỏ nhân tạo");
         etGiaMacDinh.setText("");
         etMoTa.setText("");
         etTenSan.requestFocus();
@@ -150,7 +150,15 @@ public class CauHinhSanActivity extends AppCompatActivity {
         if (adapter == null) return;
 
         int totalHeight = 0;
-        int widthSpec = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
+        int availableWidth = listView.getWidth()
+                - listView.getPaddingStart()
+                - listView.getPaddingEnd();
+        if (availableWidth <= 0) {
+            availableWidth = getResources().getDisplayMetrics().widthPixels
+                    - listView.getPaddingStart()
+                    - listView.getPaddingEnd();
+        }
+        int widthSpec = View.MeasureSpec.makeMeasureSpec(availableWidth, View.MeasureSpec.EXACTLY);
         for (int i = 0; i < adapter.getCount(); i++) {
             View item = adapter.getView(i, null, listView);
             item.measure(widthSpec, View.MeasureSpec.UNSPECIFIED);

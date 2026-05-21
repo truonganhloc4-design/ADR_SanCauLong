@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Màn hình Thanh toán — activity_thanh_toan.xml -->
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -8,7 +7,6 @@
     android:background="@color/background"
     android:fitsSystemWindows="true">
 
-    <!-- TOOLBAR -->
     <LinearLayout
         android:id="@+id/layoutToolbar"
         android:layout_width="0dp"
@@ -43,7 +41,6 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- SCROLL -->
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -59,7 +56,6 @@
             android:orientation="vertical"
             android:padding="@dimen/margin_mobile">
 
-            <!-- Card: Booking info summary -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -96,7 +92,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Sân 01 - Cỏ nhân tạo"
+                                android:text="San 01"
                                 android:textSize="@dimen/text_title_lg"
                                 android:textColor="@color/text_primary"
                                 android:textStyle="bold" />
@@ -107,14 +103,13 @@
                                 android:background="@drawable/bg_chip_occupied"
                                 android:paddingStart="@dimen/chip_padding_horizontal"
                                 android:paddingEnd="@dimen/chip_padding_horizontal"
-                                android:text="@string/status_occupied"
+                                android:text="Dang choi"
                                 android:textSize="@dimen/text_label_md"
                                 android:textColor="@color/status_occupied"
                                 android:textStyle="bold"
                                 android:gravity="center" />
                         </LinearLayout>
 
-                        <!-- Mã ca -->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -124,7 +119,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/label_ma_ca"
+                                android:text="Ma ca"
                                 android:textSize="@dimen/text_body_md"
                                 android:textColor="@color/text_secondary"
                                 android:layout_marginEnd="@dimen/spacing_sm" />
@@ -133,13 +128,12 @@
                                 android:id="@+id/tvMaCa"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="#BK-88392"
+                                android:text="#BK-000"
                                 android:textSize="@dimen/text_body_md"
                                 android:textColor="@color/primary"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
-                        <!-- Thời gian chơi -->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -148,7 +142,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/label_thoi_gian_choi"
+                                android:text="Thoi gian choi"
                                 android:textSize="@dimen/text_body_md"
                                 android:textColor="@color/text_secondary"
                                 android:layout_marginEnd="@dimen/spacing_sm" />
@@ -157,7 +151,7 @@
                                 android:id="@+id/tvThoiGianChoi"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="14:00 - 15:30 (1.5h)"
+                                android:text="0h 0p"
                                 android:textSize="@dimen/text_body_md"
                                 android:textColor="@color/text_primary"
                                 android:textStyle="bold" />
@@ -166,11 +160,9 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Card: Chi tiết thanh toán -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/spacing_md"
                 app:cardCornerRadius="@dimen/radius_lg"
                 app:cardElevation="@dimen/card_elevation"
                 app:cardBackgroundColor="@color/white">
@@ -184,24 +176,23 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Chi tiết thanh toán"
+                        android:text="Chi tiet thanh toan"
                         android:textSize="@dimen/text_title_lg"
                         android:textColor="@color/text_primary"
                         android:textStyle="bold"
                         android:layout_marginBottom="@dimen/spacing_md" />
 
-                    <!-- Giá sân row -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_marginBottom="@dimen/spacing_sm">
+                        android:layout_marginBottom="@dimen/spacing_md">
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="@string/label_gia_san"
+                            android:text="Gia san"
                             android:textSize="@dimen/text_body_lg"
                             android:textColor="@color/text_secondary" />
 
@@ -209,57 +200,18 @@
                             android:id="@+id/tvGiaSan"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="105,000 VNĐ"
+                            android:text="0 VND/gio"
                             android:textSize="@dimen/text_body_lg"
                             android:textColor="@color/text_primary"
                             android:textStyle="bold" />
                     </LinearLayout>
 
-                    <!-- Dịch vụ thêm header -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginBottom="@dimen/spacing_sm">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/label_dich_vu"
-                            android:textSize="@dimen/text_body_lg"
-                            android:textColor="@color/text_secondary" />
-
-                        <Button
-                            android:id="@+id/btnThemDichVu"
-                            android:layout_width="wrap_content"
-                            android:layout_height="@dimen/button_height_sm"
-                            android:background="@drawable/bg_btn_secondary"
-                            android:text="@string/btn_them_dich_vu"
-                            android:textColor="@color/background"
-                            android:textSize="@dimen/text_label_md"
-                            android:paddingStart="@dimen/spacing_md"
-                            android:paddingEnd="@dimen/spacing_md"
-                            android:stateListAnimator="@null" />
-                    </LinearLayout>
-
-                    <!-- Service items container -->
-                    <LinearLayout
-                        android:id="@+id/containerDichVu"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_marginBottom="@dimen/spacing_md" />
-
-                    <!-- Divider -->
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="@color/divider"
                         android:layout_marginBottom="@dimen/spacing_md" />
 
-                    <!-- Tổng cộng -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -270,7 +222,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="@string/label_tong_cong"
+                            android:text="Tong cong"
                             android:textSize="@dimen/text_title_lg"
                             android:textColor="@color/text_primary"
                             android:textStyle="bold" />
@@ -279,129 +231,16 @@
                             android:id="@+id/tvTongCong"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="105,000 VNĐ"
+                            android:text="0 VND"
                             android:textSize="@dimen/text_title_lg"
                             android:textColor="@color/primary"
                             android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-
-            <!-- Card: Phương thức thanh toán -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/spacing_lg"
-                app:cardCornerRadius="@dimen/radius_lg"
-                app:cardElevation="@dimen/card_elevation"
-                app:cardBackgroundColor="@color/white">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="@dimen/card_padding">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Phương thức thanh toán"
-                        android:textSize="@dimen/text_title_lg"
-                        android:textColor="@color/text_primary"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="@dimen/spacing_md" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="3">
-
-                        <!-- Tiền mặt -->
-                        <LinearLayout
-                            android:id="@+id/optionTienMat"
-                            android:layout_width="0dp"
-                            android:layout_height="72dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:gravity="center"
-                            android:background="@drawable/bg_payment_option_selected"
-                            android:layout_marginEnd="@dimen/spacing_sm">
-
-                            <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:src="@android:drawable/ic_menu_send"
-                                app:tint="@color/primary" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/label_tien_mat"
-                                android:textSize="@dimen/text_label_md"
-                                android:textColor="@color/primary"
-                                android:textStyle="bold"
-                                android:layout_marginTop="4dp" />
-                        </LinearLayout>
-
-                        <!-- Chuyển khoản -->
-                        <LinearLayout
-                            android:id="@+id/optionChuyenKhoan"
-                            android:layout_width="0dp"
-                            android:layout_height="72dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:gravity="center"
-                            android:background="@drawable/bg_payment_option"
-                            android:layout_marginEnd="@dimen/spacing_sm">
-
-                            <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:src="@android:drawable/ic_menu_share"
-                                app:tint="@color/text_secondary" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/label_chuyen_khoan"
-                                android:textSize="@dimen/text_label_md"
-                                android:textColor="@color/text_secondary"
-                                android:layout_marginTop="4dp" />
-                        </LinearLayout>
-
-                        <!-- QR -->
-                        <LinearLayout
-                            android:id="@+id/optionQR"
-                            android:layout_width="0dp"
-                            android:layout_height="72dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:gravity="center"
-                            android:background="@drawable/bg_payment_option">
-
-                            <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:src="@android:drawable/ic_menu_camera"
-                                app:tint="@color/text_secondary" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/label_qr"
-                                android:textSize="@dimen/text_label_md"
-                                android:textColor="@color/text_secondary"
-                                android:layout_marginTop="4dp" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
         </LinearLayout>
     </ScrollView>
 
-    <!-- BOTTOM ACTION -->
     <LinearLayout
         android:id="@+id/layoutActionBar"
         android:layout_width="0dp"
@@ -413,30 +252,14 @@
         android:paddingTop="@dimen/spacing_md"
         android:paddingBottom="@dimen/spacing_md"
         android:elevation="8dp"
-        android:weightSum="2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
         <Button
-            android:id="@+id/btnInHoaDon"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/button_height"
-            android:layout_weight="1"
-            android:layout_marginEnd="@dimen/spacing_sm"
-            android:background="@drawable/bg_btn_secondary"
-            android:text="@string/btn_in_hoa_don"
-            android:textColor="@color/background"
-            android:textSize="@dimen/text_body_md"
-            android:textStyle="bold"
-            android:stateListAnimator="@null" />
-
-        <Button
             android:id="@+id/btnXacNhanThanhToan"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/button_height"
-            android:layout_weight="1"
-            android:layout_marginStart="@dimen/spacing_sm"
             android:background="@drawable/bg_btn_primary"
             android:text="@string/btn_xac_nhan_thanh_toan"
             android:textColor="@color/white"

@@ -17,6 +17,7 @@ public class DangNhapActivity extends AppCompatActivity {
     private EditText etPassword;
     private Button btnLogin;
     private TextView tvLoginError;
+    private TextView tvGoRegister;
     private TaiKhoanDAO taiKhoanDAO;
 
     // Default credentials (thay bằng DB sau)
@@ -38,10 +39,13 @@ public class DangNhapActivity extends AppCompatActivity {
         etPassword   = findViewById(R.id.etPassword);
         btnLogin     = findViewById(R.id.btnLogin);
         tvLoginError = findViewById(R.id.tvLoginError);
+        tvGoRegister = findViewById(R.id.tvGoRegister);
     }
 
     private void setupListeners() {
         btnLogin.setOnClickListener(v -> attemptLogin());
+        tvGoRegister.setOnClickListener(v ->
+                startActivity(new Intent(this, DangKyActivity.class)));
     }
 
     private void attemptLogin() {

@@ -45,7 +45,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "MaSan INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "TenSan TEXT NOT NULL, " +
                 "GiaMoiGio REAL NOT NULL, " +
-                "LoaiSan TEXT DEFAULT 'Co nhan tao', " +
+                "LoaiSan TEXT DEFAULT 'Cỏ nhân tạo', " +
                 "TrangThai INTEGER DEFAULT 0, " +
                 "TinhTrangHoatDong INTEGER DEFAULT 1)";
         db.execSQL(sqlSan);
@@ -96,9 +96,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
         for (int i = 1; i <= 4; i++) {
             ContentValues san = new ContentValues();
-            san.put("TenSan", "San 0" + i);
+            san.put("TenSan", "Sân 0" + i);
             san.put("GiaMoiGio", 70000.0);
-            san.put("LoaiSan", "Co nhan tao");
+            san.put("LoaiSan", "Cỏ nhân tạo");
             san.put("TrangThai", SAN_TRONG);
             san.put("TinhTrangHoatDong", 1);
             db.insert(TABLE_SAN, null, san);

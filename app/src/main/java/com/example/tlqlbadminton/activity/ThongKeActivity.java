@@ -114,13 +114,13 @@ public class ThongKeActivity extends AppCompatActivity {
         if (isThongKeTab) {
             for (HoaDon hoaDon : hoaDonDAO.getAllHoaDon()) {
                 rows.add(new SimpleTextAdapter.Row(
-                        hoaDon.getMaHD() + " - " + formatCurrency((long) hoaDon.getTongThanhToan()) + " VND",
-                        "Ngay lap: " + hoaDon.getNgayLap() + " | Phieu #" + hoaDon.getMaPhieu()));
+                        hoaDon.getMaHD() + " - " + formatCurrency((long) hoaDon.getTongThanhToan()) + " VNĐ",
+                        "Ngày lập: " + hoaDon.getNgayLap() + " | Phiếu #" + hoaDon.getMaPhieu()));
             }
         } else {
             for (PhieuDatSan phieu : phieuDatSanDAO.getPendingBookings()) {
                 San san = sanDAO.getSanById(phieu.getMaSan());
-                String tenSan = san != null ? san.getTenSan() : "San #" + phieu.getMaSan();
+                String tenSan = san != null ? san.getTenSan() : "Sân #" + phieu.getMaSan();
                 rows.add(new SimpleTextAdapter.Row(
                         tenSan + " - " + phieu.getTenKhach(),
                         phieu.getNgayDat() + " | " + phieu.getKhungGioChoi()));

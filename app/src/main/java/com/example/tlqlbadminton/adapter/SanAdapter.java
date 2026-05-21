@@ -54,7 +54,7 @@ public class SanAdapter extends ArrayAdapter<San> {
         txtMaSan.setText(String.format("%02d", san.getMaSan()));
         txtTenSan.setText(san.getTenSan());
         txtThongTinSan.setText(san.getLoaiSan() + " | " +
-                formatCurrency((long) san.getGiaMoiGio()) + " VND/gio");
+                formatCurrency((long) san.getGiaMoiGio()) + " VNĐ/giờ");
 
         imgSuaSan.setOnClickListener(v -> listener.onSuaSan(san));
         imgXoaSan.setOnClickListener(v -> listener.onXoaSan(san));

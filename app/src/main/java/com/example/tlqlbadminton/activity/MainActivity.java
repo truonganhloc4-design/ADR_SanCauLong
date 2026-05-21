@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         navLichSu.setOnClickListener(v  -> showFragment(2));
 
         ivCauHinhSan.setOnClickListener(v ->
-            startActivity(new Intent(this, CauHinhSanActivity.class)));
+            startActivity(new Intent(this, ThemSanActivity.class)));
 
         if (fabThemSan != null) {
             fabThemSan.setOnClickListener(v ->

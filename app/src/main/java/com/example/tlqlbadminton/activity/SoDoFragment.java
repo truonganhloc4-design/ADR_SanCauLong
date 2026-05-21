@@ -26,6 +26,7 @@ import java.util.List;
 public class SoDoFragment extends Fragment {
 
     private TextView tvCountAll, tvCountAvailable, tvCountOccupied;
+    private View[] courtCards;
     private TextView[] courtNames;
     private View[] accents;
     private TextView[] statusChips;
@@ -38,6 +39,7 @@ public class SoDoFragment extends Fragment {
     private SanDAO sanDAO;
     private PhieuDatSanDAO phieuDatSanDAO;
     private final List<San> displayedCourts = new ArrayList<>();
+    private int activeStatusFilter = -1;
 
     @Nullable
     @Override
@@ -48,6 +50,7 @@ public class SoDoFragment extends Fragment {
         sanDAO = new SanDAO(requireContext());
         phieuDatSanDAO = new PhieuDatSanDAO(requireContext());
         bindViews(root);
+        setupFilterChips();
         setupButtons();
         refreshAll();
         return root;
@@ -64,6 +67,12 @@ public class SoDoFragment extends Fragment {
         tvCountAvailable = root.findViewById(R.id.chipSanTrong);
         tvCountOccupied = root.findViewById(R.id.chipDangChoi);
 
+        courtCards = new View[]{
+                root.findViewById(R.id.cardSan1),
+                root.findViewById(R.id.cardSan2),
+                root.findViewById(R.id.cardSan3),
+                root.findViewById(R.id.cardSan4)
+        };
         courtNames = new TextView[]{
                 root.findViewById(R.id.tvCourt1Name),
                 root.findViewById(R.id.tvCourt2Name),
@@ -123,6 +132,18 @@ public class SoDoFragment extends Fragment {
         }
     }
 
+    private void setupFilterChips() {
+        tvCountAll.setOnClickListener(v -> setStatusFilter(-1));
+        tvCountAvailable.setOnClickListener(v -> setStatusFilter(DBHelper.SAN_TRONG));
+        tvCountOccupied.setOnClickListener(v -> setStatusFilter(DBHelper.SAN_DANG_CHOI));
+        updateFilterChipStyle();
+    }
+
+    private void setStatusFilter(int statusFilter) {
+        activeStatusFilter = statusFilter;
+        refreshAll();
+    }
+
     private void openNhanSan(int displayIndex) {
         San san = getDisplayedSan(displayIndex);
         if (san == null) return;
@@ -157,24 +178,31 @@ public class SoDoFragment extends Fragment {
         if (sanDAO == null || tvCountAll == null) return;
         List<San> allCourts = sanDAO.getAllSan();
         displayedCourts.clear();
-        for (int i = 0; i < allCourts.size() && i < 4; i++) {
-            displayedCourts.add(allCourts.get(i));
+        for (San san : allCourts) {
+            if (activeStatusFilter == -1 || san.getTrangThai() == activeStatusFilter) {
+                displayedCourts.add(san);
+            }
+            if (displayedCourts.size() == 4) {
+                break;
+            }
         }
 
-        tvCountAll.setText("Tat ca (" + sanDAO.countAllSan() + ")");
-        tvCountAvailable.setText("San trong (" +
+        tvCountAll.setText("Tất cả (" + sanDAO.countAllSan() + ")");
+        tvCountAvailable.setText("Sân trống (" +
                 sanDAO.countSanByTrangThai(DBHelper.SAN_TRONG) + ")");
-        tvCountOccupied.setText("Dang choi (" +
+        tvCountOccupied.setText("Đang chơi (" +
                 sanDAO.countSanByTrangThai(DBHelper.SAN_DANG_CHOI) + ")");
+
+        updateFilterChipStyle();
 
         for (int i = 0; i < 4; i++) {
             San san = getDisplayedSan(i);
             if (san == null) {
-                courtNames[i].setText("San --");
-                infoLabels[i].setText("Chua co du lieu");
+                courtCards[i].setVisibility(View.GONE);
                 availableGroups[i].setVisibility(View.GONE);
                 chiTietBtns[i].setVisibility(View.GONE);
             } else {
+                courtCards[i].setVisibility(View.VISIBLE);
                 updateCourtCard(i, san);
             }
         }
@@ -187,7 +215,7 @@ public class SoDoFragment extends Fragment {
             String info = phieu == null ? san.getLoaiSan() : phieu.getTenKhach();
             infoLabels[idx].setText(info);
             accents[idx].setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.status_occupied));
-            statusChips[idx].setText("Dang choi");
+            statusChips[idx].setText("Đang chơi");
             statusChips[idx].setTextColor(ContextCompat.getColor(requireContext(), R.color.status_occupied));
             statusChips[idx].setBackgroundResource(R.drawable.bg_chip_occupied);
             availableGroups[idx].setVisibility(View.GONE);
@@ -195,9 +223,9 @@ public class SoDoFragment extends Fragment {
             chiTietBtns[idx].setBackgroundResource(R.drawable.bg_btn_danger);
             chiTietBtns[idx].setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
         } else {
-            infoLabels[idx].setText(san.getLoaiSan() + " - " + formatCurrency((long) san.getGiaMoiGio()) + " VND/gio");
+            infoLabels[idx].setText(formatCurrency((long) san.getGiaMoiGio()) + " VND/gio");
             accents[idx].setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.status_available));
-            statusChips[idx].setText("Trong");
+            statusChips[idx].setText("Trống");
             statusChips[idx].setTextColor(ContextCompat.getColor(requireContext(), R.color.status_available));
             statusChips[idx].setBackgroundResource(R.drawable.bg_chip_available);
             availableGroups[idx].setVisibility(View.VISIBLE);
@@ -207,6 +235,20 @@ public class SoDoFragment extends Fragment {
 
     private San getDisplayedSan(int index) {
         return index >= 0 && index < displayedCourts.size() ? displayedCourts.get(index) : null;
+    }
+
+    private void updateFilterChipStyle() {
+        if (tvCountAll == null) return;
+        styleFilterChip(tvCountAll, activeStatusFilter == -1);
+        styleFilterChip(tvCountAvailable, activeStatusFilter == DBHelper.SAN_TRONG);
+        styleFilterChip(tvCountOccupied, activeStatusFilter == DBHelper.SAN_DANG_CHOI);
+    }
+
+    private void styleFilterChip(TextView chip, boolean active) {
+        chip.setBackgroundResource(active ? R.drawable.bg_btn_primary : R.drawable.bg_btn_outlined);
+        chip.setTextColor(ContextCompat.getColor(requireContext(),
+                active ? R.color.white : R.color.text_secondary));
+        chip.setTypeface(null, active ? android.graphics.Typeface.BOLD : android.graphics.Typeface.NORMAL);
     }
 
     private String formatCurrency(long amount) {
