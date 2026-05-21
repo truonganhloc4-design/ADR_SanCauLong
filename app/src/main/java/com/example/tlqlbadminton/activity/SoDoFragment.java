@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -12,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tlqlbadminton.R;
 import com.example.tlqlbadminton.model.PhieuDatSan;
@@ -26,15 +29,8 @@ import java.util.List;
 public class SoDoFragment extends Fragment {
 
     private TextView tvCountAll, tvCountAvailable, tvCountOccupied;
-    private View[] courtCards;
-    private TextView[] courtNames;
-    private View[] accents;
-    private TextView[] statusChips;
-    private TextView[] infoLabels;
-    private LinearLayout[] availableGroups;
-    private TextView[] chiTietBtns;
-    private TextView[] datLichBtns;
-    private TextView[] nhanSanBtns;
+    private RecyclerView rvSoDoSan;
+    private CourtAdapter courtAdapter;
 
     private SanDAO sanDAO;
     private PhieuDatSanDAO phieuDatSanDAO;
@@ -50,8 +46,8 @@ public class SoDoFragment extends Fragment {
         sanDAO = new SanDAO(requireContext());
         phieuDatSanDAO = new PhieuDatSanDAO(requireContext());
         bindViews(root);
+        setupCourtList();
         setupFilterChips();
-        setupButtons();
         refreshAll();
         return root;
     }
@@ -66,70 +62,13 @@ public class SoDoFragment extends Fragment {
         tvCountAll = root.findViewById(R.id.chipTatCa);
         tvCountAvailable = root.findViewById(R.id.chipSanTrong);
         tvCountOccupied = root.findViewById(R.id.chipDangChoi);
-
-        courtCards = new View[]{
-                root.findViewById(R.id.cardSan1),
-                root.findViewById(R.id.cardSan2),
-                root.findViewById(R.id.cardSan3),
-                root.findViewById(R.id.cardSan4)
-        };
-        courtNames = new TextView[]{
-                root.findViewById(R.id.tvCourt1Name),
-                root.findViewById(R.id.tvCourt2Name),
-                root.findViewById(R.id.tvCourt3Name),
-                root.findViewById(R.id.tvCourt4Name)
-        };
-        accents = new View[]{
-                root.findViewById(R.id.accentSan1),
-                root.findViewById(R.id.accentSan2),
-                root.findViewById(R.id.accentSan3),
-                root.findViewById(R.id.accentSan4)
-        };
-        statusChips = new TextView[]{
-                root.findViewById(R.id.tvCourt1Status),
-                root.findViewById(R.id.tvCourt2Status),
-                root.findViewById(R.id.tvCourt3Status),
-                root.findViewById(R.id.tvCourt4Status)
-        };
-        infoLabels = new TextView[]{
-                root.findViewById(R.id.tvCourt1Info),
-                root.findViewById(R.id.tvCourt2Info),
-                root.findViewById(R.id.tvCourt3Info),
-                root.findViewById(R.id.tvCourt4Info)
-        };
-        availableGroups = new LinearLayout[]{
-                root.findViewById(R.id.btnGroupSan1Available),
-                root.findViewById(R.id.btnGroupSan2Available),
-                root.findViewById(R.id.btnGroupSan3Available),
-                root.findViewById(R.id.btnGroupSan4Available)
-        };
-        chiTietBtns = new TextView[]{
-                root.findViewById(R.id.btnCourt1ChiTiet),
-                root.findViewById(R.id.btnCourt2ChiTiet),
-                root.findViewById(R.id.btnCourt3ChiTiet),
-                root.findViewById(R.id.btnCourt4ChiTiet)
-        };
-        datLichBtns = new TextView[]{
-                root.findViewById(R.id.btnCourt1DatLich),
-                root.findViewById(R.id.btnCourt2DatLich),
-                root.findViewById(R.id.btnCourt3DatLich),
-                root.findViewById(R.id.btnCourt4DatLich)
-        };
-        nhanSanBtns = new TextView[]{
-                root.findViewById(R.id.btnCourt1NhanSan),
-                root.findViewById(R.id.btnCourt2NhanSan),
-                root.findViewById(R.id.btnCourt3NhanSan),
-                root.findViewById(R.id.btnCourt4NhanSan)
-        };
+        rvSoDoSan = root.findViewById(R.id.rvSoDoSan);
     }
 
-    private void setupButtons() {
-        for (int i = 0; i < 4; i++) {
-            final int displayIndex = i;
-            nhanSanBtns[i].setOnClickListener(v -> openNhanSan(displayIndex));
-            datLichBtns[i].setOnClickListener(v -> openDatLich(displayIndex));
-            chiTietBtns[i].setOnClickListener(v -> openThanhToan(displayIndex));
-        }
+    private void setupCourtList() {
+        courtAdapter = new CourtAdapter();
+        rvSoDoSan.setLayoutManager(new GridLayoutManager(requireContext(), 2));
+        rvSoDoSan.setAdapter(courtAdapter);
     }
 
     private void setupFilterChips() {
@@ -144,46 +83,13 @@ public class SoDoFragment extends Fragment {
         refreshAll();
     }
 
-    private void openNhanSan(int displayIndex) {
-        San san = getDisplayedSan(displayIndex);
-        if (san == null) return;
-        Intent intent = new Intent(getActivity(), NhanSanActivity.class);
-        intent.putExtra(NhanSanActivity.EXTRA_COURT_ID, String.valueOf(san.getMaSan()));
-        intent.putExtra(NhanSanActivity.EXTRA_COURT_INDEX, displayIndex);
-        startActivity(intent);
-    }
-
-    private void openDatLich(int displayIndex) {
-        San san = getDisplayedSan(displayIndex);
-        if (san == null) return;
-        Intent intent = new Intent(getActivity(), DatLichTruocActivity.class);
-        intent.putExtra(DatLichTruocActivity.EXTRA_COURT_ID, String.valueOf(san.getMaSan()));
-        intent.putExtra(DatLichTruocActivity.EXTRA_COURT_INDEX, displayIndex);
-        startActivity(intent);
-    }
-
-    private void openThanhToan(int displayIndex) {
-        San san = getDisplayedSan(displayIndex);
-        if (san == null) return;
-        PhieuDatSan phieu = phieuDatSanDAO.getActivePhieuBySan(san.getMaSan());
-        Intent intent = new Intent(getActivity(), ThanhToanActivity.class);
-        intent.putExtra(ThanhToanActivity.EXTRA_COURT_ID, String.valueOf(san.getMaSan()));
-        intent.putExtra(ThanhToanActivity.EXTRA_COURT_INDEX, displayIndex);
-        intent.putExtra(ThanhToanActivity.EXTRA_BOOKING_CODE,
-                phieu != null ? phieu.getMaCa() : "#BK-" + san.getMaSan());
-        startActivity(intent);
-    }
-
     public void refreshAll() {
-        if (sanDAO == null || tvCountAll == null) return;
+        if (sanDAO == null || tvCountAll == null || courtAdapter == null) return;
         List<San> allCourts = sanDAO.getAllSan();
         displayedCourts.clear();
         for (San san : allCourts) {
             if (activeStatusFilter == -1 || san.getTrangThai() == activeStatusFilter) {
                 displayedCourts.add(san);
-            }
-            if (displayedCourts.size() == 4) {
-                break;
             }
         }
 
@@ -194,43 +100,37 @@ public class SoDoFragment extends Fragment {
                 sanDAO.countSanByTrangThai(DBHelper.SAN_DANG_CHOI) + ")");
 
         updateFilterChipStyle();
-
-        for (int i = 0; i < 4; i++) {
-            San san = getDisplayedSan(i);
-            if (san == null) {
-                courtCards[i].setVisibility(View.GONE);
-                availableGroups[i].setVisibility(View.GONE);
-                chiTietBtns[i].setVisibility(View.GONE);
-            } else {
-                courtCards[i].setVisibility(View.VISIBLE);
-                updateCourtCard(i, san);
-            }
-        }
+        courtAdapter.notifyDataSetChanged();
     }
 
-    private void updateCourtCard(int idx, San san) {
-        courtNames[idx].setText(san.getTenSan());
-        if (san.getTrangThai() == DBHelper.SAN_DANG_CHOI) {
-            PhieuDatSan phieu = phieuDatSanDAO.getActivePhieuBySan(san.getMaSan());
-            String info = phieu == null ? san.getLoaiSan() : phieu.getTenKhach();
-            infoLabels[idx].setText(info);
-            accents[idx].setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.status_occupied));
-            statusChips[idx].setText("Đang chơi");
-            statusChips[idx].setTextColor(ContextCompat.getColor(requireContext(), R.color.status_occupied));
-            statusChips[idx].setBackgroundResource(R.drawable.bg_chip_occupied);
-            availableGroups[idx].setVisibility(View.GONE);
-            chiTietBtns[idx].setVisibility(View.VISIBLE);
-            chiTietBtns[idx].setBackgroundResource(R.drawable.bg_btn_danger);
-            chiTietBtns[idx].setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
-        } else {
-            infoLabels[idx].setText(formatCurrency((long) san.getGiaMoiGio()) + " VND/gio");
-            accents[idx].setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.status_available));
-            statusChips[idx].setText("Trống");
-            statusChips[idx].setTextColor(ContextCompat.getColor(requireContext(), R.color.status_available));
-            statusChips[idx].setBackgroundResource(R.drawable.bg_chip_available);
-            availableGroups[idx].setVisibility(View.VISIBLE);
-            chiTietBtns[idx].setVisibility(View.GONE);
-        }
+    private void openNhanSan(int position) {
+        San san = getDisplayedSan(position);
+        if (san == null) return;
+        Intent intent = new Intent(getActivity(), NhanSanActivity.class);
+        intent.putExtra(NhanSanActivity.EXTRA_COURT_ID, String.valueOf(san.getMaSan()));
+        intent.putExtra(NhanSanActivity.EXTRA_COURT_INDEX, position);
+        startActivity(intent);
+    }
+
+    private void openDatLich(int position) {
+        San san = getDisplayedSan(position);
+        if (san == null) return;
+        Intent intent = new Intent(getActivity(), DatLichTruocActivity.class);
+        intent.putExtra(DatLichTruocActivity.EXTRA_COURT_ID, String.valueOf(san.getMaSan()));
+        intent.putExtra(DatLichTruocActivity.EXTRA_COURT_INDEX, position);
+        startActivity(intent);
+    }
+
+    private void openThanhToan(int position) {
+        San san = getDisplayedSan(position);
+        if (san == null) return;
+        PhieuDatSan phieu = phieuDatSanDAO.getActivePhieuBySan(san.getMaSan());
+        Intent intent = new Intent(getActivity(), ThanhToanActivity.class);
+        intent.putExtra(ThanhToanActivity.EXTRA_COURT_ID, String.valueOf(san.getMaSan()));
+        intent.putExtra(ThanhToanActivity.EXTRA_COURT_INDEX, position);
+        intent.putExtra(ThanhToanActivity.EXTRA_BOOKING_CODE,
+                phieu != null ? phieu.getMaCa() : "#BK-" + san.getMaSan());
+        startActivity(intent);
     }
 
     private San getDisplayedSan(int index) {
@@ -253,5 +153,89 @@ public class SoDoFragment extends Fragment {
 
     private String formatCurrency(long amount) {
         return String.format("%,d", amount).replace(",", ".");
+    }
+
+    private class CourtAdapter extends RecyclerView.Adapter<CourtAdapter.CourtViewHolder> {
+        @NonNull
+        @Override
+        public CourtViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.layout_item_so_do_san, parent, false);
+            return new CourtViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull CourtViewHolder holder, int position) {
+            holder.bind(displayedCourts.get(position), position);
+        }
+
+        @Override
+        public int getItemCount() {
+            return displayedCourts.size();
+        }
+
+        class CourtViewHolder extends RecyclerView.ViewHolder {
+            private final View accent;
+            private final TextView tvCourtName;
+            private final TextView tvCourtStatus;
+            private final ImageView imgInfoIcon;
+            private final TextView tvCourtInfo;
+            private final LinearLayout layoutCustomer;
+            private final TextView tvCustomerName;
+            private final LinearLayout layoutAvailableActions;
+            private final TextView btnDatLich;
+            private final TextView btnNhanSan;
+            private final TextView btnChiTiet;
+
+            CourtViewHolder(@NonNull View itemView) {
+                super(itemView);
+                accent = itemView.findViewById(R.id.viewAccent);
+                tvCourtName = itemView.findViewById(R.id.tvCourtName);
+                tvCourtStatus = itemView.findViewById(R.id.tvCourtStatus);
+                imgInfoIcon = itemView.findViewById(R.id.imgInfoIcon);
+                tvCourtInfo = itemView.findViewById(R.id.tvCourtInfo);
+                layoutCustomer = itemView.findViewById(R.id.layoutCustomer);
+                tvCustomerName = itemView.findViewById(R.id.tvCustomerName);
+                layoutAvailableActions = itemView.findViewById(R.id.layoutAvailableActions);
+                btnDatLich = itemView.findViewById(R.id.btnDatLich);
+                btnNhanSan = itemView.findViewById(R.id.btnNhanSan);
+                btnChiTiet = itemView.findViewById(R.id.btnChiTiet);
+            }
+
+            void bind(San san, int position) {
+                tvCourtName.setText(san.getTenSan());
+                btnDatLich.setOnClickListener(v -> openDatLich(position));
+                btnNhanSan.setOnClickListener(v -> openNhanSan(position));
+                btnChiTiet.setOnClickListener(v -> openThanhToan(position));
+
+                if (san.getTrangThai() == DBHelper.SAN_DANG_CHOI) {
+                    PhieuDatSan phieu = phieuDatSanDAO.getActivePhieuBySan(san.getMaSan());
+                    accent.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.status_occupied));
+                    tvCourtName.setTextColor(ContextCompat.getColor(requireContext(), R.color.black));
+                    tvCourtStatus.setText("Đang chơi");
+                    tvCourtStatus.setTextColor(ContextCompat.getColor(requireContext(), R.color.status_occupied));
+                    tvCourtStatus.setBackgroundResource(R.drawable.bg_chip_occupied);
+                    imgInfoIcon.setColorFilter(ContextCompat.getColor(requireContext(), R.color.status_occupied));
+                    tvCourtInfo.setText(phieu == null ? san.getLoaiSan() : phieu.getKhungGioChoi());
+                    tvCourtInfo.setTextColor(ContextCompat.getColor(requireContext(), R.color.status_occupied));
+                    tvCustomerName.setText(phieu == null ? "" : phieu.getTenKhach());
+                    layoutCustomer.setVisibility(phieu == null ? View.GONE : View.VISIBLE);
+                    layoutAvailableActions.setVisibility(View.GONE);
+                    btnChiTiet.setVisibility(View.VISIBLE);
+                } else {
+                    accent.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.status_available));
+                    tvCourtName.setTextColor(ContextCompat.getColor(requireContext(), R.color.primary));
+                    tvCourtStatus.setText("Trống");
+                    tvCourtStatus.setTextColor(ContextCompat.getColor(requireContext(), R.color.status_available));
+                    tvCourtStatus.setBackgroundResource(R.drawable.bg_chip_available);
+                    imgInfoIcon.setColorFilter(ContextCompat.getColor(requireContext(), R.color.text_secondary));
+                    tvCourtInfo.setText(formatCurrency((long) san.getGiaMoiGio()) + " VND/gio");
+                    tvCourtInfo.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_secondary));
+                    layoutCustomer.setVisibility(View.GONE);
+                    layoutAvailableActions.setVisibility(View.VISIBLE);
+                    btnChiTiet.setVisibility(View.GONE);
+                }
+            }
+        }
     }
 }
