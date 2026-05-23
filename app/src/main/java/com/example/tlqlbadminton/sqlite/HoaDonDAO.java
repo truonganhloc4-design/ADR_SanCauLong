@@ -14,11 +14,13 @@ import java.util.List;
 public class HoaDonDAO {
     private final SQLiteDatabase db;
 
+    // Mở database để thao tác với bảng HoaDon.
     public HoaDonDAO(Context context) {
         DBHelper dbHelper = new DBHelper(context);
         db = dbHelper.getWritableDatabase();
     }
 
+    // Thanh toán một ca chơi: đóng phiếu, thêm hóa đơn, trả sân về trống.
     public boolean thanhToanSan(int maPhieu, HoaDon hoaDon, long gioKetThuc) {
         PhieuDatSan phieu = getPhieuById(maPhieu);
         if (phieu == null) return false;
@@ -26,6 +28,7 @@ public class HoaDonDAO {
         db.beginTransaction();
         boolean ok;
         try {
+            // Transaction đảm bảo 3 việc cùng thành công: cập nhật phiếu, thêm hóa đơn, trả sân.
             ContentValues phieuValues = new ContentValues();
             phieuValues.put("GioKetThuc", gioKetThuc);
             phieuValues.put("TrangThaiPhieu", DBHelper.PHIEU_DA_THANH_TOAN);
@@ -51,6 +54,7 @@ public class HoaDonDAO {
         return ok;
     }
 
+    // Lấy toàn bộ hóa đơn, hóa đơn mới nhất nằm trên đầu.
     public List<HoaDon> getAllHoaDon() {
         List<HoaDon> list = new ArrayList<>();
         Cursor cursor = db.rawQuery("SELECT * FROM " + DBHelper.TABLE_HOA_DON +
@@ -62,6 +66,7 @@ public class HoaDonDAO {
         return list;
     }
 
+    // Tính tổng doanh thu từ cột TongThanhToan.
     public double getTongDoanhThu() {
         Cursor cursor = db.rawQuery("SELECT IFNULL(SUM(TongThanhToan),0) FROM " + DBHelper.TABLE_HOA_DON, null);
         double total = cursor.moveToNext() ? cursor.getDouble(0) : 0;
@@ -69,6 +74,7 @@ public class HoaDonDAO {
         return total;
     }
 
+    // Đếm số hóa đơn đã thanh toán.
     public int countHoaDon() {
         Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + DBHelper.TABLE_HOA_DON, null);
         int count = cursor.moveToNext() ? cursor.getInt(0) : 0;
@@ -76,6 +82,7 @@ public class HoaDonDAO {
         return count;
     }
 
+    // Lấy thông tin tối thiểu của phiếu để biết sân nào cần trả về trống.
     private PhieuDatSan getPhieuById(int maPhieu) {
         Cursor cursor = db.rawQuery("SELECT * FROM " + DBHelper.TABLE_PHIEU_DAT_SAN + " WHERE MaPhieu=?",
                 new String[]{String.valueOf(maPhieu)});
@@ -90,6 +97,7 @@ public class HoaDonDAO {
         return phieu;
     }
 
+    // Chuyển một dòng Cursor thành object HoaDon.
     private HoaDon mapHoaDon(Cursor cursor) {
         HoaDon hoaDon = new HoaDon();
         hoaDon.setMaHD(cursor.getString(0));

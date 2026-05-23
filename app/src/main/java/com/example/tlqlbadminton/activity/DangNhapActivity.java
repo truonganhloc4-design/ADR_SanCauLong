@@ -26,6 +26,7 @@ public class DangNhapActivity extends AppCompatActivity {
     private static final String DEFAULT_USERNAME = "admin";
     private static final String DEFAULT_PASSWORD = "123";
 
+    // Màn hình đăng nhập: khởi tạo DAO, ánh xạ view và gắn sự kiện.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +38,7 @@ public class DangNhapActivity extends AppCompatActivity {
         setupListeners();
     }
 
+    // Ánh xạ các control trong activity_dang_nhap.xml sang biến Java.
     private void bindViews() {
         etUsername   = findViewById(R.id.etUsername);
         etPassword   = findViewById(R.id.etPassword);
@@ -45,11 +47,13 @@ public class DangNhapActivity extends AppCompatActivity {
         tvGoRegister = findViewById(R.id.tvGoRegister);
     }
 
+    // Chuẩn bị ô nhập để bàn phím hiện đúng khi người dùng chạm vào.
     private void setupInputs() {
         prepareInput(etUsername);
         prepareInput(etPassword);
     }
 
+    // Cấu hình một EditText có thể focus và tự bật bàn phím.
     private void prepareInput(EditText editText) {
         editText.setEnabled(true);
         editText.setFocusable(true);
@@ -69,12 +73,14 @@ public class DangNhapActivity extends AppCompatActivity {
         });
     }
 
+    // Gắn sự kiện cho nút đăng nhập và link sang đăng ký.
     private void setupListeners() {
         btnLogin.setOnClickListener(v -> attemptLogin());
         tvGoRegister.setOnClickListener(v ->
                 startActivity(new Intent(this, DangKyActivity.class)));
     }
 
+    // Kiểm tra dữ liệu nhập, sau đó gọi DAO để xác thực tài khoản.
     private void attemptLogin() {
         String username = etUsername.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
@@ -100,15 +106,18 @@ public class DangNhapActivity extends AppCompatActivity {
         }
     }
 
+    // Hiện lỗi đăng nhập lên màn hình.
     private void showError(String message) {
         tvLoginError.setText(message);
         tvLoginError.setVisibility(View.VISIBLE);
     }
 
+    // Ẩn lỗi khi đăng nhập đúng.
     private void hideError() {
         tvLoginError.setVisibility(View.INVISIBLE);
     }
 
+    // Chuyển sang MainActivity và xóa màn hình login khỏi back stack.
     private void navigateToMain() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

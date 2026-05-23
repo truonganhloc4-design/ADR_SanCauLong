@@ -2,6 +2,7 @@ package com.example.tlqlbadminton.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView labelSoDo, labelThongKe, labelLichSu;
 
     // Header
+    private TextView tvFacilityName;
     private ImageView ivCauHinhSan;
     private com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton fabThemSan;
 
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     private int currentTab = 0; // 0=SoDo, 1=ThongKe, 2=LichSu
 
+    // Màn hình chính sau đăng nhập: chứa bottom navigation và Fragment.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // Nhận kết quả sau khi thêm sân để refresh lại sơ đồ sân.
     private void setupActivityResults() {
         themSanLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -57,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+    // Ánh xạ các view trong activity_main.xml.
     private void bindViews() {
         navSoDo    = findViewById(R.id.navSoDo);
         navThongKe = findViewById(R.id.navThongKe);
@@ -70,10 +75,12 @@ public class MainActivity extends AppCompatActivity {
         labelThongKe = findViewById(R.id.labelThongKe);
         labelLichSu  = findViewById(R.id.labelLichSu);
 
+        tvFacilityName = findViewById(R.id.tvFacilityName);
         ivCauHinhSan = findViewById(R.id.ivCauHinhSan);
         fabThemSan   = findViewById(R.id.fabThemSan);
     }
 
+    // Gắn sự kiện cho bottom nav, nút cấu hình sân và nút thêm sân.
     private void setupNavigation() {
         navSoDo.setOnClickListener(v    -> showFragment(0));
         navThongKe.setOnClickListener(v -> showFragment(1));
@@ -88,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // Đổi Fragment theo tab được chọn: Sơ đồ, Thống kê, Lịch sử.
     private void showFragment(int tabIndex) {
         if (currentTab == tabIndex && getSupportFragmentManager()
                 .findFragmentById(R.id.fragmentContainer) != null) {
@@ -120,7 +128,36 @@ public class MainActivity extends AppCompatActivity {
         ft.replace(R.id.fragmentContainer, target, tag);
         ft.commit();
 
+        updateHeaderForTab(tabIndex);
         updateNavHighlight(tabIndex);
+    }
+
+    // Cập nhật màu/icon chữ đậm cho tab đang chọn.
+    // Đổi tiêu đề header và các nút thao tác theo tab hiện tại.
+    private void updateHeaderForTab(int activeTab) {
+        switch (activeTab) {
+            case 1:
+                tvFacilityName.setText("Thống kê");
+                setCourtActionsVisible(false);
+                break;
+            case 2:
+                tvFacilityName.setText("Lịch sử");
+                setCourtActionsVisible(false);
+                break;
+            default:
+                tvFacilityName.setText("Sơ đồ sân");
+                setCourtActionsVisible(true);
+                break;
+        }
+    }
+
+    // Nút cấu hình sân và thêm sân chỉ hợp với tab Sơ đồ.
+    private void setCourtActionsVisible(boolean visible) {
+        int visibility = visible ? View.VISIBLE : View.GONE;
+        ivCauHinhSan.setVisibility(visibility);
+        if (fabThemSan != null) {
+            fabThemSan.setVisibility(visibility);
+        }
     }
 
     private void updateNavHighlight(int activeTab) {

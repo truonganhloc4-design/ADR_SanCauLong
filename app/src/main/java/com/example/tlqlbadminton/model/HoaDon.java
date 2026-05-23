@@ -1,5 +1,6 @@
 package com.example.tlqlbadminton.model;
 
+// Model lưu thông tin hóa đơn sau khi thanh toán sân.
 public class HoaDon {
     private String maHD;
     private int maPhieu;
@@ -8,9 +9,11 @@ public class HoaDon {
     private String ngayLap;
     private long gioLapTimestamp;
 
+    // Constructor rỗng dùng khi tạo object rồi set từng thuộc tính.
     public HoaDon() {
     }
 
+    // Constructor đầy đủ dùng khi tạo hóa đơn mới.
     public HoaDon(String maHD, int maPhieu, double tongTienSan, double tongThanhToan, String ngayLap, long gioLapTimestamp) {
         this.maHD = maHD;
         this.maPhieu = maPhieu;

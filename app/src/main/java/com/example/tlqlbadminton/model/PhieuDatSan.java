@@ -1,5 +1,6 @@
 package com.example.tlqlbadminton.model;
 
+// Model lưu thông tin một phiếu đặt sân hoặc một ca đang chơi.
 public class PhieuDatSan {
     private int maPhieu;
     private int maSan;
@@ -13,9 +14,11 @@ public class PhieuDatSan {
     private long gioKetThuc;
     private int trangThaiPhieu; // 0: Đặt trước, 1: Đang chơi, 2: Đã thanh toán
 
+    // Constructor rỗng dùng khi tạo phiếu rồi set từng thuộc tính.
     public PhieuDatSan() {
     }
 
+    // Constructor đầy đủ dùng khi đã có sẵn toàn bộ thông tin phiếu.
     public PhieuDatSan(int maPhieu, int maSan, String maCa, String tenKhach, String soDienThoai, double tienCoc, String ngayDat, String khungGioChoi, long gioBatDau, long gioKetThuc, int trangThaiPhieu) {
         this.maPhieu = maPhieu;
         this.maSan = maSan;

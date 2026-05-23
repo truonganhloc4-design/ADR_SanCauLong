@@ -55,6 +55,7 @@ public class NhanSanActivity extends AppCompatActivity {
     private int startHour;
     private int startMinute;
 
+    // Màn hình nhận sân: nhận khách vãng lai hoặc khách đã đặt trước.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +75,7 @@ public class NhanSanActivity extends AppCompatActivity {
         setupSubmit();
     }
 
+    // Ánh xạ view trong activity_nhan_san.xml.
     private void bindViews() {
         btnBack = findViewById(R.id.btnBack);
         tvToolbarTitle = findViewById(R.id.tvToolbarTitle);
@@ -92,6 +94,7 @@ public class NhanSanActivity extends AppCompatActivity {
         btnXacNhanNhanSan = findViewById(R.id.btnXacNhanNhanSan);
     }
 
+    // Load thông tin sân đang được nhận.
     private void loadCourtInfo() {
         currentSan = sanDAO.getSanById(maSan);
         String tenSan = currentSan != null ? currentSan.getTenSan() : "San " + maSan;
@@ -104,10 +107,12 @@ public class NhanSanActivity extends AppCompatActivity {
                 : "-- VND/gio");
     }
 
+    // Gắn nút quay lại.
     private void setupToolbar() {
         btnBack.setOnClickListener(v -> finish());
     }
 
+    // Nếu sân có phiếu đặt trước thì cho chọn khách đặt trước.
     private void setupDropdownKhach() {
         pendingBookings = phieuDatSanDAO.getPendingBookingsBySan(maSan);
         if (pendingBookings.isEmpty()) {
@@ -131,6 +136,7 @@ public class NhanSanActivity extends AppCompatActivity {
         });
     }
 
+    // Xử lý khi chọn khách vãng lai hoặc một phiếu đặt trước.
     private void selectBooking(int which, String[] items) {
         if (which == 0) {
             selectedBooking = null;
@@ -152,6 +158,7 @@ public class NhanSanActivity extends AppCompatActivity {
         etSoDienThoai.setEnabled(false);
     }
 
+    // Lấy giờ hiện tại làm giờ bắt đầu mặc định.
     private void setCurrentTime() {
         Calendar now = Calendar.getInstance();
         startHour = now.get(Calendar.HOUR_OF_DAY);
@@ -159,6 +166,7 @@ public class NhanSanActivity extends AppCompatActivity {
         updateStartTimeLabel();
     }
 
+    // Cho người dùng chọn lại giờ bắt đầu.
     private void setupTimePicker() {
         btnPickGioBatDau.setOnClickListener(v ->
                 new TimePickerDialog(this, (view, h, min) -> {
@@ -168,15 +176,18 @@ public class NhanSanActivity extends AppCompatActivity {
                 }, startHour, startMinute, true).show());
     }
 
+    // Hiển thị giờ bắt đầu dạng HH:mm.
     private void updateStartTimeLabel() {
         tvGioBatDau.setText(String.format(Locale.getDefault(), "%02d:%02d", startHour, startMinute));
     }
 
+    // Gắn sự kiện hủy và xác nhận nhận sân.
     private void setupSubmit() {
         btnHuy.setOnClickListener(v -> finish());
         btnXacNhanNhanSan.setOnClickListener(v -> submitNhanSan());
     }
 
+    // Kiểm tra dữ liệu rồi lưu ca chơi vào DB.
     private void submitNhanSan() {
         if (phieuDatSanDAO.getActivePhieuBySan(maSan) != null) {
             Toast.makeText(this, "San nay dang co ca choi", Toast.LENGTH_SHORT).show();
@@ -199,6 +210,7 @@ public class NhanSanActivity extends AppCompatActivity {
             return;
         }
 
+        // Nếu có phiếu đặt trước thì chuyển phiếu đó sang đang chơi; nếu không thì tạo phiếu mới.
         boolean ok;
         if (selectedBooking != null) {
             ok = phieuDatSanDAO.nhanSanTuPhieuDat(selectedBooking.getMaPhieu(), gioBatDau);
@@ -211,6 +223,7 @@ public class NhanSanActivity extends AppCompatActivity {
         if (ok) finish();
     }
 
+    // Ghép giờ/phút đã chọn với ngày hôm nay thành timestamp.
     private long buildTodayTimestamp() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, startHour);
@@ -220,6 +233,7 @@ public class NhanSanActivity extends AppCompatActivity {
         return calendar.getTimeInMillis();
     }
 
+    // Chuyển chuỗi tiền cọc thành số.
     private double parseMoney(String value) {
         if (TextUtils.isEmpty(value)) return 0;
         try {
@@ -229,6 +243,7 @@ public class NhanSanActivity extends AppCompatActivity {
         }
     }
 
+    // Format số tiền kiểu 70000 -> 70.000.
     private String formatCurrency(long amount) {
         return String.format("%,d", amount).replace(",", ".");
     }

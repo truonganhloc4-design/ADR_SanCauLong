@@ -1,5 +1,6 @@
 package com.example.tlqlbadminton.model;
 
+// Model lưu thông tin một sân trong bảng San.
 public class San {
     private int maSan;
     private String tenSan;
@@ -8,9 +9,11 @@ public class San {
     private int trangThai; // 0: Trống, 1: Đang chơi
     private int tinhTrangHoatDong; // 1: Sẵn sàng, 0: Bảo trì
 
+    // Constructor rỗng dùng khi tạo object rồi set từng thuộc tính.
     public San() {
     }
 
+    // Constructor đầy đủ dùng khi đã có sẵn toàn bộ thông tin sân.
     public San(int maSan, String tenSan, double giaMoiGio, String loaiSan, int trangThai, int tinhTrangHoatDong) {
         this.maSan = maSan;
         this.tenSan = tenSan;

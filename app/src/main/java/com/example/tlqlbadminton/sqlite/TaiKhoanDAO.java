@@ -10,11 +10,13 @@ import com.example.tlqlbadminton.model.TaiKhoan;
 public class TaiKhoanDAO {
     private final SQLiteDatabase db;
 
+    // Mở database để thao tác với bảng TaiKhoan.
     public TaiKhoanDAO(Context context) {
         DBHelper dbHelper = new DBHelper(context);
         db = dbHelper.getWritableDatabase();
     }
 
+    // Kiểm tra username/password có tồn tại trong DB hay không.
     public boolean checkLogin(String username, String password) {
         Cursor cursor = db.rawQuery("SELECT * FROM " + DBHelper.TABLE_TAI_KHOAN +
                         " WHERE TenDangNhap=? AND MatKhau=?",
@@ -24,6 +26,7 @@ public class TaiKhoanDAO {
         return isValid;
     }
 
+    // Kiểm tra tên đăng nhập đã được đăng ký chưa.
     public boolean isUsernameExists(String username) {
         Cursor cursor = db.rawQuery("SELECT TenDangNhap FROM " + DBHelper.TABLE_TAI_KHOAN +
                         " WHERE TenDangNhap=?",
@@ -33,6 +36,7 @@ public class TaiKhoanDAO {
         return exists;
     }
 
+    // Thêm tài khoản mới vào bảng TaiKhoan.
     public long insertTaiKhoan(TaiKhoan taiKhoan) {
         ContentValues values = new ContentValues();
         values.put("TenDangNhap", taiKhoan.getTenDangNhap());

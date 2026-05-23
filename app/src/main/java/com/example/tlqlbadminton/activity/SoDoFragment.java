@@ -37,7 +37,9 @@ public class SoDoFragment extends Fragment {
     private final List<San> displayedCourts = new ArrayList<>();
     private int activeStatusFilter = -1;
 
+    // Tạo giao diện sơ đồ sân và load danh sách sân lần đầu.
     @Nullable
+    // Khi quay lại tab này thì refresh trạng thái sân.
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
@@ -58,6 +60,7 @@ public class SoDoFragment extends Fragment {
         refreshAll();
     }
 
+    // Ánh xạ các view trong fragment_so_do.xml.
     private void bindViews(View root) {
         tvCountAll = root.findViewById(R.id.chipTatCa);
         tvCountAvailable = root.findViewById(R.id.chipSanTrong);
@@ -65,12 +68,14 @@ public class SoDoFragment extends Fragment {
         rvSoDoSan = root.findViewById(R.id.rvSoDoSan);
     }
 
+    // Gắn RecyclerView dạng lưới 2 cột cho danh sách sân.
     private void setupCourtList() {
         courtAdapter = new CourtAdapter();
         rvSoDoSan.setLayoutManager(new GridLayoutManager(requireContext(), 2));
         rvSoDoSan.setAdapter(courtAdapter);
     }
 
+    // Gắn sự kiện lọc tất cả/trống/đang chơi.
     private void setupFilterChips() {
         tvCountAll.setOnClickListener(v -> setStatusFilter(-1));
         tvCountAvailable.setOnClickListener(v -> setStatusFilter(DBHelper.SAN_TRONG));
@@ -78,11 +83,13 @@ public class SoDoFragment extends Fragment {
         updateFilterChipStyle();
     }
 
+    // Lưu trạng thái lọc và load lại danh sách sân.
     private void setStatusFilter(int statusFilter) {
         activeStatusFilter = statusFilter;
         refreshAll();
     }
 
+    // Load sân từ DB, lọc theo trạng thái và cập nhật số lượng trên chip.
     public void refreshAll() {
         if (sanDAO == null || tvCountAll == null || courtAdapter == null) return;
         List<San> allCourts = sanDAO.getAllSan();
@@ -103,6 +110,7 @@ public class SoDoFragment extends Fragment {
         courtAdapter.notifyDataSetChanged();
     }
 
+    // Mở màn hình nhận sân cho sân được chọn.
     private void openNhanSan(int position) {
         San san = getDisplayedSan(position);
         if (san == null) return;
@@ -112,6 +120,7 @@ public class SoDoFragment extends Fragment {
         startActivity(intent);
     }
 
+    // Mở màn hình đặt lịch trước cho sân được chọn.
     private void openDatLich(int position) {
         San san = getDisplayedSan(position);
         if (san == null) return;
@@ -121,6 +130,7 @@ public class SoDoFragment extends Fragment {
         startActivity(intent);
     }
 
+    // Mở màn hình thanh toán cho sân đang chơi.
     private void openThanhToan(int position) {
         San san = getDisplayedSan(position);
         if (san == null) return;
@@ -133,10 +143,12 @@ public class SoDoFragment extends Fragment {
         startActivity(intent);
     }
 
+    // Lấy sân đang hiển thị theo vị trí trong RecyclerView.
     private San getDisplayedSan(int index) {
         return index >= 0 && index < displayedCourts.size() ? displayedCourts.get(index) : null;
     }
 
+    // Cập nhật giao diện chip lọc đang được chọn.
     private void updateFilterChipStyle() {
         if (tvCountAll == null) return;
         styleFilterChip(tvCountAll, activeStatusFilter == -1);
@@ -144,6 +156,7 @@ public class SoDoFragment extends Fragment {
         styleFilterChip(tvCountOccupied, activeStatusFilter == DBHelper.SAN_DANG_CHOI);
     }
 
+    // Style một chip lọc theo trạng thái active/inactive.
     private void styleFilterChip(TextView chip, boolean active) {
         chip.setBackgroundResource(active ? R.drawable.bg_btn_primary : R.drawable.bg_btn_outlined);
         chip.setTextColor(ContextCompat.getColor(requireContext(),
@@ -151,12 +164,15 @@ public class SoDoFragment extends Fragment {
         chip.setTypeface(null, active ? android.graphics.Typeface.BOLD : android.graphics.Typeface.NORMAL);
     }
 
+    // Format số tiền kiểu 70000 -> 70.000.
     private String formatCurrency(long amount) {
         return String.format("%,d", amount).replace(",", ".");
     }
 
     private class CourtAdapter extends RecyclerView.Adapter<CourtAdapter.CourtViewHolder> {
+        // Tạo item view cho một sân trong lưới.
         @NonNull
+        // Gán dữ liệu sân vào item view theo position.
         @Override
         public CourtViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext())
@@ -164,6 +180,7 @@ public class SoDoFragment extends Fragment {
             return new CourtViewHolder(view);
         }
 
+        // Trả về số sân đang hiển thị.
         @Override
         public void onBindViewHolder(@NonNull CourtViewHolder holder, int position) {
             holder.bind(displayedCourts.get(position), position);
@@ -202,12 +219,14 @@ public class SoDoFragment extends Fragment {
                 btnChiTiet = itemView.findViewById(R.id.btnChiTiet);
             }
 
+            // Hiển thị sân theo trạng thái: trống hoặc đang chơi.
             void bind(San san, int position) {
                 tvCourtName.setText(san.getTenSan());
                 btnDatLich.setOnClickListener(v -> openDatLich(position));
                 btnNhanSan.setOnClickListener(v -> openNhanSan(position));
                 btnChiTiet.setOnClickListener(v -> openThanhToan(position));
 
+                // Sân đang chơi: hiện khách, khung giờ và nút Chi tiết.
                 if (san.getTrangThai() == DBHelper.SAN_DANG_CHOI) {
                     PhieuDatSan phieu = phieuDatSanDAO.getActivePhieuBySan(san.getMaSan());
                     accent.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.status_occupied));
@@ -223,6 +242,7 @@ public class SoDoFragment extends Fragment {
                     layoutAvailableActions.setVisibility(View.GONE);
                     btnChiTiet.setVisibility(View.VISIBLE);
                 } else {
+                    // Sân trống: hiện giá và nút Đặt lịch/Nhận sân.
                     accent.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.status_available));
                     tvCourtName.setTextColor(ContextCompat.getColor(requireContext(), R.color.primary));
                     tvCourtStatus.setText("Trống");

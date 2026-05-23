@@ -23,6 +23,7 @@ public class ThemSanActivity extends AppCompatActivity {
     private Button btnXacNhanThem;
     private SanDAO sanDAO;
 
+    // Màn hình thêm sân nhanh: nhập tên sân và giá thuê.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +39,7 @@ public class ThemSanActivity extends AppCompatActivity {
         btnXacNhanThem.setOnClickListener(v -> saveCourt());
     }
 
+    // Kiểm tra form rồi thêm sân mới vào bảng San.
     private void saveCourt() {
         String ten = etTenSan.getText().toString().trim();
         String gia = etGiaThue.getText().toString().trim();
@@ -47,6 +49,7 @@ public class ThemSanActivity extends AppCompatActivity {
             return;
         }
 
+        // Sân mới mặc định là sân trống và đang hoạt động.
         San san = new San();
         san.setTenSan(ten);
         san.setGiaMoiGio(parseMoney(gia));
@@ -63,6 +66,7 @@ public class ThemSanActivity extends AppCompatActivity {
         }
     }
 
+    // Chuyển chuỗi tiền người dùng nhập thành số double.
     private double parseMoney(String value) {
         try {
             return Double.parseDouble(value.replaceAll("[^0-9.]", ""));

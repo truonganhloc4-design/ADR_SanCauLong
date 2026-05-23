@@ -55,6 +55,7 @@ public class DatLichTruocActivity extends AppCompatActivity {
             "14:00 - 16:00", "16:00 - 18:00", "18:00 - 20:00", "20:00 - 22:00"
     };
 
+    // Màn hình đặt lịch trước cho một sân và khung giờ.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +78,7 @@ public class DatLichTruocActivity extends AppCompatActivity {
         if (preCourtId != null) selectCourtByMaSan(Integer.parseInt(preCourtId));
     }
 
+    // Ánh xạ view trong activity_dat_lich_truoc.xml.
     private void bindViews() {
         btnBack = findViewById(R.id.btnBack);
         etHoTen = findViewById(R.id.etHoTen);
@@ -93,10 +95,12 @@ public class DatLichTruocActivity extends AppCompatActivity {
         btnXacNhanDatLich = findViewById(R.id.btnXacNhanDatLich);
     }
 
+    // Gắn nút quay lại.
     private void setupToolbar() {
         btnBack.setOnClickListener(v -> finish());
     }
 
+    // Load danh sách sân và gắn vào các nút chọn sân.
     private void setupCourts() {
         courts = sanDAO.getAllSan();
         for (int i = 0; i < btnCourts.length; i++) {
@@ -111,6 +115,7 @@ public class DatLichTruocActivity extends AppCompatActivity {
         }
     }
 
+    // Chọn sẵn sân nếu Activity được mở từ một sân cụ thể.
     private void selectCourtByMaSan(int maSan) {
         for (int i = 0; i < courts.size() && i < btnCourts.length; i++) {
             if (courts.get(i).getMaSan() == maSan) {
@@ -120,6 +125,7 @@ public class DatLichTruocActivity extends AppCompatActivity {
         }
     }
 
+    // Lưu sân đang chọn và đổi giao diện nút sân.
     private void selectCourt(int index) {
         selectedCourtIndex = index;
         selectedMaSan = courts.get(index).getMaSan();
@@ -134,6 +140,7 @@ public class DatLichTruocActivity extends AppCompatActivity {
         }
     }
 
+    // Gắn DatePicker cho ngày đặt và dialog chọn khung giờ.
     private void setupPickers() {
         btnChonNgay.setOnClickListener(v -> {
             DatePickerDialog dialog = new DatePickerDialog(this, (view, y, m, d) -> {
@@ -156,10 +163,12 @@ public class DatLichTruocActivity extends AppCompatActivity {
                         .show());
     }
 
+    // Gắn sự kiện xác nhận đặt lịch.
     private void setupSubmit() {
         btnXacNhanDatLich.setOnClickListener(v -> submitDatLich());
     }
 
+    // Kiểm tra form rồi lưu phiếu đặt trước vào DB.
     private void submitDatLich() {
         String hoTen = etHoTen.getText().toString().trim();
         String sdt = etSoDienThoai.getText().toString().trim();
@@ -183,6 +192,7 @@ public class DatLichTruocActivity extends AppCompatActivity {
             return;
         }
 
+        // Phiếu đặt trước chỉ lưu lịch, chưa đổi sân sang đang chơi.
         PhieuDatSan phieu = new PhieuDatSan();
         phieu.setMaSan(selectedMaSan);
         phieu.setTenKhach(hoTen);
@@ -198,6 +208,7 @@ public class DatLichTruocActivity extends AppCompatActivity {
         if (result != -1) finish();
     }
 
+    // Chuyển chuỗi tiền cọc thành số.
     private double parseMoney(String value) {
         if (TextUtils.isEmpty(value)) return 0;
         try {

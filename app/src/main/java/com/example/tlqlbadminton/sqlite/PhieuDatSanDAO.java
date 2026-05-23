@@ -13,21 +13,25 @@ import java.util.List;
 public class PhieuDatSanDAO {
     private final SQLiteDatabase db;
 
+    // Mở database để thao tác với bảng PhieuDatSan.
     public PhieuDatSanDAO(Context context) {
         DBHelper dbHelper = new DBHelper(context);
         db = dbHelper.getWritableDatabase();
     }
 
+    // Lưu phiếu đặt trước, chưa làm sân chuyển sang đang chơi.
     public long insertPhieuDatTruoc(PhieuDatSan phieu) {
         ContentValues values = buildValues(phieu);
         values.put("TrangThaiPhieu", DBHelper.PHIEU_DAT_TRUOC);
         return db.insert(DBHelper.TABLE_PHIEU_DAT_SAN, null, values);
     }
 
+    // Tạo ca chơi cho khách vãng lai và cập nhật sân sang đang chơi.
     public long insertNhanSanMoi(int maSan, String tenKhach, String sdt, double tienCoc, long gioBatDau) {
         db.beginTransaction();
         long maPhieu = -1;
         try {
+            // Transaction giúp phiếu và trạng thái sân được lưu cùng nhau.
             ContentValues values = new ContentValues();
             values.put("MaSan", maSan);
             values.put("MaCa", makeBookingCode(gioBatDau));
@@ -47,6 +51,7 @@ public class PhieuDatSanDAO {
         return maPhieu;
     }
 
+    // Chuyển phiếu đặt trước thành phiếu đang chơi.
     public boolean nhanSanTuPhieuDat(int maPhieu, long gioBatDau) {
         PhieuDatSan phieu = getPhieuById(maPhieu);
         if (phieu == null) return false;
@@ -68,6 +73,7 @@ public class PhieuDatSanDAO {
         return ok;
     }
 
+    // Tìm phiếu theo MaPhieu.
     public PhieuDatSan getPhieuById(int maPhieu) {
         Cursor cursor = db.rawQuery("SELECT * FROM " + DBHelper.TABLE_PHIEU_DAT_SAN + " WHERE MaPhieu=?",
                 new String[]{String.valueOf(maPhieu)});
@@ -76,6 +82,7 @@ public class PhieuDatSanDAO {
         return phieu;
     }
 
+    // Lấy phiếu đang chơi mới nhất của một sân.
     public PhieuDatSan getActivePhieuBySan(int maSan) {
         Cursor cursor = db.rawQuery("SELECT * FROM " + DBHelper.TABLE_PHIEU_DAT_SAN +
                         " WHERE MaSan=? AND TrangThaiPhieu=? ORDER BY GioBatDau DESC LIMIT 1",
@@ -85,10 +92,12 @@ public class PhieuDatSanDAO {
         return phieu;
     }
 
+    // Lấy tất cả phiếu đặt trước đang chờ nhận sân.
     public List<PhieuDatSan> getPendingBookings() {
         return getPendingBookingsBySan(-1);
     }
 
+    // Lấy phiếu đặt trước, có thể lọc theo MaSan nếu maSan > 0.
     public List<PhieuDatSan> getPendingBookingsBySan(int maSan) {
         List<PhieuDatSan> list = new ArrayList<>();
         String sql = "SELECT * FROM " + DBHelper.TABLE_PHIEU_DAT_SAN + " WHERE TrangThaiPhieu=?";
@@ -107,12 +116,14 @@ public class PhieuDatSanDAO {
         return list;
     }
 
+    // Cập nhật trạng thái sân từ trong DAO phiếu đặt.
     private void updateTrangThaiSan(int maSan, int trangThai) {
         ContentValues values = new ContentValues();
         values.put("TrangThai", trangThai);
         db.update(DBHelper.TABLE_SAN, values, "MaSan=?", new String[]{String.valueOf(maSan)});
     }
 
+    // Chuyển object PhieuDatSan thành ContentValues để lưu DB.
     private ContentValues buildValues(PhieuDatSan phieu) {
         ContentValues values = new ContentValues();
         values.put("MaSan", phieu.getMaSan());
@@ -128,6 +139,7 @@ public class PhieuDatSanDAO {
         return values;
     }
 
+    // Chuyển một dòng Cursor thành object PhieuDatSan.
     private PhieuDatSan mapPhieu(Cursor cursor) {
         PhieuDatSan phieu = new PhieuDatSan();
         phieu.setMaPhieu(cursor.getInt(0));
@@ -144,6 +156,7 @@ public class PhieuDatSanDAO {
         return phieu;
     }
 
+    // Tạo mã ca chơi đơn giản dựa trên timestamp.
     private String makeBookingCode(long timestamp) {
         return "#BK-" + String.valueOf(timestamp).substring(5);
     }

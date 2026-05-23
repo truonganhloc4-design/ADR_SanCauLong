@@ -35,6 +35,7 @@ public class CauHinhSanActivity extends AppCompatActivity {
     private final List<San> dsSan = new ArrayList<>();
     private San editingSan;
 
+    // Màn hình cấu hình sân: thêm, sửa, xóa và xem danh sách sân.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +47,7 @@ public class CauHinhSanActivity extends AppCompatActivity {
         loadCourtList();
     }
 
+    // Ánh xạ view và gắn các nút chính.
     private void AddViews() {
         ImageButton btnBack = findViewById(R.id.btnBack);
         ImageButton btnThemSan = findViewById(R.id.btnThemSan);
@@ -65,10 +67,12 @@ public class CauHinhSanActivity extends AppCompatActivity {
         btnLuuSan.setOnClickListener(v -> saveCourt());
     }
 
+    // Chỗ này để mở rộng thêm sự kiện nếu cần.
     private void AddEvents() {
         // Su kien cua tung dong san duoc gan trong SanAdapter.
     }
 
+    // Load danh sách sân từ DB và đưa vào SanAdapter.
     private void loadCourtList() {
         dsSan.clear();
         dsSan.addAll(sanDAO.getAllSanNewestFirst());
@@ -94,6 +98,7 @@ public class CauHinhSanActivity extends AppCompatActivity {
         lvDanhSachSan.post(() -> setListViewHeightBasedOnChildren(lvDanhSachSan));
     }
 
+    // Thêm sân mới hoặc cập nhật sân đang sửa.
     private void saveCourt() {
         String tenSan = etTenSan.getText().toString().trim();
         String loaiSan = etLoaiSan.getText().toString().trim();
@@ -104,6 +109,7 @@ public class CauHinhSanActivity extends AppCompatActivity {
             return;
         }
 
+        // Nếu editingSan có dữ liệu nghĩa là đang sửa; ngược lại là thêm mới.
         San san = editingSan != null ? editingSan : new San();
         san.setTenSan(tenSan);
         san.setLoaiSan(loaiSan);
@@ -122,6 +128,7 @@ public class CauHinhSanActivity extends AppCompatActivity {
         }
     }
 
+    // Đưa dữ liệu sân được chọn lên form để sửa.
     private void fillForm(San san) {
         editingSan = san;
         etTenSan.setText(san.getTenSan());
@@ -130,6 +137,7 @@ public class CauHinhSanActivity extends AppCompatActivity {
         etMoTa.setText("");
     }
 
+    // Hỏi xác nhận trước khi xóa sân.
     private void confirmDelete(San san) {
         new AlertDialog.Builder(this)
                 .setTitle("Xóa sân")
@@ -144,6 +152,7 @@ public class CauHinhSanActivity extends AppCompatActivity {
                 .show();
     }
 
+    // Xóa form và quay về chế độ thêm sân mới.
     private void clearForm() {
         editingSan = null;
         etTenSan.setText("");
@@ -153,6 +162,7 @@ public class CauHinhSanActivity extends AppCompatActivity {
         etTenSan.requestFocus();
     }
 
+    // Chuyển chuỗi tiền thành số.
     private double parseMoney(String value) {
         try {
             return Double.parseDouble(value.replaceAll("[^0-9.]", ""));
@@ -161,6 +171,7 @@ public class CauHinhSanActivity extends AppCompatActivity {
         }
     }
 
+    // Tính lại chiều cao ListView khi đặt trong ScrollView để hiện đủ item.
     private void setListViewHeightBasedOnChildren(ListView listView) {
         ListAdapter adapter = listView.getAdapter();
         if (adapter == null) return;
@@ -186,6 +197,7 @@ public class CauHinhSanActivity extends AppCompatActivity {
         listView.setLayoutParams(params);
     }
 
+    // Khi quay lại màn hình thì refresh danh sách sân.
     @Override
     protected void onResume() {
         super.onResume();

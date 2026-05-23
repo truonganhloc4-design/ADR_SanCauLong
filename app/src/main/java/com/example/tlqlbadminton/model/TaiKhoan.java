@@ -1,13 +1,16 @@
 package com.example.tlqlbadminton.model;
 
+// Model lưu thông tin tài khoản đăng nhập.
 public class TaiKhoan {
     private String tenDangNhap;
     private String matKhau;
     private String tenHienThi;
 
+    // Constructor rỗng dùng khi tạo object rồi set từng thuộc tính.
     public TaiKhoan() {
     }
 
+    // Constructor đầy đủ dùng khi đăng ký hoặc tạo tài khoản mẫu.
     public TaiKhoan(String tenDangNhap, String matKhau, String tenHienThi) {
         this.tenDangNhap = tenDangNhap;
         this.matKhau = matKhau;

@@ -31,6 +31,8 @@ public class ThanhToanActivity extends AppCompatActivity {
     private TextView tvMaCa;
     private TextView tvThoiGianChoi;
     private TextView tvGiaSan;
+    private TextView tvThanhTienSan;
+    private TextView tvTienCoc;
     private TextView tvTongCong;
     private Button btnXacNhanThanhToan;
 
@@ -43,6 +45,7 @@ public class ThanhToanActivity extends AppCompatActivity {
     private long tongTienSan;
     private long tongThanhToan;
 
+    // Màn hình thanh toán cho một sân đang chơi.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,20 +63,25 @@ public class ThanhToanActivity extends AppCompatActivity {
         loadBookingInfo();
     }
 
+    // Ánh xạ view trong activity_thanh_toan.xml.
     private void bindViews() {
         btnBack = findViewById(R.id.btnBack);
         tvCourtTitle = findViewById(R.id.tvCourtTitle);
         tvMaCa = findViewById(R.id.tvMaCa);
         tvThoiGianChoi = findViewById(R.id.tvThoiGianChoi);
         tvGiaSan = findViewById(R.id.tvGiaSan);
+        tvThanhTienSan = findViewById(R.id.tvThanhTienSan);
+        tvTienCoc = findViewById(R.id.tvTienCoc);
         tvTongCong = findViewById(R.id.tvTongCong);
         btnXacNhanThanhToan = findViewById(R.id.btnXacNhanThanhToan);
     }
 
+    // Gắn nút quay lại.
     private void setupToolbar() {
         btnBack.setOnClickListener(v -> finish());
     }
 
+    // Load sân và phiếu đang chơi để tính tiền.
     private void loadBookingInfo() {
         san = sanDAO.getSanById(maSan);
         phieu = phieuDatSanDAO.getActivePhieuBySan(maSan);
@@ -83,22 +91,27 @@ public class ThanhToanActivity extends AppCompatActivity {
             return;
         }
 
+        // Tính tiền theo số phút chơi từ giờ bắt đầu đến hiện tại.
         long now = System.currentTimeMillis();
         long playedMinutes = Math.max(1, (now - phieu.getGioBatDau()) / 60000);
         tongTienSan = Math.round((playedMinutes / 60.0) * san.getGiaMoiGio());
-        tongThanhToan = Math.max(0, Math.round(tongTienSan - phieu.getTienCoc()));
+        tongThanhToan = tongTienSan;
 
         tvCourtTitle.setText(san.getTenSan());
         tvMaCa.setText(phieu.getMaCa());
         tvThoiGianChoi.setText(formatDuration(playedMinutes));
         tvGiaSan.setText(formatCurrency((long) san.getGiaMoiGio()) + " VND/gio");
+        tvThanhTienSan.setText(formatCurrency(tongTienSan) + " VND");
+        tvTienCoc.setText(formatCurrency(Math.round(phieu.getTienCoc())) + " VND");
         tvTongCong.setText(formatCurrency(tongThanhToan) + " VND");
     }
 
+    // Gắn sự kiện xác nhận thanh toán.
     private void setupActions() {
         btnXacNhanThanhToan.setOnClickListener(v -> confirmPayment());
     }
 
+    // Tạo hóa đơn, đóng phiếu và trả sân về trống.
     private void confirmPayment() {
         if (phieu == null) return;
         long now = System.currentTimeMillis();
@@ -112,12 +125,14 @@ public class ThanhToanActivity extends AppCompatActivity {
         if (ok) finish();
     }
 
+    // Đổi số phút thành dạng 1h 30p.
     private String formatDuration(long minutes) {
         long hours = minutes / 60;
         long remainMinutes = minutes % 60;
         return hours + "h " + remainMinutes + "p";
     }
 
+    // Format số tiền kiểu 70000 -> 70.000.
     private String formatCurrency(long amount) {
         return String.format("%,d", amount).replace(",", ".");
     }

@@ -28,6 +28,7 @@ public class DangKyActivity extends AppCompatActivity {
     private TextView tvGoLogin;
     private TaiKhoanDAO taiKhoanDAO;
 
+    // Màn hình đăng ký: khởi tạo DAO, ánh xạ view và gắn sự kiện.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +40,7 @@ public class DangKyActivity extends AppCompatActivity {
         setupListeners();
     }
 
+    // Ánh xạ các control trong activity_dang_ky.xml.
     private void bindViews() {
         btnBack = findViewById(R.id.btnBack);
         etDisplayName = findViewById(R.id.etDisplayName);
@@ -50,6 +52,7 @@ public class DangKyActivity extends AppCompatActivity {
         tvGoLogin = findViewById(R.id.tvGoLogin);
     }
 
+    // Chuẩn bị các ô nhập để dễ focus và bật bàn phím.
     private void setupInputs() {
         prepareInput(etDisplayName);
         prepareInput(etUsername);
@@ -57,6 +60,7 @@ public class DangKyActivity extends AppCompatActivity {
         prepareInput(etConfirmPassword);
     }
 
+    // Cấu hình một EditText có thể focus và tự bật bàn phím.
     private void prepareInput(EditText editText) {
         editText.setEnabled(true);
         editText.setFocusable(true);
@@ -76,12 +80,14 @@ public class DangKyActivity extends AppCompatActivity {
         });
     }
 
+    // Gắn sự kiện quay lại, sang đăng nhập và đăng ký tài khoản.
     private void setupListeners() {
         btnBack.setOnClickListener(v -> finish());
         tvGoLogin.setOnClickListener(v -> finish());
         btnRegister.setOnClickListener(v -> attemptRegister());
     }
 
+    // Kiểm tra form đăng ký rồi lưu tài khoản mới vào DB.
     private void attemptRegister() {
         String displayName = etDisplayName.getText().toString().trim();
         String username = etUsername.getText().toString().trim();
@@ -134,6 +140,7 @@ public class DangKyActivity extends AppCompatActivity {
         }
     }
 
+    // Hiện lỗi đăng ký lên màn hình.
     private void showError(String message) {
         tvRegisterError.setText(message);
         tvRegisterError.setVisibility(android.view.View.VISIBLE);

@@ -23,16 +23,19 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String TABLE_PHIEU_DAT_SAN = "PhieuDatSan";
     public static final String TABLE_HOA_DON = "HoaDon";
 
+    // Khởi tạo helper để Android biết tên DB và version hiện tại.
     public DBHelper(@Nullable Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
+    // Bật khóa ngoại để ràng buộc giữa sân, phiếu đặt và hóa đơn có hiệu lực.
     @Override
     public void onConfigure(SQLiteDatabase db) {
         super.onConfigure(db);
         db.setForeignKeyConstraintsEnabled(true);
     }
 
+    // Chạy lần đầu khi DB chưa tồn tại: tạo bảng và thêm dữ liệu mẫu.
     @Override
     public void onCreate(SQLiteDatabase db) {
         String sqlTaiKhoan = "CREATE TABLE IF NOT EXISTS " + TABLE_TAI_KHOAN + "(" +
@@ -78,6 +81,7 @@ public class DBHelper extends SQLiteOpenHelper {
         insertDuLieuMau(db);
     }
 
+    // Khi tăng DB_VERSION, xóa bảng cũ và tạo lại bảng mới.
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_HOA_DON);
@@ -87,6 +91,7 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    // Thêm tài khoản admin và 4 sân mẫu để app có dữ liệu khi cài lần đầu.
     private void insertDuLieuMau(SQLiteDatabase db) {
         ContentValues taiKhoan = new ContentValues();
         taiKhoan.put("TenDangNhap", "admin");
