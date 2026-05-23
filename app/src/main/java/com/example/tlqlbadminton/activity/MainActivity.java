@@ -155,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
     private void setCourtActionsVisible(boolean visible) {
         int visibility = visible ? View.VISIBLE : View.GONE;
         ivCauHinhSan.setVisibility(visibility);
+        // Tránh lỗi nếu view chưa được ánh xạ hoặc không tồn tại.
         if (fabThemSan != null) {
             fabThemSan.setVisibility(visibility);
         }
