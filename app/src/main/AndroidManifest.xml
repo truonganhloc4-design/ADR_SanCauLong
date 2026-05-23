@@ -52,11 +52,6 @@
             android:label="@string/title_thanh_toan" />
 
         <activity
-            android:name=".activity.ThongKeActivity"
-            android:exported="false"
-            android:label="@string/title_thong_ke_doanh_thu" />
-
-        <activity
             android:name=".activity.CauHinhSanActivity"
             android:exported="false"
             android:label="@string/title_cau_hinh_san" />
